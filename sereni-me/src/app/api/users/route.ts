@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createUser } from "@/db/models/userRegister";
+import { getUsers } from "@/db/models/userFindAll";
 import { z } from "zod";
 
 type UserResponse<Type> = {
@@ -15,6 +16,15 @@ const userInputRegister = z.object({
   email: z.string().email(),
   password: z.string(), //.min(5)
 });
+
+// GET /api/users
+export const GET = async () => {
+  const users = await getUsers();
+  return NextResponse.json(
+    { statusCode: 200, message: "Succeed GET /api/users", data: users },
+    { status: 200 }
+  );
+};
 
 // POST /api/users
 export const POST = async (request: Request) => {
