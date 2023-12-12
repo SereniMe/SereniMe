@@ -1,6 +1,5 @@
 import { Db, ObjectId } from "mongodb";
 import { getMongoClientInstance } from "../config";
-import { hashPassword } from "@/utils/bcryptjs";
 
 export type UserModel = {
   _id: ObjectId;
@@ -9,7 +8,6 @@ export type UserModel = {
   email: string;
   password: string;
 };
-export type UserModelCreateInput = Omit<UserModel, "_id">;
 
 const DATABASE_NAME = process.env.MONGODB_DB_NAME;
 const COLLECTION_USER = "users";
@@ -20,13 +18,13 @@ export const getDB = async () => {
   return db;
 };
 
-// Register User
-export const createUser = async (user: UserModelCreateInput) => {
-  const newUser: UserModelCreateInput = {
-    ...user,
-    password: hashPassword(user.password),
-  };
+// Find All User
+export const getUsers = async () => {
   const db = await getDB();
-  const result = await db.collection(COLLECTION_USER).insertOne(newUser);
-  return result;
+  const users = (await db
+    .collection(COLLECTION_USER)
+    .find()
+    .project({ password: 0 })
+    .toArray()) as UserModel[];
+  return users;
 };
