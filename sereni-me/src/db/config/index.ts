@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-const connectionString = process.env.MONGO_CONNECTION_STRING || "sereni-me";
+const connectionString = process.env.MONGO_CONNECTION_STRING;
 
 if (!connectionString) {
   throw new Error("MONGODB_CONNECTION_STRING is not defined");

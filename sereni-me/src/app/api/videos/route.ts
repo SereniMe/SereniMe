@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { addVideo, getVideos } from "@/db/models/video";
+import { addVideo, deleteVideo, getVideo, getVideos } from "@/db/models/video";
 import { z } from "zod";
+import { ObjectId } from "mongodb";
 
 type VideoResponse<T> = {
   statusCode: number;
@@ -20,14 +21,14 @@ const videoInputSchema = z.object({
   }),
 });
 
-export const GET = async (request: NextRequest) => {
+export const GET = async (_request: NextRequest) => {
   const videos = await getVideos();
 
-  console.log("INSIDE GET /api/users");
-  console.log("x-video-id", request.headers.get("x-video-id"));
-  console.log("x-video-name", request.headers.get("x-video-name"));
-  console.log("x-video-videoUrl", request.headers.get("x-video-videoUrl"));
-  console.log("x-custom-value", request.headers.get("x-custom-value"));
+  // console.log("INSIDE GET /api/videos");
+  // console.log("x-video-id", request.headers.get("x-video-id"));
+  // console.log("x-video-name", request.headers.get("x-video-name"));
+  // console.log("x-video-videoUrl", request.headers.get("x-video-videoUrl"));
+  // console.log("x-custom-value", request.headers.get("x-custom-value"));
 
   return NextResponse.json<VideoResponse<unknown>>(
     {
@@ -35,9 +36,7 @@ export const GET = async (request: NextRequest) => {
       message: "Response from GET /api/videos",
       data: videos,
     },
-    {
-      status: 200,
-    }
+    { status: 200 }
   );
 };
 
@@ -92,4 +91,26 @@ export const POST = async (request: NextRequest) => {
       { status: 500 }
     );
   }
+};
+
+export const DELETE = async (request: NextRequest) => {
+  try {
+    const data = await request.json();
+    console.log(data);
+    const objId = new ObjectId(data._id);
+
+    const video = await getVideo({ _id: objId });
+    console.log(video);
+
+    const deletedVideo = await deleteVideo(objId);
+
+    return NextResponse.json<VideoResponse<unknown>>(
+      {
+        statusCode: 200,
+        message: "Response from Delete /api/videos",
+        data: video,
+      },
+      { status: 200 }
+    );
+  } catch (error) {}
 };
