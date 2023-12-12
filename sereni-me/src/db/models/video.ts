@@ -7,6 +7,8 @@ export type VideoModel = {
   videoUrl: string;
 };
 
+export type VideoModelCreateInput = Omit<VideoModel, "_id">;
+
 const DATABASE_NAME = process.env.MONGODB_DB_NAME;
 const COLLECTION_VIDEO = "videos";
 
@@ -38,4 +40,16 @@ export const getVideo = async (filterQuery = {}) => {
     .findOneAndDelete(filterQuery);
 
   return video;
+};
+
+//POST VIDEOS
+export const addVideo = async (video: VideoModelCreateInput) => {
+  const db = await getDb();
+  const findVideo = db.collection(COLLECTION_VIDEO).findOne({
+    name: video.name,
+  });
+
+  const result = await db.collection(COLLECTION_VIDEO).insertOne(video);
+
+  return result;
 };
