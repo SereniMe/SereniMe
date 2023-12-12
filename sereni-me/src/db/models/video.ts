@@ -34,7 +34,6 @@ export const getVideos = async () => {
 //GET VIDEO
 export const getVideo = async (filterQuery = {}) => {
   const db = await getDb();
-  console.log(filterQuery, "filter");
 
   const video = await db.collection(COLLECTION_VIDEO).findOne(filterQuery);
 
@@ -53,17 +52,14 @@ export const addVideo = async (video: VideoModelCreateInput) => {
   return result;
 };
 
-//DELETE
+//DELETE VIDEOS
 export const deleteVideo = async (id: ObjectId) => {
   const db = await getDb();
-  const findVideo = await db.collection(COLLECTION_VIDEO).findOne();
-  console.log(id, "model id");
+  const findVideo = await db.collection(COLLECTION_VIDEO).findOne({ _id: id });
 
   if (!findVideo) throw new Error(`Video not found`);
-  console.log(findVideo, "video");
 
   const result = await db.collection(COLLECTION_VIDEO).deleteOne({ _id: id });
-  console.log(result, "result");
 
   return result;
 };
