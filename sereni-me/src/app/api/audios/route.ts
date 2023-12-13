@@ -19,6 +19,12 @@ const audioInputSchema = z.object({
     required_error: "Url is required",
     invalid_type_error: "Url must be a string",
   }),
+  tags: z.array(
+    z.string({
+      required_error: "At least one tag is required",
+      invalid_type_error: "Each tag must be a string",
+    })
+  ),
 });
 
 export const GET = async (_request: NextRequest) => {
@@ -28,6 +34,7 @@ export const GET = async (_request: NextRequest) => {
   // console.log("x-audio-id", request.headers.get("x-audio-id"));
   // console.log("x-audio-name", request.headers.get("x-audio-name"));
   // console.log("x-audio-audioUrl", request.headers.get("x-audio-audioUrl"));
+  // console.log("x-audio-tags", request.headers.get("x-audio-tags"));
   // console.log("x-custom-value", request.headers.get("x-custom-value"));
 
   return NextResponse.json<AudioResponse<unknown>>(

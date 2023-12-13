@@ -5,6 +5,7 @@ export type AudioModel = {
   _id: ObjectId;
   name: string;
   audioUrl: string;
+  tags: string[]; //from collection interests
 };
 
 export type AudioModelCreateInput = Omit<AudioModel, "_id">;
