@@ -115,5 +115,36 @@ export const DELETE = async (request: NextRequest) => {
       },
       { status: 200 }
     );
-  } catch (error) {}
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const errPath = error.issues[0].path[0];
+      const errMessage = error.issues[0].message;
+
+      return NextResponse.json<AudioResponse<never>>(
+        {
+          statusCode: 400,
+          error: `${errPath} - ${errMessage}`,
+        },
+        { status: 400 }
+      );
+    }
+
+    if (error instanceof Error) {
+      return NextResponse.json<AudioResponse<never>>(
+        {
+          statusCode: 400,
+          error: `${error.message}`,
+        },
+        { status: 400 }
+      );
+    }
+
+    return NextResponse.json<AudioResponse<never>>(
+      {
+        statusCode: 500,
+        message: "Internal Server Error",
+      },
+      { status: 500 }
+    );
+  }
 };
