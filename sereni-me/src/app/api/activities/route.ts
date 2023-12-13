@@ -1,23 +1,28 @@
-import { addAudio, deleteAudio, getAudio, getAudios } from "@/db/models/audio";
+import {
+  addActivity,
+  deleteActivity,
+  getActivities,
+  getActivity,
+} from "@/db/models/activities";
 import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-type AudioResponse<T> = {
+type ActivityResponse<T> = {
   statusCode: number;
   message?: string;
   data?: T;
   error?: string;
 };
 
-const audioInputSchema = z.object({
+const activityInputSchema = z.object({
   name: z.string({
     required_error: "Name is required",
     invalid_type_error: "Name must be a string",
   }),
-  audioUrl: z.string({
-    required_error: "Url is required",
-    invalid_type_error: "Url must be a string",
+  content: z.string({
+    required_error: "Content is required",
+    invalid_type_error: "Content must be a string",
   }),
   tags: z.array(
     z.string({
@@ -28,20 +33,20 @@ const audioInputSchema = z.object({
 });
 
 export const GET = async (_request: NextRequest) => {
-  const audios = await getAudios();
+  const activities = await getActivities();
 
-  // console.log("INSIDE GET /api/audios");
-  // console.log("x-audio-id", request.headers.get("x-audio-id"));
-  // console.log("x-audio-name", request.headers.get("x-audio-name"));
-  // console.log("x-audio-audioUrl", request.headers.get("x-audio-audioUrl"));
-  // console.log("x-audio-tags", request.headers.get("x-audio-tags"));
+  // console.log("INSIDE GET /api/activities");
+  // console.log("x-activity-id", request.headers.get("x-activity-id"));
+  // console.log("x-activity-name", request.headers.get("x-activity-name"));
+  // console.log("x-activity-content", request.headers.get("x-activity-content"));
+  // console.log("x-activity-tags", request.headers.get("x-activity-tags"));
   // console.log("x-custom-value", request.headers.get("x-custom-value"));
 
-  return NextResponse.json<AudioResponse<unknown>>(
+  return NextResponse.json<ActivityResponse<unknown>>(
     {
       statusCode: 200,
-      message: "Response from GET /api/audios",
-      data: audios,
+      message: "Response from GET /api/activities",
+      data: activities,
     },
     { status: 200 }
   );
@@ -50,17 +55,17 @@ export const GET = async (_request: NextRequest) => {
 export const POST = async (request: NextRequest) => {
   try {
     const data = await request.json();
-    const parsedData = audioInputSchema.safeParse(data);
+    const parsedData = activityInputSchema.safeParse(data);
 
     if (!parsedData.success) throw parsedData.error;
 
-    const audio = await addAudio(parsedData.data);
+    const activity = await addActivity(parsedData.data);
 
-    return NextResponse.json<AudioResponse<unknown>>(
+    return NextResponse.json<ActivityResponse<unknown>>(
       {
         statusCode: 201,
-        message: "Response from POST /api/audios",
-        data: audio,
+        message: "Response from POST /api/activities",
+        data: activity,
       },
       { status: 201 }
     );
@@ -69,7 +74,7 @@ export const POST = async (request: NextRequest) => {
       const errPath = error.issues[0].path[0];
       const errMessage = error.issues[0].message;
 
-      return NextResponse.json<AudioResponse<never>>(
+      return NextResponse.json<ActivityResponse<never>>(
         {
           statusCode: 400,
           error: `${errPath} - ${errMessage}`,
@@ -77,9 +82,8 @@ export const POST = async (request: NextRequest) => {
         { status: 400 }
       );
     }
-
     if (error instanceof Error) {
-      return NextResponse.json<AudioResponse<never>>(
+      return NextResponse.json<ActivityResponse<never>>(
         {
           statusCode: 400,
           error: `${error.message}`,
@@ -88,7 +92,7 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
-    return NextResponse.json<AudioResponse<never>>(
+    return NextResponse.json<ActivityResponse<never>>(
       {
         statusCode: 500,
         message: "Internal Server Error",
@@ -103,15 +107,15 @@ export const DELETE = async (request: NextRequest) => {
     const data = await request.json();
     const objId = new ObjectId(data._id);
 
-    const audio = await getAudio({ _id: objId });
+    const activity = await getActivity({ _id: objId });
 
-    const deletedAudio = await deleteAudio(objId);
+    const deletedActivity = await deleteActivity(objId);
 
-    return NextResponse.json<AudioResponse<unknown>>(
+    return NextResponse.json<ActivityResponse<unknown>>(
       {
         statusCode: 200,
-        message: "Response from DELETE /api/audos",
-        data: audio,
+        message: "Response from DELETE /api/activities",
+        data: activity,
       },
       { status: 200 }
     );
