@@ -30,6 +30,10 @@ const activityInputSchema = z.object({
       invalid_type_error: "Each tag must be a string",
     })
   ),
+  imageUrl: z.string({
+    required_error: "Content is required",
+    invalid_type_error: "Content must be a string",
+  }),
 });
 
 export const GET = async (_request: NextRequest) => {
