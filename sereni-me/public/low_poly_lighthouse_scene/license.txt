@@ -1,0 +1,11 @@
+Model Information:
+* title:	Low Poly Lighthouse Scene
+* source:	https://sketchfab.com/3d-models/low-poly-lighthouse-scene-7cbc357ed5ce44a1bf723c13b9b212d1
+* author:	kristenlee (https://sketchfab.com/kristenlee)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Low Poly Lighthouse Scene" (https://sketchfab.com/3d-models/low-poly-lighthouse-scene-7cbc357ed5ce44a1bf723c13b9b212d1) by kristenlee (https://sketchfab.com/kristenlee) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
