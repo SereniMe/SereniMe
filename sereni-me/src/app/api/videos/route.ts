@@ -25,6 +25,10 @@ const videoInputSchema = z.object({
       invalid_type_error: "Each tag must be a string",
     })
   ),
+  thumbnail: z.string({
+    required_error: "Url is required",
+    invalid_type_error: "Url must be a string",
+  }),
 });
 
 export const GET = async (_request: NextRequest) => {

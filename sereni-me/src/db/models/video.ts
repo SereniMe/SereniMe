@@ -6,6 +6,7 @@ export type VideoModel = {
   name: string;
   videoUrl: string;
   tags: string[]; //from collection interests
+  thumbnail: string;
 };
 
 export type VideoModelCreateInput = Omit<VideoModel, "_id">;
