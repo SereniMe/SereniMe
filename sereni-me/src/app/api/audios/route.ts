@@ -110,7 +110,7 @@ export const DELETE = async (request: NextRequest) => {
     return NextResponse.json<AudioResponse<unknown>>(
       {
         statusCode: 200,
-        message: "Response from DELETE /api/audos",
+        message: "Response from DELETE /api/audios",
         data: audio,
       },
       { status: 200 }
