@@ -1,0 +1,11 @@
+Model Information:
+* title:	Low Poly Stylized City Block (Bailey Dennis)
+* source:	https://sketchfab.com/3d-models/low-poly-stylized-city-block-bailey-dennis-7fbee9863fdc4dea9756fdf2d5ae7776
+* author:	triosstudents (https://sketchfab.com/triosstudents)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Low Poly Stylized City Block (Bailey Dennis)" (https://sketchfab.com/3d-models/low-poly-stylized-city-block-bailey-dennis-7fbee9863fdc4dea9756fdf2d5ae7776) by triosstudents (https://sketchfab.com/triosstudents) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
