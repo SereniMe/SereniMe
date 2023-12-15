@@ -13,16 +13,16 @@ type AudioResponse<T> = {
 const audioInputSchema = z.object({
   name: z.string({
     required_error: "Name is required",
-    invalid_type_error: "Name must be a string",
+    invalid_type_error: "Name must be string",
   }),
   audioUrl: z.string({
     required_error: "Url is required",
-    invalid_type_error: "Url must be a string",
+    invalid_type_error: "Url must be string",
   }),
   tags: z.array(
     z.string({
       required_error: "At least one tag is required",
-      invalid_type_error: "Each tag must be a string",
+      invalid_type_error: "Each tag must be string",
     })
   ),
 });

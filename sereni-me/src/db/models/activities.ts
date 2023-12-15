@@ -6,6 +6,7 @@ export type ActivityModel = {
   name: string;
   content: string;
   tags: string[];
+  thumbnail: string;
 };
 
 export type ActivitieModelCreateInput = Omit<ActivityModel, "_id">;
