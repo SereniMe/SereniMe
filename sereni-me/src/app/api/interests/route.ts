@@ -1,47 +1,39 @@
-import { addAudio, deleteAudio, getAudio, getAudios } from "@/db/models/audio";
+import {
+  addInterest,
+  deleteInterest,
+  getInterest,
+  getInterests,
+} from "@/db/models/interest";
 import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-type AudioResponse<T> = {
+type InterestResponse<T> = {
   statusCode: number;
   message?: string;
   data?: T;
   error?: string;
 };
 
-const audioInputSchema = z.object({
+const interestInputSchema = z.object({
   name: z.string({
     required_error: "Name is required",
     invalid_type_error: "Name must be string",
   }),
-  audioUrl: z.string({
-    required_error: "Url is required",
-    invalid_type_error: "Url must be string",
-  }),
-  tags: z.array(
-    z.string({
-      required_error: "At least one tag is required",
-      invalid_type_error: "Each tag must be string",
-    })
-  ),
 });
 
 export const GET = async (_request: NextRequest) => {
-  const audios = await getAudios();
+  const interests = await getInterests();
 
-  // console.log("INSIDE GET /api/audios");
-  // console.log("x-audio-id", request.headers.get("x-audio-id"));
-  // console.log("x-audio-name", request.headers.get("x-audio-name"));
-  // console.log("x-audio-audioUrl", request.headers.get("x-audio-audioUrl"));
-  // console.log("x-audio-tags", request.headers.get("x-audio-tags"));
-  // console.log("x-custom-value", request.headers.get("x-custom-value"));
+  // console.log("INSIDE GET /api/interests");
+  // console.log("x-interest-id", request.headers.get("x-interest-id"));
+  // console.log("x-interest-name", request.headers.get("x-interest-name"));
 
-  return NextResponse.json<AudioResponse<unknown>>(
+  return NextResponse.json<InterestResponse<unknown>>(
     {
       statusCode: 200,
-      message: "Response from GET /api/audios",
-      data: audios,
+      message: `Response from GET /api/interests`,
+      data: interests,
     },
     { status: 200 }
   );
@@ -50,17 +42,17 @@ export const GET = async (_request: NextRequest) => {
 export const POST = async (request: NextRequest) => {
   try {
     const data = await request.json();
-    const parsedData = audioInputSchema.safeParse(data);
+    const parsedData = interestInputSchema.safeParse(data);
 
     if (!parsedData.success) throw parsedData.error;
 
-    const audio = await addAudio(parsedData.data);
+    const interest = await addInterest(parsedData.data);
 
-    return NextResponse.json<AudioResponse<unknown>>(
+    return NextResponse.json<InterestResponse<unknown>>(
       {
         statusCode: 201,
-        message: "Response from POST /api/audios",
-        data: audio,
+        message: `Response from POST /api/interests`,
+        data: interest,
       },
       { status: 201 }
     );
@@ -69,7 +61,7 @@ export const POST = async (request: NextRequest) => {
       const errPath = error.issues[0].path[0];
       const errMessage = error.issues[0].message;
 
-      return NextResponse.json<AudioResponse<never>>(
+      return NextResponse.json<InterestResponse<never>>(
         {
           statusCode: 400,
           error: `${errPath} - ${errMessage}`,
@@ -79,7 +71,7 @@ export const POST = async (request: NextRequest) => {
     }
 
     if (error instanceof Error) {
-      return NextResponse.json<AudioResponse<never>>(
+      return NextResponse.json<InterestResponse<never>>(
         {
           statusCode: 400,
           error: `${error.message}`,
@@ -88,7 +80,7 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
-    return NextResponse.json<AudioResponse<never>>(
+    return NextResponse.json<InterestResponse<never>>(
       {
         statusCode: 500,
         message: "Internal Server Error",
@@ -103,15 +95,15 @@ export const DELETE = async (request: NextRequest) => {
     const data = await request.json();
     const objId = new ObjectId(data._id);
 
-    const audio = await getAudio({ _id: objId });
+    const interest = await getInterest({ _id: objId });
 
-    const deletedAudio = await deleteAudio(objId);
+    const deletedInterest = await deleteInterest(objId);
 
-    return NextResponse.json<AudioResponse<unknown>>(
+    return NextResponse.json<InterestResponse<unknown>>(
       {
         statusCode: 200,
-        message: "Response from DELETE /api/audos",
-        data: audio,
+        message: `Response from DELETE /api/interests`,
+        data: interest,
       },
       { status: 200 }
     );
@@ -120,7 +112,7 @@ export const DELETE = async (request: NextRequest) => {
       const errPath = error.issues[0].path[0];
       const errMessage = error.issues[0].message;
 
-      return NextResponse.json<AudioResponse<never>>(
+      return NextResponse.json<InterestResponse<never>>(
         {
           statusCode: 400,
           error: `${errPath} - ${errMessage}`,
@@ -130,7 +122,7 @@ export const DELETE = async (request: NextRequest) => {
     }
 
     if (error instanceof Error) {
-      return NextResponse.json<AudioResponse<never>>(
+      return NextResponse.json<InterestResponse<never>>(
         {
           statusCode: 400,
           error: `${error.message}`,
@@ -139,7 +131,7 @@ export const DELETE = async (request: NextRequest) => {
       );
     }
 
-    return NextResponse.json<AudioResponse<never>>(
+    return NextResponse.json<InterestResponse<never>>(
       {
         statusCode: 500,
         message: "Internal Server Error",
