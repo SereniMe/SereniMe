@@ -2,7 +2,7 @@
 const { CronJob } = require("cron");
 
 const job = new CronJob(
-  "* * * * * *", // cronTime
+  "* * * * *", // cronTime
   () => {
     console.log("You will see this message every second");
   }, // onTick
