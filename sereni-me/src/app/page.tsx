@@ -1,18 +1,19 @@
-import Image from "next/image";
-import {CafeScene} from "./(3dscenes)/CafeScene";
-import {WinterScene} from "./(3dscenes)/WinterScene";
-import {LighthouseScene} from "./(3dscenes)/LighthouseScene";
-import {ForestCampScene} from "./(3dscenes)/ForestCamp";
-import {StreetScene} from "./(3dscenes)/StreetScene";
+"use client";
+import Faq from "@/components/FAQ";
+import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
+import Navbar from "@/components/Navbar";
+import Testimonials from "@/components/Testimony";
+import Video from "@/components/Video";
+import {ThemeProvider} from "next-themes";
 
 export default function Home() {
 	return (
 		<main>
-			{/* <CafeScene /> */}
-			{/* <WinterScene /> */}
-			{/* <LighthouseScene /> */}
-			{/* <ForestCampScene /> */}
-			<StreetScene />
+			<Hero />
+			<Video />
+			<Testimonials />
+			<Faq />
 		</main>
 	);
 }

@@ -3,7 +3,13 @@
 import {useRef} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
 import {OrbitControls, SpotLight} from "@react-three/drei";
-import THREE, {Mesh, Vector3, RectAreaLight} from "three";
+import THREE, {
+	Mesh,
+	Vector3,
+	RectAreaLight,
+	DirectionalLight,
+	DirectionalLightHelper,
+} from "three";
 import {
 	GLTFLoader,
 	RectAreaLightHelper,
@@ -30,6 +36,27 @@ function MeshComponent() {
 		</mesh>
 	);
 }
+
+const DirectionalLightWithHelper = ({
+	color,
+	position,
+}: {
+	position: number[];
+	color: string;
+}) => {
+	const {scene} = useThree();
+
+	const directionalLight = new DirectionalLight(color, 4);
+	directionalLight.castShadow = true;
+	directionalLight.shadow.isDirectionalLightShadow;
+	directionalLight.position.set(position[0], position[1], position[2]);
+	directionalLight.lookAt(new Vector3(1, 1, 1));
+
+	scene.add(directionalLight);
+	// scene.add(new DirectionalLightHelper(directionalLight));
+
+	return null;
+};
 
 const RectArealightWithHelper = ({
 	position,
@@ -72,7 +99,7 @@ export function LighthouseScene() {
 				<MeshComponent />
 				{/* <ambientLight intensity={3} castShadow={true} /> */}
 				<OrbitControls />
-				<RectArealightWithHelper position={[-5, 2, 5]} color="#f2bd8f" />
+				<DirectionalLightWithHelper position={[-5, 2, 5]} color="#f2bd8f" />
 				<EffectComposer>
 					{/* <DepthOfField
 						focusDistance={0} // where to focus

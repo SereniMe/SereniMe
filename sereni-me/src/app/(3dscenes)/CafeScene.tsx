@@ -3,7 +3,13 @@
 import {useRef} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
 import {OrbitControls, SpotLight} from "@react-three/drei";
-import THREE, {Mesh, Vector3, RectAreaLight} from "three";
+import THREE, {
+	Mesh,
+	Vector3,
+	RectAreaLight,
+	DirectionalLight,
+	DirectionalLightHelper,
+} from "three";
 import {
 	GLTFLoader,
 	RectAreaLightHelper,
@@ -24,32 +30,38 @@ function MeshComponent() {
 	const mesh = useRef<Mesh>(null!);
 	const gltf = useLoader(GLTFLoader, fileUrl);
 
+	gltf.scene.traverse(function (child) {
+		if (child instanceof Mesh) {
+			child.castShadow = true;
+			child.receiveShadow = true;
+		}
+	});
+
 	return (
-		<mesh ref={mesh} castShadow receiveShadow position={[0, -0.7, 0]}>
+		<mesh ref={mesh} castShadow receiveShadow position={[0, -0.8, 0]}>
 			<primitive object={gltf.scene} />
 		</mesh>
 	);
 }
 
-const RectArealightWithHelper = ({
-	position,
+const DirectionalLightWithHelper = ({
 	color,
+	position,
 }: {
 	position: number[];
 	color: string;
 }) => {
-	// Besides the useThree hook, all of this is taken straight from one of the examples on threejs.org: https://threejs.org/examples/#webgl_lights_rectarealight.
-
 	const {scene} = useThree();
 
-	// This somehow changes the texture of the ground-plane and makes it more shiny? Very interesting
-	RectAreaLightUniformsLib.init();
+	const directionalLight = new DirectionalLight(color, 3);
+	directionalLight.castShadow = true;
+	directionalLight.shadow.isDirectionalLightShadow;
+	directionalLight.position.set(position[0], position[1], position[2]);
+	directionalLight.lookAt(new Vector3(1, 1, 1));
+	directionalLight.shadow.bias -= 0.004;
 
-	const rectLight = new RectAreaLight(color, 2, 7, 10);
-	rectLight.position.set(position[0], position[1], position[2]);
-	rectLight.lookAt(new Vector3(1, 1, 1));
-	scene.add(rectLight);
-	scene.add(new RectAreaLightHelper(rectLight));
+	scene.add(directionalLight);
+	scene.add(new DirectionalLightHelper(directionalLight));
 
 	return null;
 };
@@ -60,9 +72,9 @@ export function CafeScene() {
 			<Canvas
 				className="h-2xl w-2xl bg-gradient-to-r from-slate-500 to-blue-500"
 				frameloop="demand"
-				shadows="soft"
+				shadows="variance"
 				camera={{
-					position: [-5.5, 2, 5.5],
+					position: [-5.5, 0, 5.5],
 					fov: 10,
 					near: 1,
 					far: 1000,
@@ -70,7 +82,8 @@ export function CafeScene() {
 				}}
 			>
 				<MeshComponent />
-				<ambientLight intensity={3} color={"#f2bd8f"} castShadow={true} />
+				<ambientLight intensity={0.2} color={"#f2bd8f"} castShadow={true} />
+				<DirectionalLightWithHelper position={[-5, 4, 5]} color="#f2bd8f" />
 				<OrbitControls />
 				{/* <RectArealightWithHelper position={[-5, 2, 5]} color="#f2bd8f" /> */}
 				<EffectComposer>
