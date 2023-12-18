@@ -1,21 +1,21 @@
 "use client";
 import React from "react";
 import SideBar from "../(components)/sidebar";
+import Link from "next/link";
 
 const AudioPage: React.FC = () => {
   return (
     <>
       <div className="flex dark:text-gray-100">
-        {/* <div className="fixed"> */}
-        <SideBar />
-        {/* </div> */}
-        <div className="flex-grow flex flex-col justify-center items-center dark:bg-gray-900 dark:text-gray-100">
+        <div className="fixed">
+          <SideBar />
+        </div>
+        <div className=" ml-[15rem] flex-grow flex flex-col justify-center items-center dark:bg-gray-900 dark:text-gray-100">
           <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100">
             <h2 className="mb-4 text-2xl font-semibold leadi">Audios</h2>
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-xs">
+            <div className="overflow-x-auto bg-gray-200 rounded-md">
+              <table className="min-w-full text-md">
                 <colgroup>
-                  <col />
                   <col />
                   <col />
                   <col />
@@ -23,71 +23,55 @@ const AudioPage: React.FC = () => {
                   <col className="w-24" />
                 </colgroup>
                 <thead className="dark:bg-gray-700">
-                  <tr className="text-left">
-                    <th className="p-3">No</th>
-                    <th className="p-3">Name</th>
-                    <th className="p-3">Video URL</th>
-                    <th className="p-3">Video</th>
-                    <th className="p-3">Action</th>
+                  <tr className="text-center">
+                    <th className="p-3 border border-gray-300">No</th>
+                    <th className="p-3 border border-gray-300">Name</th>
+                    <th className="p-3 border border-gray-300">Video URL</th>
+                    <th className="p-3 border border-gray-300">Video</th>
+                    <th className="p-3 border border-gray-300">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-900">
                     {/* Number */}
-                    <td className="p-3">
+                    <td className="p-3 text-center">
                       <p>1</p>
                     </td>
                     {/* Name */}
-                    <td className="p-3">
+                    <td className="p-3 text-center">
                       <p>Breath Exercise for 1 Minute</p>
                     </td>
                     {/* Audio URL */}
-                    <td className="p-3">
-                      <p>
-                        https://docs.google.com/uc?id=1R7PCCYnAGLPsKp0ZvRjrEs2OygizTvX8
-                      </p>
+                    <td className="p-3 text-center">
+                      <Link
+                        href={
+                          "https://docs.google.com/uc?id=1R7PCCYnAGLPsKp0ZvRjrEs2OygizTvX8"
+                        }
+                      >
+                        Link
+                      </Link>
                     </td>
                     {/* Audio Player */}
-                    <td className="p-3">
+                    <td className="p-3 flex flex-col justify-center items-center">
                       <audio controls>
                         <source src="https://docs.google.com/uc?id=1R7PCCYnAGLPsKp0ZvRjrEs2OygizTvX8"></source>
                       </audio>
                     </td>
 
                     {/* Action Button */}
-                    <td className="p-3 text-right">
-                      <span className="px-3 py-1 font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900">
-                        <button className="flex flex-row">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                            />
-                          </svg>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                            />
-                          </svg>
-                        </button>
-                      </span>
+                    <td className="py-2 px-4 text-right">
+                      <div className="font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900 flex flex-row justify-center items-center">
+                        <div className="mr-5">
+                          <button className="bg-blue-700 hover:bg-gray-500 rounded-md text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:text-black hover:scale-110 transition-all active:scale-90 ">
+                            Edit
+                          </button>
+                        </div>
+                        <div className="">
+                          <button className="bg-red-700 hover:bg-gray-400 rounded-md text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:text-black hover:scale-110 transition-all active:scale-90 ">
+                            Delete
+                          </button>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 </tbody>

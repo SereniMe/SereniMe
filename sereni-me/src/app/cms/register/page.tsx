@@ -5,10 +5,10 @@ import React from "react";
 
 const RegistPage: React.FC = () => {
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-row justify-center items-center joined rounded-md drop-shadow-lg">
+    <div className="bg-[#7B746B] min-h-screen flex flex-row justify-center items-center joined rounded-md drop-shadow-lg">
       {/* Picture Section */}
       <div className="flex flex-row w-full justify-center items-center">
-        <section className="w-[403px] h-full hidden md:block object-cover relative">
+        <section className="w-[387px] h-full hidden md:block object-cover relative">
           {/* Adjust the image source accordingly */}
           <img
             src="https://images.unsplash.com/photo-1562751362-404243c2eea3?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -23,7 +23,7 @@ const RegistPage: React.FC = () => {
             <h1 className="my-3 text-3xl font-bold">Add New User</h1>
             <p className="text-md text-gray-400">Input the information here</p>
           </div>
-          <form action="" className="space-y-6">
+          <form action="/cms" className="space-y-6">
             <div>
               <label htmlFor="name" className="block mb-2 text-sm">
                 Name
@@ -38,7 +38,7 @@ const RegistPage: React.FC = () => {
 
             <div>
               <label htmlFor="username" className="block mb-2 text-sm">
-                username
+                Username
               </label>
               <input
                 type="username"
@@ -82,13 +82,6 @@ const RegistPage: React.FC = () => {
                   Sign up
                 </button>
               </div>
-              <p className="px-6 text-sm text-center text-gray-400">
-                Already have an account?
-                <Link href="/cms" className="hover:underline text-blue-500">
-                  Sign in
-                </Link>
-                .
-              </p>
             </div>
           </form>
         </div>

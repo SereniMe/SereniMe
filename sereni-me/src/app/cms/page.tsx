@@ -5,17 +5,17 @@ import React from "react";
 
 const Home: React.FC = () => {
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-row justify-center items-center joined rounded-md drop-shadow-lg">
+    <div className="bg-[#7B746B] min-h-screen flex flex-row justify-center items-center joined">
       {/* Picture Section */}
       <div className="flex flex-row w-full justify-center items-center">
-        <section className="w-[280px] h-full hidden md:block object-cover relative">
+        <div className="w-[259px] h-full hidden md:block object-cover relative">
           {/* Adjust the image source accordingly */}
           <img
             src="https://images.unsplash.com/photo-1562751362-404243c2eea3?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Picture"
             className="w-full h-full object-cover"
           />
-        </section>
+        </div>
 
         {/* Login Form Section */}
         <div className="w-full max-w-md p-6 bg-white shadow-md text-gray-600">
@@ -64,16 +64,6 @@ const Home: React.FC = () => {
                   Sign in
                 </button>
               </div>
-              <p className="px-6 text-sm text-center text-gray-400">
-                Don't have an account yet?
-                <Link
-                  href="/cms/register"
-                  className="hover:underline text-blue-500"
-                >
-                  Sign up
-                </Link>
-                .
-              </p>
             </div>
           </form>
         </div>
