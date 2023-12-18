@@ -1,0 +1,28 @@
+[
+  {
+    "name": "Listen to music",
+    "content": "Some content",
+    "tags": [
+      "Inner Peace",
+      "Focus"
+    ],
+    "thumbnail": "https://variety.com/wp-content/uploads/2022/07/Music-Streaming-Wars.jpg?w=1000&h=563&crop=1"
+  },
+  {
+    "name": "Walk the park",
+    "content": "Some content",
+    "tags": [
+      "Inner Peace",
+      "Strees and Anxiety"
+    ],
+    "thumbnail": "https://hips.hearstapps.com/hmg-prod/images/walk-in-a-local-park-1552295039.jpg"
+  },
+  {
+    "name": "Box Breathing",
+    "content": "Some content",
+    "tags": [
+      "Strees and Anxiety"
+    ],
+    "thumbnail": "https://i.pinimg.com/originals/fe/4f/f2/fe4ff2c26f9309360c03db11377dfcc6.png"
+  }
+]

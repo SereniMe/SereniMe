@@ -1,5 +1,6 @@
 import { Db, ObjectId } from "mongodb";
 import { getMongoClientInstance } from "../config";
+import { getInterest } from "./interest";
 
 export type ActivityModel = {
   _id: ObjectId;
@@ -64,5 +65,21 @@ export const deleteActivity = async (id: ObjectId) => {
   const result = await db
     .collection(COLLECTION_ACTIVITY)
     .deleteOne({ _id: id });
+  return result;
+};
+
+//GET RECOMMENDED ACTIVITIES
+export const getRecommendedActivities = async (id: ObjectId) => {
+  const db = await getDb();
+
+  const interests = await getInterest(id);
+
+  const tags = interests?.map((interest: string) => interest);
+
+  const result = (await db
+    .collection(COLLECTION_ACTIVITY)
+    .find({ tags: { $in: tags } })
+    .toArray()) as ActivityModel[];
+
   return result;
 };
