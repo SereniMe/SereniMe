@@ -37,7 +37,7 @@ const Navbar = () => {
 
 				<div className="hidden mr-3 space-x-4 lg:flex nav__item">
 					<Link
-						href="/"
+						href="/main"
 						className="px-6 py-2 text-white bg-[#6A99AC] rounded-md md:ml-5"
 					>
 						Continue to App

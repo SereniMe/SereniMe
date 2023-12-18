@@ -1,13 +1,7 @@
-import { getActivity } from "@/db/models/activities";
+import { ActivityResponse } from "@/app/api/activities/[id]/route";
+import { getRecommendedActivities } from "@/db/models/activities";
 import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
-
-export type ActivityResponse<T> = {
-  statusCode: number;
-  message?: string;
-  data?: T;
-  error?: string;
-};
 
 export const GET = async (
   _request: NextRequest,
@@ -16,13 +10,13 @@ export const GET = async (
   const id = params.id;
   const objId = new ObjectId(id);
 
-  const activity = await getActivity({ _id: objId });
+  const activities = await getRecommendedActivities(objId);
 
   return NextResponse.json<ActivityResponse<unknown>>(
     {
       statusCode: 200,
-      message: `Response from GET /api/activities/${id}`,
-      data: activity,
+      message: `Response from GET /api/activities/${id}/recommend`,
+      data: activities,
     },
     { status: 200 }
   );

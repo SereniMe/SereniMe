@@ -1,9 +1,32 @@
-"use client";
-
+import {createUser} from "@/db/models/userRegister";
 import Link from "next/link";
+import {redirect} from "next/navigation";
 import React from "react";
 
 const RegistPage: React.FC = () => {
+	const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
+	const handleSubmit = async (data: FormData) => {
+		"use server";
+		// try {
+
+		console.log(data);
+
+		const inputData = {
+			name: data.get("name") as string,
+			username: data.get("username") as string,
+			email: data.get("email") as string,
+			password: data.get("password") as string,
+		};
+
+		const newUser = await createUser(inputData);
+		console.log(newUser);
+
+		return redirect("/signin");
+		// } catch (error) {
+		// 	console.log(error);
+		// }
+	};
 	return (
 		<div className="bg-gray-100 min-h-screen flex flex-row justify-center items-center joined rounded-md drop-shadow-lg">
 			{/* Picture Section */}
@@ -24,12 +47,13 @@ const RegistPage: React.FC = () => {
 							Create your SereniMe Account
 						</h1>
 					</div>
-					<form action="" className="space-y-6">
+					<form action={handleSubmit} className="space-y-6">
 						<div>
 							<label htmlFor="name" className="block mb-2 text-sm">
 								Name
 							</label>
 							<input
+								required
 								type="name"
 								name="name"
 								id="name"
@@ -42,6 +66,7 @@ const RegistPage: React.FC = () => {
 								Username
 							</label>
 							<input
+								required
 								type="username"
 								name="username"
 								id="username"
@@ -54,6 +79,7 @@ const RegistPage: React.FC = () => {
 									Email address
 								</label>
 								<input
+									required
 									type="email"
 									name="email"
 									id="email"
@@ -67,6 +93,7 @@ const RegistPage: React.FC = () => {
 									</label>
 								</div>
 								<input
+									required
 									type="password"
 									name="password"
 									id="password"
@@ -77,7 +104,7 @@ const RegistPage: React.FC = () => {
 						<div className="space-y-2">
 							<div>
 								<button
-									type="button"
+									type="submit"
 									className="w-full px-8 py-3 font-semibold rounded-md bg-blue-500 text-white"
 								>
 									Sign up

@@ -1,5 +1,6 @@
 import { Db, ObjectId } from "mongodb";
 import { getMongoClientInstance } from "../config";
+import { getProfile } from "./profiles";
 
 export type ActivityModel = {
   _id: ObjectId;
@@ -65,4 +66,22 @@ export const deleteActivity = async (id: ObjectId) => {
     .collection(COLLECTION_ACTIVITY)
     .deleteOne({ _id: id });
   return result;
+};
+
+//GET RECOMMENDED ACTIVITIES
+export const getRecommendedActivities = async (id: ObjectId) => {
+  const db = await getDb();
+
+  const profile = await getProfile(id);
+
+  if (!profile) throw new Error(`Profile not found for _id: ${id}`);
+
+  const interests: string[] = profile.interests;
+
+  const recommend = (await db
+    .collection(COLLECTION_ACTIVITY)
+    .find({ tags: { $in: interests } })
+    .toArray()) as ActivityModel[];
+
+  return recommend;
 };
