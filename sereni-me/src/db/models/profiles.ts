@@ -9,9 +9,11 @@ export type ProfileModel = {
   activities: string[];
   favorites: string[];
   interests: string[];
+  reminder: string;
   userId: ObjectId;
 };
 export type ProfileModelCreateInput = Omit<ProfileModel, "_id">;
+export type ProfileModelUpdateInput = Omit<ProfileModel, "_id">;
 
 const DATABASE_NAME = process.env.MONGODB_DB_NAME;
 const COLLECTION_PROFILE = "profiles";
@@ -32,6 +34,18 @@ export const getProfiles = async () => {
   return profiles;
 };
 
+//GET ONE PROFILE
+export const getProfile = async (_id: ObjectId) => {
+  const db = await getDb();
+  //!
+  const findProfile = await db.collection(COLLECTION_PROFILE).findOne({ _id });
+  if (!findProfile) throw new Error(`Profile not found for _id: ${_id}`);
+  //!
+  const filter = { _id };
+  const profile = await db.collection(COLLECTION_PROFILE).findOne(filter);
+  return profile;
+};
+
 //POST PROFILE
 export const addProfile = async (profile: ProfileModelCreateInput) => {
   const db = await getDb();
@@ -39,13 +53,30 @@ export const addProfile = async (profile: ProfileModelCreateInput) => {
   return result;
 };
 
-//DELETE PROFILE
-export const deleteProfile = async (id: ObjectId) => {
+//EDIT PROFILE
+export const updateProfile = async (
+  _id: ObjectId,
+  profile: ProfileModelUpdateInput
+) => {
   const db = await getDb();
-  const findProfile = await db
+  //!
+  const findProfile = await db.collection(COLLECTION_PROFILE).findOne({ _id });
+  if (!findProfile) throw new Error(`Profile not found for _id: ${_id}`);
+  //!
+  const filter = { _id };
+  const result = await db
     .collection(COLLECTION_PROFILE)
-    .findOne({ _id: id });
-  if (!findProfile) throw new Error(`Profile not found`);
-  const result = await db.collection(COLLECTION_PROFILE).deleteOne({ _id: id });
+    .updateOne(filter, profile);
+  return result;
+};
+
+//DELETE PROFILE
+export const deleteProfile = async (_id: ObjectId) => {
+  const db = await getDb();
+  //!
+  const findProfile = await db.collection(COLLECTION_PROFILE).findOne({ _id });
+  if (!findProfile) throw new Error(`Profile not found for _id: ${_id}`);
+  //!
+  const result = await db.collection(COLLECTION_PROFILE).deleteOne({ _id });
   return result;
 };
