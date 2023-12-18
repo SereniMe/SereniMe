@@ -12,7 +12,7 @@ function classNames(...classes: string[]) {
 }
 
 const Navbar = () => {
-	const navigation = ["Home", "Sleep", "Stress & Anxiety", "Mindfullness"];
+	const navigation = ["Home", "Stress & Anxiety", "Inner Peace", "Focus"];
 
 	return (
 		<div className="w-auto mx-[10rem]">

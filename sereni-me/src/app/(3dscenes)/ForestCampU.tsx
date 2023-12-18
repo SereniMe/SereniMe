@@ -2,14 +2,8 @@
 
 import {useRef} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
-import {OrbitControls, SpotLight} from "@react-three/drei";
-import THREE, {
-	Mesh,
-	Vector3,
-	RectAreaLight,
-	DirectionalLight,
-	DirectionalLightHelper,
-} from "three";
+import {OrbitControls, PointerLockControls, SpotLight} from "@react-three/drei";
+import THREE, {Mesh, Vector3, RectAreaLight} from "three";
 import {
 	GLTFLoader,
 	RectAreaLightHelper,
@@ -24,67 +18,62 @@ import {
 	Noise,
 	Vignette,
 } from "@react-three/postprocessing";
+import Image from "next/image";
 
 function MeshComponent() {
-	const fileUrl = "/free_isometric_cafe/scene.gltf";
+	const fileUrl = "/low-poly_camp/scene.gltf";
 	const mesh = useRef<Mesh>(null!);
 	const gltf = useLoader(GLTFLoader, fileUrl);
 
-	gltf.scene.traverse(function (child) {
-		if (child instanceof Mesh) {
-			child.castShadow = true;
-			child.receiveShadow = true;
-		}
-	});
-
 	return (
-		<mesh ref={mesh} castShadow receiveShadow position={[0, -0.8, 0]}>
+		<mesh ref={mesh} castShadow receiveShadow position={[0, -1.1, 0]}>
 			<primitive object={gltf.scene} />
 		</mesh>
 	);
 }
 
-const DirectionalLightWithHelper = ({
-	color,
+const RectArealightWithHelper = ({
 	position,
+	color,
 }: {
 	position: number[];
 	color: string;
 }) => {
+	// Besides the useThree hook, all of this is taken straight from one of the examples on threejs.org: https://threejs.org/examples/#webgl_lights_rectarealight.
+
 	const {scene} = useThree();
 
-	const directionalLight = new DirectionalLight(color, 3);
-	directionalLight.castShadow = true;
-	directionalLight.shadow.isDirectionalLightShadow;
-	directionalLight.position.set(position[0], position[1], position[2]);
-	directionalLight.lookAt(new Vector3(1, 1, 1));
-	directionalLight.shadow.bias -= 0.004;
+	// This somehow changes the texture of the ground-plane and makes it more shiny? Very interesting
+	RectAreaLightUniformsLib.init();
 
-	scene.add(directionalLight);
-	// scene.add(new DirectionalLightHelper(directionalLight));
+	const rectLight = new RectAreaLight(color, 2, 7, 10);
+	rectLight.position.set(position[0], position[1], position[2]);
+	rectLight.lookAt(new Vector3(1, 1, 1));
+	scene.add(rectLight);
+	scene.add(new RectAreaLightHelper(rectLight));
 
 	return null;
 };
 
-export function CafeScene() {
+export function ForestCampScene() {
 	return (
-		<div className="flex justify-center items-center h-screen">
+		<div className="flex flex-col justify-center items-center h-screen">
 			<Canvas
 				className="h-2xl w-2xl bg-gradient-to-r from-slate-500 to-blue-500"
 				frameloop="demand"
-				shadows="variance"
+				shadows="soft"
 				camera={{
-					position: [-5.5, 0, 5.5],
-					fov: 10,
+					position: [-5, 0, 5.5],
+					fov: 45,
 					near: 1,
 					far: 1000,
-					aspect: window.innerWidth / window.innerHeight,
+					aspect: window?.innerWidth / window?.innerHeight,
 				}}
 			>
 				<MeshComponent />
-				<ambientLight intensity={0.2} color={"#f2bd8f"} castShadow={true} />
-				<DirectionalLightWithHelper position={[-5, 4, 5]} color="#f2bd8f" />
+				<ambientLight intensity={5} color={"#f2bd8f"} />
 				<OrbitControls />
+
 				{/* <RectArealightWithHelper position={[-5, 2, 5]} color="#f2bd8f" /> */}
 				<EffectComposer>
 					{/* <DepthOfField
@@ -93,9 +82,9 @@ export function CafeScene() {
 						bokehScale={2} // bokeh size
 					/> */}
 					<Bloom
-						luminanceThreshold={0.25}
+						luminanceThreshold={0.55}
 						luminanceSmoothing={0.2}
-						height={500}
+						height={100}
 					/>
 					{/* <Noise opacity={0.02} /> */}
 					<Vignette eskil={false} offset={0.1} darkness={0.5} />

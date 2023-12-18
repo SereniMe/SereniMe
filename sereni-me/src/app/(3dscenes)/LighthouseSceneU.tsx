@@ -2,7 +2,7 @@
 
 import {useRef} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
-import {OrbitControls, SpotLight} from "@react-three/drei";
+import {OrbitControls, PointerLockControls, SpotLight} from "@react-three/drei";
 import THREE, {
 	Mesh,
 	Vector3,
@@ -24,26 +24,21 @@ import {
 	Noise,
 	Vignette,
 } from "@react-three/postprocessing";
+import Image from "next/image";
 
 function MeshComponent() {
-	const fileUrl = "/free_isometric_cafe/scene.gltf";
+	const fileUrl = "/low_poly_lighthouse_scene/scene.gltf";
 	const mesh = useRef<Mesh>(null!);
 	const gltf = useLoader(GLTFLoader, fileUrl);
 
-	gltf.scene.traverse(function (child) {
-		if (child instanceof Mesh) {
-			child.castShadow = true;
-			child.receiveShadow = true;
-		}
-	});
-
 	return (
-		<mesh ref={mesh} castShadow receiveShadow position={[0, -0.8, 0]}>
+		<mesh ref={mesh} castShadow receiveShadow position={[-5, 0, 0]}>
 			<primitive object={gltf.scene} />
 		</mesh>
 	);
 }
 
+let light = 0;
 const DirectionalLightWithHelper = ({
 	color,
 	position,
@@ -53,39 +48,41 @@ const DirectionalLightWithHelper = ({
 }) => {
 	const {scene} = useThree();
 
-	const directionalLight = new DirectionalLight(color, 3);
+	const directionalLight = new DirectionalLight(color, 4);
 	directionalLight.castShadow = true;
 	directionalLight.shadow.isDirectionalLightShadow;
 	directionalLight.position.set(position[0], position[1], position[2]);
 	directionalLight.lookAt(new Vector3(1, 1, 1));
-	directionalLight.shadow.bias -= 0.004;
 
-	scene.add(directionalLight);
+	if (light == 0) {
+		scene.add(directionalLight);
+		light++;
+	}
 	// scene.add(new DirectionalLightHelper(directionalLight));
 
 	return null;
 };
 
-export function CafeScene() {
+export function LighthouseScene() {
 	return (
-		<div className="flex justify-center items-center h-screen">
+		<div className="flex flex-col justify-center items-center h-screen">
 			<Canvas
-				className="h-2xl w-2xl bg-gradient-to-r from-slate-500 to-blue-500"
+				className="h-2xl w-2xl bg-gradient-to-bl from-blue-200 to-yellow-200"
 				frameloop="demand"
-				shadows="variance"
+				shadows="soft"
 				camera={{
-					position: [-5.5, 0, 5.5],
-					fov: 10,
+					position: [-7, -3.6, 9],
+					fov: 50,
 					near: 1,
-					far: 1000,
+					far: 100,
 					aspect: window.innerWidth / window.innerHeight,
 				}}
 			>
 				<MeshComponent />
-				<ambientLight intensity={0.2} color={"#f2bd8f"} castShadow={true} />
-				<DirectionalLightWithHelper position={[-5, 4, 5]} color="#f2bd8f" />
+				<ambientLight intensity={1} />
 				<OrbitControls />
-				{/* <RectArealightWithHelper position={[-5, 2, 5]} color="#f2bd8f" /> */}
+
+				<DirectionalLightWithHelper position={[-5, 2, 5]} color="#f2bd8f" />
 				<EffectComposer>
 					{/* <DepthOfField
 						focusDistance={0} // where to focus
@@ -93,8 +90,8 @@ export function CafeScene() {
 						bokehScale={2} // bokeh size
 					/> */}
 					<Bloom
-						luminanceThreshold={0.25}
-						luminanceSmoothing={0.2}
+						luminanceThreshold={0.725}
+						luminanceSmoothing={0.7}
 						height={500}
 					/>
 					{/* <Noise opacity={0.02} /> */}
