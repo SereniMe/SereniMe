@@ -19,7 +19,7 @@ const getDb = async () => {
   return db;
 };
 
-//Login Model
+//Login Model Id
 export const getUserById = async (id: string) => {
   const db = await getDb();
   const objectId = new ObjectId(id);
@@ -31,11 +31,21 @@ export const getUserById = async (id: string) => {
   return user;
 };
 
+//Login Model Email
+export const getUserByEmail = async (email: string) => {
+  const db = await getDb();
+  const user = (await db
+    .collection(COLLECTION_USER)
+    .findOne({ email: email }, { projection: { password: 0 } })) as UserModel;
+
+  return user;
+};
+
 //Find User
 export const getFilteredUser = async (filterQuery = {}) => {
   const db = await getDb();
 
-  const product = await db.collection(COLLECTION_USER).findOne(filterQuery);
+  const user = await db.collection(COLLECTION_USER).findOne(filterQuery);
 
-  return product;
+  return user;
 };
