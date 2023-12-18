@@ -75,10 +75,8 @@ const Home: React.FC = () => {
 	};
 	return (
 		<div className="bg-gray-100 min-h-screen flex flex-row justify-center items-center joined rounded-md drop-shadow-lg">
-			{/* Picture Section */}
 			<div className="flex flex-row w-full justify-center items-center">
 				<section className="w-[280px] h-full hidden md:block object-cover relative">
-					{/* Adjust the image source accordingly */}
 					<img
 						src="https://images.unsplash.com/photo-1562751362-404243c2eea3?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 						alt="Picture"
@@ -86,7 +84,6 @@ const Home: React.FC = () => {
 					/>
 				</section>
 
-				{/* Login Form Section */}
 				<div className="w-full max-w-md p-6 bg-white shadow-md text-gray-600">
 					<div className="mb-8 text-center">
 						<h1 className="my-3 text-3xl font-bold">Sign in</h1>

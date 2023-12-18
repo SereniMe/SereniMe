@@ -6,7 +6,7 @@ import {Avatar} from "./Avatar";
 const Testimonials = () => {
 	return (
 		<Container>
-			<div className="grid gap-10 lg:grid-cols-2 xl:grid-cols-3">
+			<div className="grid gap-10 lg:grid-cols-2 xl:grid-cols-3 mx-[10rem]">
 				<div className="lg:col-span-2 xl:col-auto">
 					<div className="flex flex-col justify-between w-full h-full bg-gradient-to-tr from-[#5E7A8B] to-[#E4F2F3] dark:to-[#032332] px-14 rounded-2xl py-14 dark:bg-trueGray-800">
 						<p className="text-2xl leading-normal ">

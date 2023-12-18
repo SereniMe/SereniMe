@@ -21,7 +21,7 @@ export default function Home() {
 				says a landing page with video has 3% more conversion rate. So,
 				don&apos;t forget to add one. Just like this.
 			</SectionTitle>
-			<Video source="https://www.youtube.com/embed/XhW_ZsFZZIk?si=DQezYMnhWbJOOV1D&autoplay=1" />
+			<Video />
 			<SectionTitle
 				pretitle="Testimonials"
 				title="Here's what our customers said"

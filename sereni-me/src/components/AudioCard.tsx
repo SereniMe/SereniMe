@@ -1,6 +1,15 @@
 import Image from "next/image";
 
-const VideoCard = () => {
+type props = {
+	audio: {
+		name: string;
+		videoUrl: string;
+		tags: string[];
+		thumbnail: string;
+	};
+};
+
+const AudioCard = (props: props) => {
 	return (
 		<div className="flex flex-col w-[16rem] object-cover overflow-hidden rounded-lg gap-3 shadow-lg shadow-[#6a99ac77] pb-4 ">
 			<Image
@@ -12,9 +21,9 @@ const VideoCard = () => {
 			/>
 			<h1 className="px-4">Title</h1>
 			<p className="px-4">tags</p>
-			<p className="px-4">Audio/Video</p>
+			<p className="px-4">Audio</p>
 		</div>
 	);
 };
 
-export default VideoCard;
+export default AudioCard;

@@ -1,13 +1,10 @@
 "use client";
 
-import {ObjectId} from "mongodb";
 import Image from "next/image";
 import {useState} from "react";
-import Video from "./Video";
 
 type props = {
 	video: {
-		_id: ObjectId;
 		name: string;
 		videoUrl: string;
 		tags: string[];
@@ -16,6 +13,7 @@ type props = {
 };
 const VideoCard = (props: props) => {
 	const id = props.video.thumbnail.split("/");
+	const video = props.video.videoUrl.split("view");
 
 	const [play, setPlay] = useState(false);
 
@@ -25,7 +23,13 @@ const VideoCard = (props: props) => {
 			onClick={() => setPlay(true)}
 		>
 			{play == true && (
-				<Video source="https://www.youtube.com/embed/XhW_ZsFZZIk?si=DQezYMnhWbJOOV1D&autoplay=1" />
+				<iframe
+					src={`${video[0]}preview`}
+					frameBorder="0"
+					width="100%"
+					height="500px"
+					allowFullScreen
+				></iframe>
 			)}
 			{play == false && (
 				<Image
