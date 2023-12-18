@@ -35,9 +35,9 @@ export const getAudios = async () => {
 //GET AUDIO
 export const getAudio = async (filterQuery: {}) => {
   const db = await getDb();
-  const video = await db.collection(COLLECTION_AUDIO).findOne(filterQuery);
+  const audio = await db.collection(COLLECTION_AUDIO).findOne(filterQuery);
 
-  return video;
+  return audio;
 };
 
 //POST AUDIO
@@ -60,4 +60,16 @@ export const deleteAudio = async (id: ObjectId) => {
   const result = await db.collection(COLLECTION_AUDIO).deleteOne({ _id: id });
 
   return result;
+};
+
+//GET AUDIOS BY TAGS
+export const getAudiosByTags = async (filterQuery: { tags: string }) => {
+  const db = await getDb();
+
+  const audios = (await db
+    .collection(COLLECTION_AUDIO)
+    .find(filterQuery)
+    .toArray()) as AudioModel[];
+
+  return audios;
 };

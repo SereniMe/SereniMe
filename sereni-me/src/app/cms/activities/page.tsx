@@ -1,8 +1,28 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../(components)/sidebar";
+import { ActivityModel } from "@/db/models/activities";
 
 const ActivityPage: React.FC = () => {
+  const [activities, setActivities] = useState([]);
+  const URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${URL}/api/activities`);
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(`Something something error ...`);
+
+        setActivities(data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className="flex dark:text-gray-100">
@@ -33,44 +53,46 @@ const ActivityPage: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-900">
-                    <td className="py-2 px-4">
-                      <p>1</p>
-                    </td>
-                    <td className="py-2 px-4">
-                      <p>Breath Exercise for 1 Minute</p>
-                    </td>
-                    <td className="py-2 px-4">
-                      <p>
-                        A one-minute breathing exercise offers a brief yet
-                        impactful practice for relaxation and stress relief. By
-                        focusing on slow, deep breaths, individuals can quickly
-                        enhance mindfulness, promote a sense of calm, and
-                        improve overall mental well-being in just 60 seconds.
-                      </p>
-                    </td>
-                    <td className="py-2 px-4">
-                      <img
-                        className="rounded-lg"
-                        src="https://images.unsplash.com/photo-1508175749578-259ded3db070?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        width="auto"
-                      ></img>
-                    </td>
-                    <td className="py-2 px-4 text-right">
-                      <div className="font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900 flex flex-row justify-center items-center">
-                        <div className="mr-5">
-                          <button className="bg-blue-700 hover:bg-gray-500 rounded-md text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:text-black hover:scale-110 transition-all active:scale-90 ">
-                            Edit
-                          </button>
+                  {activities?.map((activity: ActivityModel, index) => (
+                    <tr
+                      key={activity.name} // Make sure to use a unique key
+                      className={`border-b border-opacity-20 dark:border-gray-700 ${
+                        index % 2 === 0 ? "dark:bg-gray-900" : ""
+                      }`}
+                    >
+                      <td className="py-2 px-4">
+                        <p>{index + 1}</p>
+                      </td>
+                      <td className="py-2 px-4">
+                        <p>{activity.name}</p>
+                      </td>
+                      <td className="py-2 px-4">
+                        <p>{activity.content}</p>
+                      </td>
+                      <td className="py-2 px-4">
+                        <img
+                          className="rounded-lg"
+                          src={activity.thumbnail}
+                          alt={activity.name}
+                          width="auto"
+                        />
+                      </td>
+                      <td className="py-2 px-4 text-right">
+                        <div className="font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900 flex flex-row justify-center items-center">
+                          <div className="mr-5">
+                            <button className="bg-blue-700 hover:bg-gray-500 rounded-md text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:text-black hover:scale-110 transition-all active:scale-90 ">
+                              Edit
+                            </button>
+                          </div>
+                          <div className="">
+                            <button className="bg-red-700 hover:bg-gray-400 rounded-md text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:text-black hover:scale-110 transition-all active:scale-90 ">
+                              Delete
+                            </button>
+                          </div>
                         </div>
-                        <div className="">
-                          <button className="bg-red-700 hover:bg-gray-400 rounded-md text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:text-black hover:scale-110 transition-all active:scale-90 ">
-                            Delete
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

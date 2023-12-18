@@ -7,7 +7,8 @@ export const middleware = async (request: NextRequest) => {
     !request.url.includes("/api") &&
     !request.url.includes("_next/static") &&
     !request.url.includes("_next/image") &&
-    !request.url.includes("favicon.ico")
+    !request.url.includes("favicon.ico") &&
+    !request.url.includes("/low-poly")
   ) {
     console.log(request.method, request.url);
   }
