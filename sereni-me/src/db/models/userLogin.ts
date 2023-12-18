@@ -31,12 +31,12 @@ export const getUserById = async (id: string) => {
   return user;
 };
 
-//Login Model Email
+//Login Model Email //!
 export const getUserByEmail = async (email: string) => {
   const db = await getDb();
   const user = (await db
     .collection(COLLECTION_USER)
-    .findOne({ email: email }, { projection: { password: 0 } })) as UserModel;
+    .findOne({ email: email })) as UserModel;
 
   return user;
 };
