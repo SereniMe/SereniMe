@@ -4,7 +4,7 @@ import ThemeChanger from "@/components/Darkswitch";
 import Image from "next/image";
 import {AvatarImg} from "./Avatar";
 
-import {Fragment} from "react";
+import {Fragment, useEffect, useState} from "react";
 import {Menu, Transition} from "@headlessui/react";
 
 function classNames(...classes: string[]) {
@@ -12,10 +12,10 @@ function classNames(...classes: string[]) {
 }
 
 const Navbar = () => {
-	const navigation = ["Sleep", "Stress", "Anxiety", "Mindfullness", "Blog"];
+	const navigation = ["Home", "Sleep", "Stress & Anxiety", "Mindfullness"];
 
 	return (
-		<div className="w-auto mx-[20rem]">
+		<div className="w-auto mx-[10rem]">
 			<nav className="container relative flex flex-wrap items-center justify-between p-4 mx-auto lg:justify-between xl:px-0">
 				<div>
 					<Link href="/">
@@ -33,7 +33,7 @@ const Navbar = () => {
 						{navigation.map((menu, index) => (
 							<li className="mr-3 nav__item" key={index}>
 								<Link
-									href="/"
+									href={`?find=${menu}`}
 									className="inline-block hover:scale-110 transition ease-in-out duration-300 px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-[#5E7A8B] focus:text-[#5E7A8B] focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800"
 								>
 									{menu}

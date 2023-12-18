@@ -1,8 +1,8 @@
 import type {Metadata} from "next";
 import {Inter} from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import Provider from "@/components/Provider";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/NavbarMain";
 import Footer from "@/components/Footer";
 
 const inter = Inter({subsets: ["latin"]});
@@ -14,19 +14,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
 	return (
-		<html lang="en">
-			<body
-				className="min-h-screen mx-auto max-w-6xl flex flex-col bg-[#f5f5f5]
-		  dark:bg-gray-900"
-			>
-				<Provider>
-					<Navbar />
-					<main className="flex flex-col flex-1 max-w-6xl w-full  ">
-						{children}
-					</main>
-					<Footer />
-				</Provider>
-			</body>
-		</html>
+		<Provider>
+			<Navbar />
+			<main className="flex flex-col flex-1 max-w-6xl w-full  ">
+				{children}
+			</main>
+			<Footer />
+		</Provider>
 	);
 }

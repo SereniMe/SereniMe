@@ -14,7 +14,6 @@ const Home: React.FC = () => {
 
 		const email = data.get("email");
 		const password = data.get("password");
-		console.log(email, password);
 
 		const loginInputSchema = z.object({
 			email: z.string().email(),
@@ -25,8 +24,6 @@ const Home: React.FC = () => {
 			email,
 			password,
 		});
-
-		console.log(parsedData);
 
 		if (!parsedData.success) {
 			const errPath = parsedData.error.issues[0].path[0];
@@ -46,7 +43,6 @@ const Home: React.FC = () => {
 				`${NEXT_PUBLIC_SERVER_URL}/login?error=invalid%20email/password`
 			);
 		}
-		console.log(foundUser);
 
 		const compare = comparePassword(
 			parsedData.data.password,

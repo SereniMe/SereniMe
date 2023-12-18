@@ -1,7 +1,7 @@
 import {useState} from "react";
 import Container from "@/components/Container";
 
-const Video = () => {
+const Video = ({source}: {source: string}) => {
 	const [playVideo, setPlayVideo] = useState(false);
 	return (
 		<Container>
@@ -29,7 +29,7 @@ const Video = () => {
 					)}
 					{playVideo && (
 						<iframe
-							src="https://www.youtube.com/embed/XhW_ZsFZZIk?si=DQezYMnhWbJOOV1D&autoplay=1"
+							src={source}
 							frameBorder="0"
 							width="100%"
 							height="500px"

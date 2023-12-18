@@ -38,6 +38,7 @@ function MeshComponent() {
 	);
 }
 
+let light = 0;
 const DirectionalLightWithHelper = ({
 	color,
 	position,
@@ -53,31 +54,11 @@ const DirectionalLightWithHelper = ({
 	directionalLight.position.set(position[0], position[1], position[2]);
 	directionalLight.lookAt(new Vector3(1, 1, 1));
 
-	scene.add(directionalLight);
+	if (light == 0) {
+		scene.add(directionalLight);
+		light++;
+	}
 	// scene.add(new DirectionalLightHelper(directionalLight));
-
-	return null;
-};
-
-const RectArealightWithHelper = ({
-	position,
-	color,
-}: {
-	position: number[];
-	color: string;
-}) => {
-	// Besides the useThree hook, all of this is taken straight from one of the examples on threejs.org: https://threejs.org/examples/#webgl_lights_rectarealight.
-
-	const {scene} = useThree();
-
-	// This somehow changes the texture of the ground-plane and makes it more shiny? Very interesting
-	RectAreaLightUniformsLib.init();
-
-	const rectLight = new RectAreaLight(color, 2, 7, 10);
-	rectLight.position.set(position[0], position[1], position[2]);
-	rectLight.lookAt(new Vector3(1, 1, 1));
-	scene.add(rectLight);
-	// scene.add(new RectAreaLightHelper(rectLight));
 
 	return null;
 };
@@ -86,19 +67,19 @@ export function LighthouseScene() {
 	return (
 		<div className="flex flex-col justify-center items-center h-screen">
 			<Canvas
-				className="h-2xl w-2xl bg-gradient-to-r from-slate-500 to-blue-500"
+				className="h-2xl w-2xl bg-gradient-to-bl from-blue-200 to-yellow-200"
 				frameloop="demand"
 				shadows="soft"
 				camera={{
 					position: [-7, -3.6, 9],
-					fov: 70,
+					fov: 50,
 					near: 1,
 					far: 100,
 					aspect: window.innerWidth / window.innerHeight,
 				}}
 			>
 				<MeshComponent />
-				{/* <ambientLight intensity={3} castShadow={true} /> */}
+				<ambientLight intensity={1} />
 				<PointerLockControls selector="#button" />
 				<DirectionalLightWithHelper position={[-5, 2, 5]} color="#f2bd8f" />
 				<EffectComposer>
