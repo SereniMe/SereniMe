@@ -17,10 +17,9 @@ export const middleware = async (request: NextRequest) => {
     const token = cookieStore.get("token");
     console.log("Cookie Store Token", token);
     if (!token) {
-      return NextResponse.json({
-        statusCode: 401,
-        error: "Unauthorized",
-      });
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/signin`
+      );
     }
     const tokenData = await verifyTokenJose<{ id: string; email: string }>(
       token.value

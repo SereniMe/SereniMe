@@ -1,17 +1,12 @@
 "use client";
 
 import {useRef} from "react";
-import {Canvas, useLoader, useThree} from "@react-three/fiber";
-import {PointerLockControls} from "@react-three/drei";
-import {Mesh, Vector3, RectAreaLight} from "three";
-import {
-	GLTFLoader,
-	RectAreaLightHelper,
-	RectAreaLightUniformsLib,
-} from "three/examples/jsm/Addons.js";
+import {Canvas, useLoader} from "@react-three/fiber";
+import {OrbitControls} from "@react-three/drei";
+import {Mesh} from "three";
+import {GLTFLoader} from "three/examples/jsm/Addons.js";
 import React from "react";
 import {Bloom, EffectComposer, Vignette} from "@react-three/postprocessing";
-import Image from "next/image";
 
 function MeshComponent() {
 	const fileUrl = "/low-poly_camp/scene.gltf";
@@ -42,7 +37,8 @@ export function ForestCampScene() {
 			>
 				<MeshComponent />
 				<ambientLight intensity={5} color={"#f2bd8f"} />
-				<PointerLockControls selector="#button" />
+				<OrbitControls />
+
 				{/* <RectArealightWithHelper position={[-5, 2, 5]} color="#f2bd8f" /> */}
 				<EffectComposer>
 					{/* <DepthOfField
@@ -59,17 +55,6 @@ export function ForestCampScene() {
 					<Vignette eskil={false} offset={0.1} darkness={0.5} />
 				</EffectComposer>
 			</Canvas>
-			<div className="w-full flex justify-end">
-				<button id="button">
-					<Image
-						src="/3dcontrolTip.png"
-						width={600}
-						height={200}
-						alt="3D: Click to Control | 'Esc' to release"
-						className="h-20 w-[15rem] -translate-y-20"
-					/>
-				</button>
-			</div>
 		</div>
 	);
 }
