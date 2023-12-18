@@ -53,9 +53,9 @@ const ActivityPage: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {activities?.map((activity: ActivityModel, index) => (
+                  {activities.map((activity: ActivityModel, index) => (
                     <tr
-                      key={activity.name} // Make sure to use a unique key
+                      key={activity.name}
                       className={`border-b border-opacity-20 dark:border-gray-700 ${
                         index % 2 === 0 ? "dark:bg-gray-900" : ""
                       }`}
@@ -74,7 +74,7 @@ const ActivityPage: React.FC = () => {
                           className="rounded-lg"
                           src={activity.thumbnail}
                           alt={activity.name}
-                          width="auto"
+                          width="fit"
                         />
                       </td>
                       <td className="py-2 px-4 text-right">

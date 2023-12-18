@@ -8,7 +8,7 @@ type video = {
   _id?: ObjectId | string;
   name: string;
   videoUrl: string;
-  tags: string[];
+  tags: string;
   thumbnail: string;
 };
 
@@ -16,7 +16,7 @@ type audio = {
   _id?: ObjectId | string;
   name: string;
   audioUrl: string;
-  tags: string[];
+  tags: string;
   imageUrl: string;
 };
 
