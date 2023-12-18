@@ -22,7 +22,9 @@ type audio = {
 
 const Main = async () => {
 	const videos = (await getVideos()) as video[];
+	const renderVid = videos.slice(0, 4);
 	const audios = (await getAudios()) as audio[];
+	const renderAud = audios.slice(0, 4);
 
 	return (
 		<main className="flex flex-col w-full justify-center mx-[10rem] gap-8">
@@ -30,8 +32,8 @@ const Main = async () => {
 				<h1 className="text-4xl">Today's Dailies</h1>
 				<h1 className="text-2xl">Videos</h1>
 				<div className="flex justify-start w-full gap-10 flex-wrap">
-					{videos &&
-						videos.map((video, i) => {
+					{renderVid &&
+						renderVid.map((video, i) => {
 							video._id = video._id?.toString();
 							return (
 								<div key={i}>
@@ -45,8 +47,8 @@ const Main = async () => {
 			<div className="w-full flex flex-col justify-center gap-5">
 				<h1 className="text-2xl">Audios</h1>
 				<div className="flex justify-start w-full gap-10 flex-wrap">
-					{videos &&
-						audios.map((audio, i) => {
+					{renderAud &&
+						renderAud.map((audio, i) => {
 							audio._id = audio._id?.toString();
 
 							return (

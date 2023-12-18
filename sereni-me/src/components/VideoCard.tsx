@@ -1,6 +1,7 @@
 "use client";
 
 import {ObjectId} from "mongodb";
+import Image from "next/image";
 import {useState} from "react";
 
 type props = {
@@ -62,7 +63,7 @@ const VideoCard = (props: props) => {
 				""
 			)}
 
-			<img
+			<Image
 				src={`https://drive.google.com/uc?export=view&id=${id[5]}`}
 				width={400}
 				height={400}

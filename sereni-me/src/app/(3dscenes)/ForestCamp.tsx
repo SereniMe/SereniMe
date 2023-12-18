@@ -1,23 +1,16 @@
 "use client";
 
 import {useRef} from "react";
-import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
-import {OrbitControls, PointerLockControls, SpotLight} from "@react-three/drei";
-import THREE, {Mesh, Vector3, RectAreaLight} from "three";
+import {Canvas, useLoader, useThree} from "@react-three/fiber";
+import {PointerLockControls} from "@react-three/drei";
+import {Mesh, Vector3, RectAreaLight} from "three";
 import {
 	GLTFLoader,
 	RectAreaLightHelper,
 	RectAreaLightUniformsLib,
 } from "three/examples/jsm/Addons.js";
 import React from "react";
-import {
-	Autofocus,
-	Bloom,
-	DepthOfField,
-	EffectComposer,
-	Noise,
-	Vignette,
-} from "@react-three/postprocessing";
+import {Bloom, EffectComposer, Vignette} from "@react-three/postprocessing";
 import Image from "next/image";
 
 function MeshComponent() {
@@ -31,29 +24,6 @@ function MeshComponent() {
 		</mesh>
 	);
 }
-
-const RectArealightWithHelper = ({
-	position,
-	color,
-}: {
-	position: number[];
-	color: string;
-}) => {
-	// Besides the useThree hook, all of this is taken straight from one of the examples on threejs.org: https://threejs.org/examples/#webgl_lights_rectarealight.
-
-	const {scene} = useThree();
-
-	// This somehow changes the texture of the ground-plane and makes it more shiny? Very interesting
-	RectAreaLightUniformsLib.init();
-
-	const rectLight = new RectAreaLight(color, 2, 7, 10);
-	rectLight.position.set(position[0], position[1], position[2]);
-	rectLight.lookAt(new Vector3(1, 1, 1));
-	scene.add(rectLight);
-	scene.add(new RectAreaLightHelper(rectLight));
-
-	return null;
-};
 
 export function ForestCampScene() {
 	return (
