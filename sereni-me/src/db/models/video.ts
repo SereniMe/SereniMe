@@ -5,7 +5,7 @@ export type VideoModel = {
   _id: ObjectId;
   name: string;
   videoUrl: string;
-  tags: string[]; //from collection interests
+  tags: string;
   thumbnail: string;
 };
 
