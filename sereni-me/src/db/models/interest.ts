@@ -10,6 +10,7 @@ export type InterestModelCreateInput = Omit<InterestModel, "_id">;
 
 const DATABASE_NAME = process.env.MONGODB_DB_NAME;
 const COLLECTION_INTEREST = "interests";
+const COLLECTION_PROFILE = "profiles";
 
 const getDb = async () => {
   const client = await getMongoClientInstance();
@@ -63,4 +64,16 @@ export const deleteInterest = async (id: ObjectId) => {
     .deleteOne({ _id: id });
 
   return result;
+};
+
+//GET USER'S INTERESTS
+export const getUserInterest = async (filterQuery: {}) => {
+  const db = await getDb();
+  const profile = await db.collection(COLLECTION_PROFILE).findOne(filterQuery);
+
+  if (!profile) throw new Error(`Profile not found`);
+
+  const interests = profile.interests;
+
+  return interests;
 };
