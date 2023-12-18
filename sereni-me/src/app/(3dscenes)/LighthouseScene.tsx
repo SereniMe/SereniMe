@@ -2,7 +2,7 @@
 
 import {useRef} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
-import {OrbitControls, SpotLight} from "@react-three/drei";
+import {OrbitControls, PointerLockControls, SpotLight} from "@react-three/drei";
 import THREE, {
 	Mesh,
 	Vector3,
@@ -24,6 +24,7 @@ import {
 	Noise,
 	Vignette,
 } from "@react-three/postprocessing";
+import Image from "next/image";
 
 function MeshComponent() {
 	const fileUrl = "/low_poly_lighthouse_scene/scene.gltf";
@@ -83,7 +84,7 @@ const RectArealightWithHelper = ({
 
 export function LighthouseScene() {
 	return (
-		<div className="flex justify-center items-center h-screen">
+		<div className="flex flex-col justify-center items-center h-screen">
 			<Canvas
 				className="h-2xl w-2xl bg-gradient-to-r from-slate-500 to-blue-500"
 				frameloop="demand"
@@ -98,7 +99,7 @@ export function LighthouseScene() {
 			>
 				<MeshComponent />
 				{/* <ambientLight intensity={3} castShadow={true} /> */}
-				<OrbitControls />
+				<PointerLockControls selector="#button" />
 				<DirectionalLightWithHelper position={[-5, 2, 5]} color="#f2bd8f" />
 				<EffectComposer>
 					{/* <DepthOfField
@@ -115,6 +116,17 @@ export function LighthouseScene() {
 					<Vignette eskil={false} offset={0.1} darkness={0.5} />
 				</EffectComposer>
 			</Canvas>
+			<div className="w-full flex justify-end">
+				<button id="button">
+					<Image
+						src="/3dcontrolTip.png"
+						width={600}
+						height={200}
+						alt="3D: Click to Control | 'Esc' to release"
+						className="h-20 w-[15rem] -translate-y-20"
+					/>
+				</button>
+			</div>
 		</div>
 	);
 }
