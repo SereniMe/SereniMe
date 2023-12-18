@@ -3,7 +3,13 @@
 import {useRef} from "react";
 import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
 import {OrbitControls, SpotLight} from "@react-three/drei";
-import THREE, {Mesh, Vector3, RectAreaLight} from "three";
+import THREE, {
+	Mesh,
+	Vector3,
+	RectAreaLight,
+	PointLight,
+	PointLightHelper,
+} from "three";
 import {
 	GLTFLoader,
 	RectAreaLightHelper,
@@ -31,27 +37,23 @@ function MeshComponent() {
 	);
 }
 
-const RectArealightWithHelper = ({
-	position,
+const PointLightWithHelper = ({
 	color,
+	position,
 }: {
 	position: number[];
 	color: string;
 }) => {
-	// Besides the useThree hook, all of this is taken straight from one of the examples on threejs.org: https://threejs.org/examples/#webgl_lights_rectarealight.
-
 	const {scene} = useThree();
 
-	// This somehow changes the texture of the ground-plane and makes it more shiny? Very interesting
-	RectAreaLightUniformsLib.init();
+	const pointLight = new PointLight(color, 2000);
+	pointLight.castShadow = true;
+	pointLight.position.set(position[0], position[1], position[2]);
+	pointLight.lookAt(new Vector3(1, 1, 1));
+	pointLight.shadow.bias = -0.004;
 
-	const rectLight = new RectAreaLight(color, 100, 30, 30);
-	rectLight.position.set(position[0], position[1], position[2]);
-	rectLight.lookAt(new Vector3(1, 1, 1));
-	rectLight.intensity = 15;
-	rectLight.castShadow = true;
-	scene.add(rectLight);
-	// scene.add(new RectAreaLightHelper(rectLight));
+	scene.add(pointLight);
+	// scene.add(new PointLightHelper(pointLight));
 
 	return null;
 };
@@ -72,22 +74,18 @@ export function StreetScene() {
 				}}
 			>
 				<MeshComponent />
-				<ambientLight intensity={3} color={"#506886"} castShadow={true} />
+				<ambientLight intensity={1} color={"#506886"} castShadow={true} />
 				<OrbitControls />
-				<RectArealightWithHelper position={[50, 40, -50]} color="#f2bd8f" />
-				<RectArealightWithHelper position={[-25, 80, -80]} color="#f2bd8f" />
+				<PointLightWithHelper position={[40, 20, -50]} color="#f2bd8f" />
+				<PointLightWithHelper position={[40, 20, -25]} color="#f2bd8f" />
+				<PointLightWithHelper position={[50, 20, 60]} color="#f2bd8f" />
+				<PointLightWithHelper position={[-25, 55, -80]} color="#f2bd8f" />
 				<EffectComposer>
-					{/* <DepthOfField
-						focusDistance={0} // where to focus
-						focalLength={0.2} // focal length
-						bokehScale={2} // bokeh size
-					/> */}
 					<Bloom
 						luminanceThreshold={0.15}
 						luminanceSmoothing={0.2}
 						height={500}
 					/>
-					{/* <Noise opacity={0.02} /> */}
 					<Vignette eskil={false} offset={0.3} darkness={0.5} />
 				</EffectComposer>
 			</Canvas>
