@@ -5,6 +5,10 @@ import {useTheme} from "next-themes";
 const ThemeSwitcher = () => {
 	const {systemTheme, theme, setTheme} = useTheme();
 
+	useEffect(() => {
+		setTheme("dark");
+	}, []);
+
 	const renderThemeChanger = () => {
 		const currentTheme = theme === "system" ? systemTheme : theme;
 
@@ -12,7 +16,6 @@ const ThemeSwitcher = () => {
 			return (
 				<button
 					onClick={() => {
-						console.log("set Light");
 						return setTheme("light");
 					}}
 					className="text-gray-300 rounded-full outline-none focus:outline-none"
@@ -39,7 +42,6 @@ const ThemeSwitcher = () => {
 			return (
 				<button
 					onClick={() => {
-						console.log("set Dark", theme);
 						return setTheme("dark");
 					}}
 					className="text-gray-500 rounded-full outline-none focus:outline-none focus-visible:ring focus-visible:ring-gray-100 focus:ring-opacity-20"

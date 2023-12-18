@@ -64,14 +64,14 @@ export function ForestCampScene() {
 				shadows="soft"
 				camera={{
 					position: [-5, 0, 5.5],
-					fov: 48,
+					fov: 45,
 					near: 1,
 					far: 1000,
-					aspect: window.innerWidth / window.innerHeight,
+					aspect: window?.innerWidth / window?.innerHeight,
 				}}
 			>
 				<MeshComponent />
-				<ambientLight intensity={5} color={"#f2bd8f"} castShadow={true} />
+				<ambientLight intensity={5} color={"#f2bd8f"} />
 				<PointerLockControls selector="#button" />
 				{/* <RectArealightWithHelper position={[-5, 2, 5]} color="#f2bd8f" /> */}
 				<EffectComposer>
