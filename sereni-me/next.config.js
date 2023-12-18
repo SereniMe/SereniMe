@@ -28,12 +28,6 @@ const nextConfig = {
 				port: "",
 				pathname: "/**",
 			},
-			{
-				protocol: "https",
-				hostname: "cdn.accentuate.io",
-				port: "",
-				pathname: "/**",
-			},
 		],
 	},
 };

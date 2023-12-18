@@ -1,29 +1,11 @@
 "use client";
 
 import {useRef} from "react";
-import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
-import {OrbitControls, SpotLight} from "@react-three/drei";
-import THREE, {
-	Mesh,
-	Vector3,
-	RectAreaLight,
-	PointLight,
-	PointLightHelper,
-} from "three";
-import {
-	GLTFLoader,
-	RectAreaLightHelper,
-	RectAreaLightUniformsLib,
-} from "three/examples/jsm/Addons.js";
+import {Canvas, useLoader, useThree} from "@react-three/fiber";
+import {OrbitControls} from "@react-three/drei";
+import {Mesh, Vector3, PointLight, PointLightHelper} from "three";
+import {GLTFLoader} from "three/examples/jsm/Addons.js";
 import React from "react";
-import {
-	Autofocus,
-	Bloom,
-	DepthOfField,
-	EffectComposer,
-	Noise,
-	Vignette,
-} from "@react-three/postprocessing";
 
 function MeshComponent() {
 	const fileUrl = "/low_poly_winter_scene/scene.gltf";

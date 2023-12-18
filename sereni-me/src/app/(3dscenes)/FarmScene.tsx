@@ -1,29 +1,12 @@
 "use client";
 
 import {useRef} from "react";
-import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
-import {OrbitControls, SpotLight} from "@react-three/drei";
-import THREE, {
-	Mesh,
-	Vector3,
-	RectAreaLight,
-	DirectionalLight,
-	DirectionalLightHelper,
-} from "three";
-import {
-	GLTFLoader,
-	RectAreaLightHelper,
-	RectAreaLightUniformsLib,
-} from "three/examples/jsm/Addons.js";
+import {Canvas, useLoader, useThree} from "@react-three/fiber";
+import {OrbitControls} from "@react-three/drei";
+import {Mesh, Vector3, DirectionalLight} from "three";
+import {GLTFLoader} from "three/examples/jsm/Addons.js";
 import React from "react";
-import {
-	Autofocus,
-	Bloom,
-	DepthOfField,
-	EffectComposer,
-	Noise,
-	Vignette,
-} from "@react-three/postprocessing";
+import {Bloom, EffectComposer, Vignette} from "@react-three/postprocessing";
 
 function MeshComponent() {
 	const fileUrl = "/wheat_farm_at_sunset/scene.gltf";
