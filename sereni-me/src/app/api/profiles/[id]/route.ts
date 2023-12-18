@@ -22,17 +22,19 @@ const profileInputSchema = z.object({
 });
 
 export const GET = async (
-  request: NextRequest
-  // { params }: { params: { id: string } }
+  _request: NextRequest,
+  { params }: { params: { id: string } }
 ) => {
-  // const id = params.id;
-  const data = await request.json();
-  const objectId = new ObjectId(data._id);
+  const id = params.id;
+  // const data = await request.json();
+  // console.log(data);
+
+  const objectId = new ObjectId(/*data._id*/ id);
   const profile = await getProfile(objectId);
   return NextResponse.json<ProfileResponse<unknown>>(
     {
       statusCode: 200,
-      message: "Response from GET /api/profiles",
+      message: `Response from GET /api/profiles/${id}`,
       data: profile,
     },
     {
