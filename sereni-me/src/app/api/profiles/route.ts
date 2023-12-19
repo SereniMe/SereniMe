@@ -14,10 +14,10 @@ const profileInputSchema = z.object({
   fullName: z.string().default(""),
   address: z.string().default(""),
   phone: z.string().default(""),
-  activities: z.array(z.string()).default([]),
-  favorites: z.array(z.string()).default([]),
-  interests: z.array(z.string()).default([]),
-  reminder: z.string().default(""),
+  // activities: z.array(z.string()).default([""]),
+  favorites: z.array(z.string()).default([""]),
+  interests: z.array(z.string()).default([""]),
+  // reminder: z.string().default(""),
   userId: z.string().default(""),
 });
 
@@ -38,37 +38,35 @@ export const GET = async (_request: NextRequest) => {
 export const POST = async (request: NextRequest) => {
   try {
     const data = await request.formData();
-
     const formData = {
       fullName: data.get("fullName"),
       address: data.get("address"),
       phone: data.get("phone"),
-      activities: data.get("activities"),
-      favorites: data.get("favorites"),
       interests: data.get("interests"),
-      reminder: data.get("reminder"),
-      userId: data.get("userId"),
+      // activities: data.get("activities"),
+      // favorites: data.get("favorites"),
+      // reminder: data.get("reminder"),
     };
 
     const parsedData = profileInputSchema.safeParse(formData);
     //!
-    console.log(parsedData);
-
+    // console.log(parsedData);
     if (!parsedData.success) {
       console.log("not success");
-
       throw parsedData.error;
     }
     //!
+    const userId = request.headers.get("x-user-id") as string;
     const newProfileData = {
       ...parsedData.data,
-      userId: new ObjectId(parsedData.data.userId),
+      // userId: new ObjectId(parsedData.data.userId),
+      userId: new ObjectId(userId),
     };
     const newProfile = await addProfile(newProfileData);
     /*
 		"data": {
-		    "acknowledged": true,
-		    "insertedId": "657fbd8a277b4e4ecfd626ca"
+		  "acknowledged": true,
+		  "insertedId": "657fbd8a277b4e4ecfd626ca"
 		}
 		*/
     return NextResponse.json<ProfileResponse<unknown>>(

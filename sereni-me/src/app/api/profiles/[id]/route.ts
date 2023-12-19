@@ -22,19 +22,25 @@ const profileInputSchema = z.object({
 });
 
 export const GET = async (
-  _request: NextRequest,
-  { params }: { params: { id: string } }
+  request: NextRequest
+  // { params }: { params: { id: string } }
 ) => {
-  const id = params.id;
+  // const id = params.id;
   // const data = await request.json();
   // console.log(data);
-
-  const objectId = new ObjectId(/*data._id*/ id);
+  //?
+  const userId = request.headers.get("x-user-id");
+  console.log(userId, "user");
+  if (!userId) {
+    throw new Error("Not signed in");
+  }
+  //?
+  const objectId = new ObjectId(/*data._id*/ userId);
   const profile = await getProfile(objectId);
   return NextResponse.json<ProfileResponse<unknown>>(
     {
       statusCode: 200,
-      message: `Response from GET /api/profiles/${id}`,
+      message: `Response from GET /api/profiles/${userId}`,
       data: profile,
     },
     {
@@ -49,6 +55,13 @@ export const PUT = async (
 ) => {
   try {
     // const id = params.id;
+    //?
+    const userId = request.headers.get("x-user-id");
+    console.log(userId, "user");
+    if (!userId) {
+      throw new Error("Not signed in");
+    }
+    //?
     const data = await request.json();
     const parsedData = profileInputSchema.safeParse(data);
     //!
@@ -110,6 +123,13 @@ export const DELETE = async (
 ) => {
   try {
     // const id = params.id;
+    //?
+    const userId = request.headers.get("x-user-id");
+    console.log(userId, "user");
+    if (!userId) {
+      throw new Error("Not signed in");
+    }
+    //?
     const data = await request.json();
     const objectId = new ObjectId(data._id);
     const profile = await getProfile(objectId);
