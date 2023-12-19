@@ -8,8 +8,8 @@ const Video = () => {
       <div className="w-full max-w-4xl mx-auto overflow-hidden lg:mb-20 rounded-2xl ">
         <div
           onClick={() => setPlayVideo(!playVideo)}
-          className="flex justify-center flex-col h-[30rem] items-center cursor-pointer aspect-w-16 aspect-h-9 border border-[#1c2e14} bg-gradient-to-tr from-[#ccb0be] to-[#9389bd]
-            dark:border-[#1c2e14} dark:bg-gradient-to-tl dark:from-[#70605b] dark:to-[#412e33]"
+          className="flex justify-center flex-col h-[30rem] items-center cursor-pointer aspect-w-16 aspect-h-9 border border-white
+            dark:border-white"
         >
           {!playVideo && (
             <button className="inset-auto w-16 h-16 text-white transform lg:w-28 lg:h-28 top-1/2 left-1/2">

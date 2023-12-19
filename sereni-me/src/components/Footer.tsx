@@ -22,7 +22,7 @@ export default function Footer() {
                   alt="SereniMe Logo"
                   width="320"
                   height="320"
-                  className="w-40"
+                  className="brightness-[100] dark:brightness-100 w-40"
                 />
               </Link>
             </div>

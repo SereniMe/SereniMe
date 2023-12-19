@@ -17,8 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className="min-h-screen w-full bg-gradient-to-b from-[#9389bd] via-[#ccb0be] to-[#1c2e14]
-		  dark:from-[#70605b] dark:via-[#ab5916] dark:to-[#412e33]"
+        className="min-h-screen w-full bg-gradient-to-b from-[#9389bd] via-[#ccb0be] to-[#9389bd]
+		  dark:from-[#70605b] dark:via-[#ab5916] dark:to-[#70605b]"
       >
         <main className="">{children}</main>
       </body>
