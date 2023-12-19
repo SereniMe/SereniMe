@@ -31,9 +31,9 @@ const UserPage: React.FC = () => {
   };
   return (
     <>
-      <div className="flex flex-row justify-center space-x-2 border border-gray-200 rounded-lg drop-shadow-md ml-60 mt-20">
+      <div className="flex flex-row justify-center space-x-2 rounded-lg drop-shadow-md ml-60 mt-20">
         {/* <div className="flex space-x-8"></div> */}
-        <div className="flex flex-col justify-center max-w-xs p-6 shadow-md sm:px-12 bg-[#5E7A8B;] dark:bg-gray-800 dark:text-gray-100">
+        <div className="flex flex-col justify-center max-w-xs p-6 shadow-md sm:px-12 bg-[#9389bd] bg-opacity-70 dark:bg-[#70605b] dark:bg-opacity-70 dark:text-gray-100">
           <img
             src="https://source.unsplash.com/150x150/?portrait?3"
             alt=""
@@ -63,12 +63,12 @@ const UserPage: React.FC = () => {
         </div>
         {/* form */}
         <div>
-          <section className="flex flex-col justify-center items-center p-6 bg-[#6A99AC;]  dark:bg-gray-800 dark:text-gray-50 drop-shadow-sm">
+          <section className="flex flex-col justify-center items-center p-6 bg-[#9389bd] bg-opacity-80  dark:bg-[#70605b] dark:bg-opacity-60 drop-shadow-sm">
             <form
               className="container flex flex-col mx-auto space-y-12"
               onClick={(event) => handleEditProfile(event)}
             >
-              <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
+              <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-[#70605b] dark:bg-opacity-70">
                 <div className="space-y-2 col-span-full lg:col-span-1">
                   <p className="font-medium">Personal Inormation</p>
                   <p className="text-xs">
@@ -83,7 +83,7 @@ const UserPage: React.FC = () => {
                     <input
                       id="name"
                       type="text"
-                      className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+                      className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-400 dark:text-white"
                     />
                   </div>
                   <div className="col-span-full">
@@ -94,7 +94,7 @@ const UserPage: React.FC = () => {
                       id="address"
                       type="text"
                       placeholder=""
-                      className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+                      className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-400 dark:text-white"
                     />
                   </div>
                   <div className="col-span-full sm:col-span-2">
@@ -105,7 +105,7 @@ const UserPage: React.FC = () => {
                       id="phone"
                       type="text"
                       placeholder=""
-                      className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+                      className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-white"
                     />
                   </div>
                   <div className="col-span-full">
@@ -116,7 +116,7 @@ const UserPage: React.FC = () => {
                       <input
                         id="interest"
                         type="checkbox"
-                        className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-gray-900"
+                        className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
                       />
                       <label htmlFor="interest" className="text-sm mr-5">
                         Stress
@@ -125,7 +125,7 @@ const UserPage: React.FC = () => {
                       <input
                         id="interest"
                         type="checkbox"
-                        className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-gray-900"
+                        className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
                       />
                       <label htmlFor="interest" className="text-sm mr-5">
                         Anxiety
@@ -134,7 +134,7 @@ const UserPage: React.FC = () => {
                       <input
                         id="interest"
                         type="checkbox"
-                        className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-gray-900"
+                        className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
                       />
                       <label htmlFor="interest" className="text-sm mr-5">
                         Focus
@@ -143,7 +143,7 @@ const UserPage: React.FC = () => {
                       <input
                         id="interest"
                         type="checkbox"
-                        className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-gray-900"
+                        className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
                       />
                       <label htmlFor="interest" className="text-sm mr-5">
                         Inner Peace
