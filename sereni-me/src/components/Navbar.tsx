@@ -27,7 +27,7 @@ const Navbar = () => {
               <li className="mr-3 nav__item" key={index}>
                 <Link
                   href="/"
-                  className="inline-block hover:scale-110 transition ease-in-out duration-300 px-4 py-2 text-lg font-normal text-white no-underline rounded-md dark:text-gray-200 hover:text-[#f2e3eb] dark:hover:text-[#f0d8d0] focus:text-[#5E7A8B] focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800"
+                  className="inline-block hover:scale-110 transition ease-in-out duration-300 px-4 py-2 text-lg font-normal text-white no-underline rounded-md dark:text-gray-200 hover:text-[#f2e3eb] dark:hover:text-[##f0d8d0] focus:text-[#5E7A8B] focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800"
                 >
                   {menu}
                 </Link>
