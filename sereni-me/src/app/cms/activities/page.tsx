@@ -59,46 +59,49 @@ const ActivityPage: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {activities.map((activity: ActivityModel, index) => (
-                    <tr
-                      key={activity.name}
-                      className={`border-b border-opacity-20 dark:border-gray-700 ${
-                        index % 2 === 0 ? "dark:bg-gray-900" : ""
-                      }`}
-                    >
-                      <td className="py-2 px-4">
-                        <p>{index + 1}</p>
-                      </td>
-                      <td className="py-2 px-4">
-                        <p>{activity.name}</p>
-                      </td>
-                      <td className="py-2 px-4">
-                        <p>{activity.content}</p>
-                      </td>
-                      <td className="py-2 px-4">
-                        <img
-                          className="rounded-lg"
-                          src={activity.thumbnail}
-                          alt={activity.name}
-                          width="fit"
-                        />
-                      </td>
-                      <td className="py-2 px-4 text-right">
-                        <div className="font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900 flex flex-row justify-center items-center">
-                          <div className="mr-5">
-                            <button className="bg-blue-700 hover:bg-gray-500 rounded-md text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:text-black hover:scale-110 transition-all active:scale-90 ">
-                              Edit
-                            </button>
+                  {activities.map((activity: ActivityModel, index) => {
+                    const id = activity.thumbnail.split("/");
+                    return (
+                      <tr
+                        key={activity.name}
+                        className={`border-b border-opacity-20 dark:border-gray-700 ${
+                          index % 2 === 0 ? "dark:bg-gray-900" : ""
+                        }`}
+                      >
+                        <td className="py-2 px-4">
+                          <p>{index + 1}</p>
+                        </td>
+                        <td className="py-2 px-4">
+                          <p>{activity.name}</p>
+                        </td>
+                        <td className="py-2 px-4">
+                          <p>{activity.content}</p>
+                        </td>
+                        <td className="py-2 px-4">
+                          <img
+                            className="rounded-lg"
+                            src={`https://drive.google.com/uc?export=view&id=${id[5]}`}
+                            alt={activity.name}
+                            width="fit"
+                          />
+                        </td>
+                        <td className="py-2 px-4 text-right">
+                          <div className="font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900 flex flex-row justify-center items-center">
+                            <div className="mr-5">
+                              <button className="bg-blue-700 hover:bg-gray-500 rounded-md text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:text-black hover:scale-110 transition-all active:scale-90 ">
+                                Edit
+                              </button>
+                            </div>
+                            <div className="">
+                              <button className="bg-red-700 hover:bg-gray-400 rounded-md text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:text-black hover:scale-110 transition-all active:scale-90 ">
+                                Delete
+                              </button>
+                            </div>
                           </div>
-                          <div className="">
-                            <button className="bg-red-700 hover:bg-gray-400 rounded-md text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:text-black hover:scale-110 transition-all active:scale-90 ">
-                              Delete
-                            </button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

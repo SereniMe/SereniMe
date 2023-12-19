@@ -1,11 +1,9 @@
 [
   {
+    "email": "dwika@gmail.com",
     "fullName": "Rahmadwika",
     "address": "the address",
     "phone": "019023901230",
-    "activities": [
-      "Listen to music"
-    ],
     "favorites": [],
     "interests": [
       "Focus"

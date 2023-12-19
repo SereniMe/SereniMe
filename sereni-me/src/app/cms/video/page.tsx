@@ -22,7 +22,6 @@ const VideoPage: React.FC = () => {
     };
     fetchData();
   }, []);
-  const videoId = videos;
   return (
     <>
       <div className="flex dark:text-gray-100">
