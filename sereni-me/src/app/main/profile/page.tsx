@@ -4,7 +4,7 @@ import React from "react";
 const UserPage: React.FC = () => {
   return (
     <>
-      <div className="flex flex-row justify-center space-x-2 border border-gray-200 rounded-lg drop-shadow-md ml-60">
+      <div className="flex flex-row justify-center space-x-2 rounded-lg drop-shadow-md ml-60">
         {/* <div className="flex space-x-8"></div> */}
         <div className="flex flex-col justify-center max-w-xs p-6 shadow-md sm:px-12 bg-[#5E7A8B;] dark:bg-gray-800 dark:text-gray-100">
           <img
@@ -22,13 +22,13 @@ const UserPage: React.FC = () => {
             <div className="flex-1">
               <div className="px-6 pt-4 pb-2">
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                  #photography
+                  #stress
                 </span>
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                  #travel
+                  #anxiety
                 </span>
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                  #winter
+                  #focus
                 </span>
               </div>
             </div>
@@ -41,14 +41,14 @@ const UserPage: React.FC = () => {
               action=""
               className="container flex flex-col mx-auto space-y-12"
             >
-              <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
+              <fieldset className="grid grid-cols-1 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
                 <div className="space-y-2 col-span-full lg:col-span-1">
-                  <p className="font-medium">Personal Inormation</p>
+                  <p className="font-medium">Personal Information</p>
                   <p className="text-xs">
                     Please fill out your new information here..
                   </p>
                 </div>
-                <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
+                <div className="grid grid-cols-2 gap-4 col-span-full lg:col-span-3">
                   <div className="col-span-full sm:col-span-3">
                     <label htmlFor="name" className="text-sm">
                       Name
@@ -122,7 +122,7 @@ const UserPage: React.FC = () => {
                         Inner Peace
                       </label>
                     </div>
-                    <button className="mt-5 bg-grey-800 hover:bg-gray-200 rounded-md text-white font-bold py-2 px-4 hover:text-black hover:scale-110 transition-all active:scale-90 ">
+                    <button className="mt-5 bg-grey-800 hover:bg-gray-200 rounded-md text-[#F4B81F];font-bold py-2 px-4 hover:text-black hover:scale-110 transition-all active:scale-90 ">
                       Update
                     </button>
                   </div>
