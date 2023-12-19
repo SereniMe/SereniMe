@@ -1,18 +1,32 @@
+// const { ProfileModel } = require("@/db/models/profiles");
+// const { ActivityModel } = require("@/db/models/activities");
+
 // import { CronJob } from "cron";
 const { CronJob } = require("cron");
 
 const job = new CronJob(
-  "* * * * *", // cronTime (07:00) everyday
+  "* * * * * *", // cronTime (07:00) everyday
   async () => {
-    // console.log("You will see this message every second");
-    console.log("Sending email to: recipient@gmail.com");
-    await sendEmail();
+    const profiles = await fetchProfiles();
+    const activities = await fetchActivities();
+    // console.log(profiles, "<<<<<<<<<<<<<< PROFILES");
+    // console.log(activities, "<<<<<<<<<<<<<< ACTIVITIES");
+    const foundactivity = profiles.map((profile) => {
+      const email = profile.email;
+      const activity = activities.find(
+        (activity) => profile.interests[0] == activity.tags[0]
+      );
+      return { email, activity };
+    });
+    console.log(foundactivity, "<<<<<<<<<< ");
+
+    // console.log("Sending email to: recipient@gmail.com");
+    await sendEmail(foundactivity);
   }, // onTick
   null, // onComplete
   false, // start
-  "Asia/Jakarta" // timeZone for Indonesia
+  "Asia/Jakarta"
 );
-// job.start() is optional here because of the fourth parameter set to true.
 
 job.start();
 
@@ -27,7 +41,24 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendEmail = async (/*recipients: string[]*/) => {
+const fetchProfiles = async () => {
+  const response = await fetch(`http://localhost:3000/api/profiles`);
+  const responsejson = await response.json();
+  return responsejson.data;
+};
+
+const fetchActivities = async () => {
+  const response = await fetch(`http://localhost:3000/api/activities`);
+  const responsejson = await response.json();
+  return responsejson.data;
+};
+
+// type ProfileWithContent = {
+//   email: string;
+//   activity: ActivityModel;
+// };
+
+const sendEmail = async (recipients) => {
   try {
     const options = {
       from: "serenime2023@gmail.com",
@@ -82,12 +113,15 @@ const sendEmail = async (/*recipients: string[]*/) => {
     </body>
         `,
     };
-    transporter.sendMail(options, (error, info) => {
-      if (error) {
-        console.log(error);
-        return;
-      }
-      console.log("Sent: " + info.response);
+    recipients.forEach((userContent) => {
+      options.to = userContent.email;
+      transporter.sendMail(options, (error, info) => {
+        if (error) {
+          console.log(error);
+          return;
+        }
+        console.log("Sent: " + userContent.email);
+      });
     });
   } catch (error) {
     console.log(error);
