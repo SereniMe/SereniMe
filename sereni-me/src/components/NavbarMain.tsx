@@ -15,7 +15,7 @@ const Navbar = () => {
 	const navigation = ["Home", "Stress & Anxiety", "Inner Peace", "Focus"];
 
 	return (
-		<div className="w-auto mx-[10rem]">
+		<div className="w-full mx-[10rem] z-10 fixed bg-white dark:bg-black">
 			<nav className="container relative flex flex-wrap items-center justify-between p-4 mx-auto lg:justify-between xl:px-0">
 				<div>
 					<Link href="/">
@@ -33,7 +33,7 @@ const Navbar = () => {
 						{navigation.map((menu, index) => (
 							<li className="mr-3 nav__item" key={index}>
 								<Link
-									href={`?find=${menu}`}
+									href={`${process.env.NEXT_PUBLIC_SERVER_URL}/main?find=${menu}`}
 									className="inline-block hover:scale-110 transition ease-in-out duration-300 px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-[#5E7A8B] focus:text-[#5E7A8B] focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800"
 								>
 									{menu}
@@ -103,7 +103,7 @@ const Navbar = () => {
 									<Menu.Item>
 										{({active}) => (
 											<Link
-												href="#"
+												href="/main/profile"
 												className={classNames(
 													active
 														? "bg-gray-100 text-gray-900"
