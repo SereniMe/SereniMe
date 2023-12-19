@@ -11,11 +11,11 @@ function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(" ");
 }
 
-const Navbar = () => {
+const Navbar = ({children}: {children: React.ReactNode}) => {
 	const navigation = ["Home", "Stress & Anxiety", "Inner Peace", "Focus"];
 
 	return (
-		<div className="w-auto mx-[10rem]">
+		<div className="w-full px-[10rem] z-30 fixed bg-[#9389bd] dark:bg-[#70605b]">
 			<nav className="container relative flex flex-wrap items-center justify-between p-4 mx-auto lg:justify-between xl:px-0">
 				<div>
 					<Link href="/">
@@ -24,6 +24,7 @@ const Navbar = () => {
 							width={160}
 							height={160}
 							alt="serenime Logo"
+							className="brightness-[100] dark:brightness-100"
 						></Image>
 					</Link>
 				</div>
@@ -33,7 +34,7 @@ const Navbar = () => {
 						{navigation.map((menu, index) => (
 							<li className="mr-3 nav__item" key={index}>
 								<Link
-									href={`?find=${menu}`}
+									href={`${process.env.NEXT_PUBLIC_SERVER_URL}/main?find=${menu}`}
 									className="inline-block hover:scale-110 transition ease-in-out duration-300 px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-[#5E7A8B] focus:text-[#5E7A8B] focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800"
 								>
 									{menu}
@@ -86,24 +87,12 @@ const Navbar = () => {
 							leaveFrom="transform opacity-100 scale-100"
 							leaveTo="transform opacity-0 scale-95"
 						>
-							<Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-								<div className="py-1">
-									<Menu.Item>
-										<p className="block px-4 py-[2px] text-lg text-gray-700">
-											Name
-										</p>
-									</Menu.Item>
-									<Menu.Item>
-										<p className="block px-4 py-[2px] text-sm text-gray-700">
-											Email
-										</p>
-									</Menu.Item>
-								</div>
+							<Menu.Items className="absolute right-0 z-10 mt-2 w-[8rem] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 								<div className="py-1">
 									<Menu.Item>
 										{({active}) => (
 											<Link
-												href="#"
+												href="/main/profile"
 												className={classNames(
 													active
 														? "bg-gray-100 text-gray-900"
@@ -133,21 +122,7 @@ const Navbar = () => {
 								</div>
 
 								<div className="py-1">
-									<Menu.Item>
-										{({active}) => (
-											<Link
-												href="/signin"
-												className={classNames(
-													active
-														? "bg-gray-100 text-gray-900"
-														: "text-gray-700",
-													"block px-4 py-2 text-sm"
-												)}
-											>
-												Sign Out
-											</Link>
-										)}
-									</Menu.Item>
+									<Menu.Item>{({active}) => <>{children}</>}</Menu.Item>
 								</div>
 							</Menu.Items>
 						</Transition>

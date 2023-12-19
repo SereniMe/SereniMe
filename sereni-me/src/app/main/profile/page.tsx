@@ -2,9 +2,36 @@
 import React from "react";
 
 const UserPage: React.FC = () => {
+  const inputFormData = new FormData();
+
+  inputFormData.append("fullName", "fullName");
+  inputFormData.append("address", "address");
+  inputFormData.append("phone", "phone");
+  inputFormData.append("interests", "interests,halo");
+  const handleEditProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles`,
+      {
+        method: "POST",
+        body: inputFormData,
+      }
+    );
+
+    console.log(await response.json());
+
+    const response2 = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles`,
+      {
+        method: "GET",
+      }
+    );
+
+    console.log(await response2.json());
+  };
   return (
     <>
-      <div className="flex flex-row justify-center space-x-2 border border-gray-200 rounded-lg drop-shadow-md ml-60">
+      <div className="flex flex-row justify-center space-x-2 border border-gray-200 rounded-lg drop-shadow-md ml-60 mt-20">
         {/* <div className="flex space-x-8"></div> */}
         <div className="flex flex-col justify-center max-w-xs p-6 shadow-md sm:px-12 bg-[#5E7A8B;] dark:bg-gray-800 dark:text-gray-100">
           <img
@@ -38,8 +65,8 @@ const UserPage: React.FC = () => {
         <div>
           <section className="flex flex-col justify-center items-center p-6 bg-[#6A99AC;]  dark:bg-gray-800 dark:text-gray-50 drop-shadow-sm">
             <form
-              action=""
               className="container flex flex-col mx-auto space-y-12"
+              onClick={(event) => handleEditProfile(event)}
             >
               <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
                 <div className="space-y-2 col-span-full lg:col-span-1">
