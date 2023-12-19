@@ -23,15 +23,15 @@ export default function Home() {
       </SectionTitle>
       <Video />
       <SectionTitle
-        pretitle="Testimonials"
-        title="Here's what our customers said"
+        pretitle="from Our Community"
+        title="Unlock the Voice of Satisfaction"
       >
-        Testimonails is to highlight our popular customers.
+        Here's a glimpse into the enchanting tales shared by members of our
+        SereniMe family. These heartwarming stories radiate joy, positivity, and
+        the warmth of genuine connections
       </SectionTitle>
       <Testimonials />
-      <SectionTitle pretitle="FAQ" title="Frequently Asked Questions">
-        Answer FAQs
-      </SectionTitle>
+      <SectionTitle title="Frequently Asked Questions"></SectionTitle>
       <Faq />
       <Footer />
     </Provider>
