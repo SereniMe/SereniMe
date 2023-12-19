@@ -5,7 +5,7 @@ export type VideoModel = {
   _id: ObjectId;
   name: string;
   videoUrl: string;
-  tags: string[]; //from collection interests
+  tags: string;
   thumbnail: string;
 };
 
@@ -64,4 +64,16 @@ export const deleteVideo = async (id: ObjectId) => {
   const result = await db.collection(COLLECTION_VIDEO).deleteOne({ _id: id });
 
   return result;
+};
+
+//GET VIDEOS BY TAGS
+export const getVideosByTags = async (filterQuery: { tags: string }) => {
+  const db = await getDb();
+
+  const videos = (await db
+    .collection(COLLECTION_VIDEO)
+    .find(filterQuery)
+    .toArray()) as VideoModel[];
+
+  return videos;
 };
