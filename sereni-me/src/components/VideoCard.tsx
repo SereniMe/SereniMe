@@ -28,8 +28,16 @@ const VideoCard = (props: props) => {
 	const [liked, setLiked] = useState(false);
 
 	const [blockScroll, allowScroll] = useScrollBlock();
+	let cardClass = "";
+	if (liked) {
+		cardClass =
+			"flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-yellow-700 pb-4 justify-between hover:cursor-pointer border-solid dark:border-yellow-500 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-yellow-500";
+	} else {
+		cardClass =
+			"flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-[#00000077] pb-4 justify-between hover:cursor-pointer border-solid dark:border-amber-900 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-violet-500";
+	}
 	return (
-		<div className="flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-[#00000077] pb-4 justify-between hover:cursor-pointer border-solid dark:border-amber-900 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-violet-500">
+		<div className={cardClass}>
 			{play == true ? (
 				<div>
 					<button
