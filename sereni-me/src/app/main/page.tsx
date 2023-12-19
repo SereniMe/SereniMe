@@ -1,3 +1,4 @@
+import MainActivities from "@/components/MainActivities";
 import MainAudios from "@/components/MainAudios";
 import MainVideos from "@/components/MainVideos";
 
@@ -10,12 +11,16 @@ const Main = async (props: props) => {
 	const searchParams = props.searchParams as {find: string};
 	console.log(searchParams);
 
-	if (searchParams.find == "Home") {
+	if (searchParams.find == "Home" || Object.keys(searchParams).length == 0) {
 		return (
-			<main className="flex flex-col w-full justify-center mx-[10rem] gap-10">
+			<main className="flex flex-col w-full justify-center mx-[10rem] gap-10 pt-20">
 				<div className="w-full flex flex-col justify-center gap-7">
 					<h1 className="text-4xl">Today's Daily Activities</h1>
+					<hr className="border-gray-700 border-solid dark:border-white" />
+					<MainActivities query="Home" />
 					<h1 className="text-3xl">Videos</h1>
+					<hr className="border-gray-700 border-solid dark:border-white" />
+
 					<h1 className="text-xl">For Stress & Anxiety</h1>
 					<MainVideos query="Stress " />
 					<h1 className="text-xl">For Inner peace</h1>
@@ -26,6 +31,8 @@ const Main = async (props: props) => {
 
 				<div className="w-full flex flex-col justify-center gap-5">
 					<h1 className="text-3xl">Audios</h1>
+					<hr className="border-gray-700 border-solid dark:border-white" />
+
 					<h1 className="text-xl">For Stress & Anxiety</h1>
 					<MainAudios query="Stress " />
 					<h1 className="text-xl">For Inner Peace</h1>

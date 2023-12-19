@@ -1,23 +1,13 @@
 "use client";
-import {CafeScene} from "@/app/(3dscenes)/CafeScene";
-import {FarmScene} from "@/app/(3dscenes)/FarmScene";
-import {ForestCampScene} from "@/app/(3dscenes)/ForestCampU";
-import {LighthouseScene} from "@/app/(3dscenes)/LighthouseSceneU";
-import {StreetScene} from "@/app/(3dscenes)/StreetScene";
-import {WinterScene} from "@/app/(3dscenes)/WinterScene";
+
 import {useScrollBlock} from "@/utils/scrollToggle";
 import {ObjectId} from "mongodb";
 import Image from "next/image";
 import {useState} from "react";
+import {activity} from "./MainActivities";
 
 type props = {
-	audio: {
-		_id?: string | undefined | ObjectId;
-		name: string;
-		audioUrl: string;
-		tags: string;
-		imageUrl: string;
-	};
+	activity: activity;
 };
 
 const handleLike = (id: string) => {
@@ -25,15 +15,15 @@ const handleLike = (id: string) => {
 	console.log(id);
 };
 
-const AudioCard = (props: props) => {
-	const [play, setPlay] = useState(false);
-	const [blockScroll, allowScroll] = useScrollBlock();
-	const [liked, setLiked] = useState(false);
-	const audio = props.audio.audioUrl.split("/");
-	const id = props.audio.imageUrl.split("/");
+const ActivityCard = (props: props) => {
+	const id = props.activity.thumbnail.split("/");
 
+	const [play, setPlay] = useState(false);
+	const [liked, setLiked] = useState(false);
+
+	const [blockScroll, allowScroll] = useScrollBlock();
 	return (
-		<div className="flex flex-col w-[16rem] bri h-[20rem] object-cover overflow-hidden rounded-lg gap-3 shadow-lg shadow-[#6a99ac77] bg-indigo-300 bg-opacity-30 dark:bg-black dark:bg-opacity-30 pb-4 justify-between hover:cursor-pointer	">
+		<div className="flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-lg gap-3 shadow-lg shadow-[#6a99ac77] pb-4 justify-between hover:cursor-pointer">
 			{play == true ? (
 				<div>
 					<button
@@ -41,7 +31,7 @@ const AudioCard = (props: props) => {
 							setPlay(false);
 							allowScroll();
 						}}
-						className="fixed top-0 left-0 right-0 bottom-0 border-none m-4 p-0 overflow-hidden z-50 w-10 h-10 text-4xl invert"
+						className="fixed top-0 left-0 right-0 bottom-0 border-none m-4 p-0 overflow-hidden z-30 w-10 h-10 text-4xl invert"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -58,29 +48,22 @@ const AudioCard = (props: props) => {
 							/>
 						</svg>
 					</button>
-					<div className="fixed top-0 left-0 right-0 bottom-0 w-full h-full border-none m-0 p-0 overflow-hidden z-30">
-						{props.audio.name == "Thunderstorm" && <WinterScene />}
-						{props.audio.name == "City Streets" && <StreetScene />}
-						{props.audio.name == "Beach Sounds" && <LighthouseScene />}
-						{props.audio.name == "Forest Sound" && <ForestCampScene />}
-						{props.audio.name == "Cozy Winter Fireplace" && <WinterScene />}
-						{props.audio.name == "Gentle Rain" && <WinterScene />}
-						{props.audio.name == "Farm" && <FarmScene />}
-						{props.audio.name == "Cafe Ambience" && <CafeScene />}
-						<div className=" -translate-y-[10rem] w-[25rem] flex flex-col items-center bg-[#292828b9] rounded-2xl translate-x-[40dvw] px-10 py-4 shadow-md shadow-teal-500">
-							<h1 className="px-4 text-3xl">{props.audio.name}</h1>
-							<p className="px-4">{props.audio.tags}</p>
-							<audio controls autoPlay className="z-40 w-full" loop>
-								<source
-									src={`https://docs.google.com/uc?id=${audio[5]}`}
-								></source>
-							</audio>
-						</div>
-					</div>
+					{/* <video
+						className="fixed top-0 left-0 right-0 bottom-0 w-full h-full border-none m-0 p-0 overflow-hidden z-20"
+						preload="auto"
+						controls
+						autoPlay
+					>
+						<source
+							src={`https://drive.google.com/uc?export=download&id=${video[5]}`}
+							type="video/mp4"
+						/>
+					</video> */}
 				</div>
 			) : (
 				""
 			)}
+
 			<img
 				src={`https://drive.google.com/uc?export=view&id=${id[5]}`}
 				width={400}
@@ -94,6 +77,7 @@ const AudioCard = (props: props) => {
 					}
 				}}
 			/>
+
 			<h1
 				className="px-4"
 				onClick={() => {
@@ -103,14 +87,14 @@ const AudioCard = (props: props) => {
 					}
 				}}
 			>
-				{props.audio.name}
+				{props.activity.name}
 			</h1>
 			<div className="flex justify-between pr-4">
-				<p className="px-4 ">{props.audio.tags}</p>
+				<p className="px-4 ">{props.activity.tags}</p>
 				<button
 					className="px-2 py-1 text-black z-10"
 					onClick={() => {
-						handleLike(props.audio._id as string);
+						handleLike(props.activity._id as string);
 						setLiked(!liked);
 					}}
 				>
@@ -139,4 +123,4 @@ const AudioCard = (props: props) => {
 	);
 };
 
-export default AudioCard;
+export default ActivityCard;

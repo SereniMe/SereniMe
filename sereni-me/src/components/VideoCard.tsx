@@ -25,10 +25,11 @@ const VideoCard = (props: props) => {
 	const video = props.video.videoUrl.split("/");
 
 	const [play, setPlay] = useState(false);
+	const [liked, setLiked] = useState(false);
 
 	const [blockScroll, allowScroll] = useScrollBlock();
 	return (
-		<div className="flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-lg gap-3 shadow-lg shadow-[#6a99ac77] pb-4 justify-between hover:cursor-pointer">
+		<div className="flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-[#00000077] pb-4 justify-between hover:cursor-pointer border-solid dark:border-amber-900 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-violet-500">
 			{play == true ? (
 				<div>
 					<button
@@ -36,7 +37,7 @@ const VideoCard = (props: props) => {
 							setPlay(false);
 							allowScroll();
 						}}
-						className="fixed top-0 left-0 right-0 bottom-0 border-none m-4 p-0 overflow-hidden z-30 w-10 h-10 text-4xl invert"
+						className="fixed top-0 left-0 right-0 bottom-0 border-none m-4 p-0 overflow-hidden z-50 w-10 h-10 text-4xl invert"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +55,7 @@ const VideoCard = (props: props) => {
 						</svg>
 					</button>
 					<video
-						className="fixed top-0 left-0 right-0 bottom-0 w-full h-full border-none m-0 p-0 overflow-hidden z-20"
+						className="fixed top-0 left-0 right-0 bottom-0 w-full h-full border-none m-0 p-0 overflow-hidden z-40"
 						preload="auto"
 						controls
 						autoPlay
@@ -69,12 +70,12 @@ const VideoCard = (props: props) => {
 				""
 			)}
 
-			<Image
+			<img
 				src={`https://drive.google.com/uc?export=view&id=${id[5]}`}
 				width={400}
 				height={400}
 				alt="CardImage"
-				className=" hover:scale-110 transition ease-in-out duration-200"
+				className=" hover:scale-110 transition ease-in-out duration-200 object-cover h-[10rem]"
 				onClick={() => {
 					if (!play) {
 						setPlay(true);
@@ -97,10 +98,31 @@ const VideoCard = (props: props) => {
 			<div className="flex justify-between pr-4">
 				<p className="px-4 ">{props.video.tags}</p>
 				<button
-					className="px-2 py-1 bg-slate-50 rounded-md text-black z-10"
-					onClick={() => handleLike(props.video._id as string)}
+					className="px-2 py-1 text-black z-10"
+					onClick={() => {
+						handleLike(props.video._id as string);
+						setLiked(!liked);
+					}}
 				>
-					{"Like"}
+					{liked && (
+						<Image
+							src={"/heartred.png"}
+							alt=""
+							width={200}
+							height={200}
+							className="w-6 h-6"
+						/>
+					)}
+					{/* filter: invert(39%) sepia(67%) saturate(1577%) hue-rotate(331deg) brightness(136%) contrast(107%); */}
+					{!liked && (
+						<Image
+							src={"/heart.png"}
+							alt=""
+							width={200}
+							height={200}
+							className="invert w-6 h-6"
+						/>
+					)}
 				</button>
 			</div>
 		</div>

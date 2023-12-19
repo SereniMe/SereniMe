@@ -6,9 +6,12 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 	return (
 		<Provider>
 			<Navbar />
-			<main className="flex flex-col flex-1 max-w-6xl w-full  ">
+			<br />
+			<br />
+			<br />
+			<main className="flex flex-col flex-1 max-w-6xl w-full">
 				<video
-					className="fixed w-auto min-w-full h-[90dvh] overflow-hidden object-cover max-w-none -z-10 opacity-10"
+					className="fixed w-auto min-w-full h-[90dvh] overflow-hidden object-cover max-w-none -z-10 opacity-50"
 					preload="auto"
 					muted
 					autoPlay
