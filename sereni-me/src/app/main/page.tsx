@@ -1,66 +1,48 @@
-import AudioCard from "@/components/AudioCard";
-import VideoCard from "@/components/VideoCard";
-import { getAudios } from "@/db/models/audio";
-import { getVideos } from "@/db/models/video";
-import { ObjectId } from "mongodb";
+import MainActivities from "@/components/MainActivities";
+import MainAudios from "@/components/MainAudios";
+import MainVideos from "@/components/MainVideos";
 
-type video = {
-  _id?: ObjectId | string;
-  name: string;
-  videoUrl: string;
-  tags: string;
-  thumbnail: string;
+type props = {
+	params: {};
+	searchParams: {[key: string]: string | string[] | undefined};
 };
 
-type audio = {
-  _id?: ObjectId | string;
-  name: string;
-  audioUrl: string;
-  tags: string;
-  imageUrl: string;
-};
+const Main = async (props: props) => {
+	const searchParams = props.searchParams as {find: string};
+	console.log(searchParams);
 
-const Main = async () => {
-  const videos = (await getVideos()) as video[];
-  const renderVid = videos.slice(0, 4);
-  const audios = (await getAudios()) as audio[];
-  const renderAud = audios.slice(0, 4);
+	if (searchParams.find == "Home" || Object.keys(searchParams).length == 0) {
+		return (
+			<main className="flex flex-col w-full justify-center mx-[10rem] gap-10 pt-20">
+				<div className="w-full flex flex-col justify-center gap-7">
+					<h1 className="text-4xl">Today's Daily Activities</h1>
+					<hr className="border-gray-700 border-solid dark:border-white" />
+					<MainActivities query="Home" />
+					<h1 className="text-3xl">Videos</h1>
+					<hr className="border-gray-700 border-solid dark:border-white" />
 
-  return (
-    <main className="flex flex-col w-full justify-center mx-[10rem] gap-8">
-      <div className="w-full flex flex-col justify-center gap-5">
-        <h1 className="text-4xl">Today's Dailies</h1>
-        <h1 className="text-2xl">Videos</h1>
-        <div className="flex justify-start w-full gap-10 flex-wrap">
-          {renderVid &&
-            renderVid.map((video, i) => {
-              video._id = video._id?.toString();
-              return (
-                <div key={i}>
-                  <VideoCard video={video} />
-                </div>
-              );
-            })}
-        </div>
-      </div>
+					<h1 className="text-xl">For Stress & Anxiety</h1>
+					<MainVideos query="Stress " />
+					<h1 className="text-xl">For Inner peace</h1>
+					<MainVideos query="Inner Peace" />
+					<h1 className="text-xl">For Focus</h1>
+					<MainVideos query="Focus" />
+				</div>
 
-      <div className="w-full flex flex-col justify-center gap-5">
-        <h1 className="text-2xl">Audios</h1>
-        <div className="flex justify-start w-full gap-10 flex-wrap">
-          {renderAud &&
-            renderAud.map((audio, i) => {
-              audio._id = audio._id?.toString();
+				<div className="w-full flex flex-col justify-center gap-5">
+					<h1 className="text-3xl">Audios</h1>
+					<hr className="border-gray-700 border-solid dark:border-white" />
 
-              return (
-                <div key={i}>
-                  <AudioCard audio={audio} />
-                </div>
-              );
-            })}
-        </div>
-      </div>
-    </main>
-  );
+					<h1 className="text-xl">For Stress & Anxiety</h1>
+					<MainAudios query="Stress " />
+					<h1 className="text-xl">For Inner Peace</h1>
+					<MainAudios query="Inner Peace" />
+					<h1 className="text-xl">For Focus</h1>
+					<MainAudios query="Focus" />
+				</div>
+			</main>
+		);
+	}
 };
 
 export default Main;

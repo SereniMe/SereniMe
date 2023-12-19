@@ -19,12 +19,10 @@ const audioInputSchema = z.object({
     required_error: "Url is required",
     invalid_type_error: "Url must be string",
   }),
-  tags: z.array(
-    z.string({
-      required_error: "At least one tag is required",
-      invalid_type_error: "Each tag must be string",
-    })
-  ),
+  tags: z.string({
+    required_error: "At least one tag is required",
+    invalid_type_error: "Each tag must be string",
+  }),
 });
 
 export const GET = async (_request: NextRequest) => {
