@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
         <div className="flex flex-row justify-center items-center dark:bg-gray-900 dark:text-gray-100 p-10 mx-10">
           <button
             type="button"
-            className="bg-[#C5E9EF] flex flex-col items-center justify-center p-10 mx-10 h-full w-80 rounded-3xl shadow-lg "
+            className="flex flex-col items-center justify-center p-10 mx-10 h-full w-80 rounded-3xl shadow-lg  bg-gradient-to-tr from-[#5E7A8B] to-[#E4F2F3] dark:to-[#032332] px-14 py-14 dark:bg-trueGray-800 "
           >
             <div className="">
               <div className="text-center">
@@ -56,7 +56,7 @@ const HomePage: React.FC = () => {
 
           <button
             type="button"
-            className="bg-[#C5E9EF] flex flex-col items-center justify-center p-10 mx-10 h-full w-80 rounded-3xl shadow-lg "
+            className="flex flex-col items-center justify-center p-10 mx-10 h-full w-80 rounded-3xl shadow-lg  bg-gradient-to-tr from-[#5E7A8B] to-[#E4F2F3] dark:to-[#032332] px-14 py-14 dark:bg-trueGray-800 "
           >
             <div className="">
               <div className="text-center">
@@ -69,7 +69,7 @@ const HomePage: React.FC = () => {
           </button>
           <button
             type="button"
-            className="bg-[#C5E9EF] flex flex-col items-center justify-center p-10 mx-10 h-full w-80 rounded-3xl shadow-lg "
+            className="flex flex-col items-center justify-center p-10 mx-10 h-full w-80 rounded-3xl shadow-lg  bg-gradient-to-tr from-[#5E7A8B] to-[#E4F2F3] dark:to-[#032332] px-14 py-14 dark:bg-trueGray-800 "
           >
             <div className="">
               <div className="text-center">
