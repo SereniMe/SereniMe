@@ -37,7 +37,6 @@ const UserPage: React.FC = () => {
                   <col />
                   <col />
                   <col />
-                  <col />
                   <col className="w-24" />
                 </colgroup>
                 <thead className="dark:bg-gray-700">
@@ -46,7 +45,6 @@ const UserPage: React.FC = () => {
                     <th className="p-3 border border-gray-300">Name</th>
                     <th className="p-3 border border-gray-300">Username</th>
                     <th className="p-3 border border-gray-300">Email</th>
-                    <th className="p-3 border border-gray-300">Action</th>
                   </tr>
                 </thead>
                 <tbody>
