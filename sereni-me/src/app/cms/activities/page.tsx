@@ -32,6 +32,12 @@ const ActivityPage: React.FC = () => {
         <div className="ml-[15rem] flex flex-col justify-center items-center dark:bg-gray-900 dark:text-gray-100">
           <div className="container p-2 mx-auto sm:p-4  dark:text-gray-100">
             <h2 className="mb-4 text-2xl font-semibold leadi">Activities</h2>
+            {/* button add new activity */}
+            <div className="flex flex-col justify-center items-end">
+              <button className="bg-blue-400 hover:bg-gray-700 rounded-lg text-white font-bold py-2 px-4 border-b-4 hover:text-grey-200 hover:scale-110 transition-all active:scale-90">
+                Add New Activity
+              </button>
+            </div>
             <div className="overflow-x-auto bg-gray-200 rounded-md">
               <table className="min-w-full text-md">
                 <colgroup>
