@@ -105,7 +105,7 @@ const AudioPage: React.FC = () => {
         </div>
       </div>
 
-      {/* audio edit */}
+      {/* audio edit modal */}
       <div className="flex dark:text-gray-100">
         <div className="fixed">
           <SideBar />
@@ -118,7 +118,7 @@ const AudioPage: React.FC = () => {
             >
               <fieldset className="flex flex-col justify-center items-center gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
                 <div className="space-y-2 col-span-full lg:col-span-1">
-                  <p className="font-large text-white">Add new Activity</p>
+                  <p className="font-large text-white">Add new Audio</p>
                   <p className="">Please fill out the new information here.</p>
                 </div>
                 <div className="col-span-full ">
@@ -150,18 +150,14 @@ const AudioPage: React.FC = () => {
                       />
                     </div>
                     {/* update button */}
-                    <div className="">
+                    <div className="flex flex-col justify-center items-center">
                       <button className="mt-5 bg-black text-white hover:bg-gray-200 rounded-md text-[#F4B81F];font-bold py-2 px-4 hover:text-black hover:scale-110 transition-all active:scale-90 ">
-                        Update
+                        Add
                       </button>
                     </div>
                   </div>
                 </div>
               </fieldset>
-
-              {/* file input */}
-
-              <div className="grid grid-rows-3"></div>
             </form>
           </section>
         </div>
