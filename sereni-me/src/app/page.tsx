@@ -9,31 +9,31 @@ import Testimonials from "@/components/Testimony";
 import Video from "@/components/Video";
 
 export default function Home() {
-	return (
-		<Provider>
-			<Navbar />
-			<Hero />
-			<SectionTitle
-				pretitle="Watch a video"
-				title="Learn how to fullfil your needs"
-			>
-				This section is to highlight a promo or demo video of SereniMe. Analysts
-				says a landing page with video has 3% more conversion rate. So,
-				don&apos;t forget to add one. Just like this.
-			</SectionTitle>
-			<Video />
-			<SectionTitle
-				pretitle="Testimonials"
-				title="Here's what our customers said"
-			>
-				Testimonails is to highlight our popular customers.
-			</SectionTitle>
-			<Testimonials />
-			<SectionTitle pretitle="FAQ" title="Frequently Asked Questions">
-				Answer FAQs
-			</SectionTitle>
-			<Faq />
-			<Footer />
-		</Provider>
-	);
+  return (
+    <Provider>
+      <Navbar />
+      <Hero />
+      <SectionTitle
+        pretitle="Introducing SereniMe – Your Gateway to Tranquility!"
+        title="where peace meets convenience"
+      >
+        Are you ready to embark on a journey towards serenity and mindfulness?
+        Look no further – SereniMe is the ultimate app designed to elevate your
+        well-being, one soothing experience at a time
+      </SectionTitle>
+      <Video />
+      <SectionTitle
+        pretitle="from Our Community"
+        title="Unlock the Voice of Satisfaction"
+      >
+        Here's a glimpse into the enchanting tales shared by members of our
+        SereniMe family. These heartwarming stories radiate joy, positivity, and
+        the warmth of genuine connections
+      </SectionTitle>
+      <Testimonials />
+      <SectionTitle title="Frequently Asked Questions"></SectionTitle>
+      <Faq />
+      <Footer />
+    </Provider>
+  );
 }

@@ -23,7 +23,7 @@ const ActivityCard = (props: props) => {
 
 	const [blockScroll, allowScroll] = useScrollBlock();
 	return (
-		<div className="flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-lg gap-3 shadow-lg shadow-[#6a99ac77] pb-4 justify-between hover:cursor-pointer">
+		<div className="flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-[#00000077] pb-4 justify-between hover:cursor-pointer border-solid dark:border-amber-900 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-violet-500">
 			{play == true ? (
 				<div>
 					<button

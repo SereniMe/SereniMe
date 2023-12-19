@@ -1,11 +1,14 @@
 import Provider from "@/components/Provider";
 import Navbar from "@/components/NavbarMain";
 import Footer from "@/components/Footer";
+import LogoutButton from "@/components/LogoutButton";
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
 	return (
 		<Provider>
-			<Navbar />
+			<Navbar>
+				<LogoutButton />
+			</Navbar>
 			<br />
 			<br />
 			<br />

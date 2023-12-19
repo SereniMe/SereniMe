@@ -8,44 +8,47 @@ const Testimonials = () => {
     <Container>
       <div className="grid gap-10 lg:grid-cols-2 xl:grid-cols-3 mx-[10rem]">
         <div className="lg:col-span-2 xl:col-auto">
-          <div className="flex flex-col justify-between w-full h-full bg-gradient-to-tr from-[#5E7A8B] to-[#E4F2F3] dark:to-[#032332] px-14 rounded-2xl py-14 dark:bg-trueGray-800">
+          <div className="flex flex-col justify-between w-full h-full border border-white px-14 rounded-2xl py-14">
             <p className="text-2xl leading-normal ">
-              I felt incredibly <Mark>refreshed</Mark> after trying out the
-              activities recommended by SereniMe.
+              SereniMe has <Mark>transformed my nights!</Mark> I struggled with
+              sleep for years, but after using SereniMe's guided sleep
+              meditations, I wake up refreshed and ready to tackle the day!
             </p>
 
             <Avatar
-              image="/monk.jpeg"
-              name="MeditationMaster20"
-              title="VP Sales at Google"
+              image="/aliceP.jpg"
+              name="Alice P."
+              title="Tranquil Sleep Achieved"
             />
           </div>
         </div>
         <div className="">
-          <div className="flex flex-col justify-between w-full h-full bg-gradient-to-tr from-[#5E7A8B] to-[#E4F2F3] dark:to-[#032332] px-14 rounded-2xl py-14 dark:bg-trueGray-800">
+          <div className="flex flex-col justify-between w-full h-full border border-white px-14 rounded-2xl py-14">
             <p className="text-2xl leading-normal ">
-              Make sure you only pick the <Mark>right sentence</Mark>
-              to keep it short and simple.
+              "In the hustle of daily life, stress used to be my constant
+              companion. SereniMe has been a <Mark>game-changer</Mark>! The
+              mindfulness sessions are my go-to remedy for stress relief."
             </p>
 
             <Avatar
-              image="/monk.jpeg"
-              name="Monk"
-              title="Lead marketer at Netflix"
+              image="/CharlieM.jpg"
+              name="Charlie M."
+              title="Stress Relief Wonder"
             />
           </div>
         </div>
         <div className="">
-          <div className="flex flex-col justify-between w-full h-full bg-gradient-to-tr from-[#5E7A8B] to-[#E4F2F3] dark:to-[#032332] px-14 rounded-2xl py-14 dark:bg-trueGray-800">
-            <p className="text-2xl leading-normal ">
-              This is the most <Mark>awesome</Mark> Stress Relief Website
-              I&apos;ve seen. I would use this anytime.
+          <div className="flex flex-col justify-between w-full h-full border border-white px-14 rounded-2xl py-14">
+            <p className="text-2xl leading-normal">
+              Mindfulness was a concept that always intrigued me, but I
+              struggled to incorporate it into my routine. SereniMe's
+              <Mark>personalized</Mark> mindfulness journeys made it effortless.
             </p>
 
             <Avatar
-              image="/monk.jpeg"
-              name="Zen"
-              title="Co-founder of Acme Inc"
+              image="/EvaL.webp"
+              name="Eva L."
+              title="Mindfulness Mastered"
             />
           </div>
         </div>
@@ -58,7 +61,7 @@ function Mark(props: { children: string }) {
   return (
     <>
       {" "}
-      <mark className="text-[#032332] bg-indigo-100 rounded-md ring-indigo-100 ring-4 dark:ring-[#5E7A8B] dark:bg-[#5E7A8B] dark:text-indigo-200">
+      <mark className="text-black bg-white rounded-md dark:bg-[#412e33] dark:text-white">
         {props.children}
       </mark>{" "}
     </>

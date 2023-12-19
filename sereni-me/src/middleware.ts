@@ -3,18 +3,18 @@ import {cookies} from "next/headers";
 import {verifyToken, verifyTokenJose} from "./utils/jwt";
 
 export const middleware = async (request: NextRequest) => {
-	console.log("masuk");
-
 	console.log(request.method, request.url);
-	// if (
-	// 	!request.url.includes("/api") &&
-	// 	!request.url.includes("_next/static") &&
-	// 	!request.url.includes("_next/image") &&
-	// 	!request.url.includes("favicon.ico")
-	// ) {
-	// 	console.log(request.method, request.url);
-	// }
-	if (request.url.includes("/main") || request.url.includes("/api")) {
+	if (
+		!request.url.includes("/api") &&
+		!request.url.includes("_next/static") &&
+		!request.url.includes("_next/image") &&
+		!request.url.includes("favicon.ico")
+	) {
+		console.log(request.method, request.url);
+	}
+	if (request.url.includes("/_next/static/chunks")) {
+		return NextResponse.next();
+	} else if (request.url.includes("/main")) {
 		console.log("API", request.method, request.url);
 		const cookieStore = cookies();
 		const token = cookieStore.get("token");

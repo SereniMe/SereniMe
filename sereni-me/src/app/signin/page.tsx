@@ -32,7 +32,7 @@ const Home: React.FC = () => {
 
 			// Mengembalikan error via redirect
 			return redirect(
-				`${NEXT_PUBLIC_SERVER_URL}/login?error=${errFinalMessage}`
+				`${NEXT_PUBLIC_SERVER_URL}/signin?error=${errFinalMessage}`
 			);
 		}
 
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
 
 		if (!foundUser) {
 			return redirect(
-				`${NEXT_PUBLIC_SERVER_URL}/login?error=invalid%20email/password`
+				`${NEXT_PUBLIC_SERVER_URL}/signin?error=invalid%20email/password`
 			);
 		}
 
@@ -51,7 +51,7 @@ const Home: React.FC = () => {
 
 		if (!compare) {
 			return redirect(
-				`${NEXT_PUBLIC_SERVER_URL}/login?error=invalid%20email/password`
+				`${NEXT_PUBLIC_SERVER_URL}/signin?error=invalid%20email/password`
 			);
 		}
 
@@ -71,12 +71,18 @@ const Home: React.FC = () => {
 			sameSite: "strict",
 		});
 
-		return redirect("/");
+		return redirect("/main");
 	};
 	return (
-		<div className="bg-gray-100 min-h-screen flex flex-row justify-center items-center joined rounded-md drop-shadow-lg">
+		<div className=" min-h-screen flex flex-row justify-center items-center joined rounded-md drop-shadow-lg">
 			<div className="flex flex-row w-full justify-center items-center">
 				<section className="w-[280px] h-full hidden md:block object-cover relative">
+					<Link
+						href={"/"}
+						className=" m-2 text-xl absolute z-50  hover:shadow-md rounded-3xl px-3 text-black"
+					>
+						⪡ Back to Home
+					</Link>
 					<img
 						src="https://images.unsplash.com/photo-1562751362-404243c2eea3?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 						alt="Picture"
@@ -99,7 +105,7 @@ const Home: React.FC = () => {
 									type="email"
 									name="email"
 									id="email"
-									className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+									className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-white"
 								/>
 							</div>
 							<div>
@@ -115,7 +121,7 @@ const Home: React.FC = () => {
 									type="password"
 									name="password"
 									id="password"
-									className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+									className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-white"
 								/>
 							</div>
 						</div>

@@ -1,6 +1,7 @@
 import { Db, ObjectId } from "mongodb";
 import { getMongoClientInstance } from "../config";
 import { hashPassword } from "@/utils/bcryptjs";
+import { addProfile } from "./profiles";
 
 export type UserModel = {
   _id: ObjectId;
@@ -28,5 +29,19 @@ export const createUser = async (user: UserModelCreateInput) => {
   };
   const db = await getDB();
   const result = await db.collection(COLLECTION_USER).insertOne(newUser);
+  const inputAddprofile = {
+    email: user.email,
+    fullName: user.name,
+    address: "",
+    phone: "",
+    // activities: string[];
+    favorites: [""],
+    interests: [""],
+    // reminder: string;
+    userId: result.insertedId,
+  };
+
+  await addProfile(inputAddprofile);
+
   return result;
 };

@@ -22,6 +22,7 @@ const VideoPage: React.FC = () => {
     };
     fetchData();
   }, []);
+  const videoId = videos;
   return (
     <>
       <div className="flex dark:text-gray-100">
@@ -72,7 +73,9 @@ const VideoPage: React.FC = () => {
                       <td className="p-3 rounded-md flex flex-col justify-center items-center">
                         <iframe
                           className="rounded-lg"
-                          src={`https://drive.google.com/file/d/1mQV8dwFNdKVDUKO5_ngxLpch9fJb8w_J/preview`}
+                          src={`https://drive.google.com/file/d/${getVideoIdFromUrl(
+                            video.videoUrl
+                          )}/preview`}
                           width="200"
                           height="150"
                           allow="autoplay"
@@ -105,3 +108,9 @@ const VideoPage: React.FC = () => {
 };
 
 export default VideoPage;
+
+const getVideoIdFromUrl = (url: string) => {
+  const parts = url.split("/");
+  const indexOfD = parts.indexOf("d");
+  return parts[indexOfD + 1];
+};

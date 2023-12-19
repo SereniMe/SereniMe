@@ -77,7 +77,11 @@ const AudioPage: React.FC = () => {
                       {/* Audio Player */}
                       <td className="p-3 flex flex-col justify-center items-center">
                         <audio controls>
-                          <source src="https://docs.google.com/uc?id=1R7PCCYnAGLPsKp0ZvRjrEs2OygizTvX8"></source>
+                          <source
+                            src={`https://docs.google.com/uc?id=${getAudioIdFromUrl(
+                              audio.audioUrl
+                            )}`}
+                          ></source>
                         </audio>
                       </td>
 
@@ -167,3 +171,9 @@ const AudioPage: React.FC = () => {
 };
 
 export default AudioPage;
+
+const getAudioIdFromUrl = (url: string) => {
+  const parts = url.split("/");
+  const indexOfD = parts.indexOf("d");
+  return parts[indexOfD + 1];
+};

@@ -2,55 +2,80 @@
   {
     "name": "Listen to music",
     "content": "Ease work pressure and stress by listening to music—let the soothing tunes create a positive vibe and lift your mood. A musical break can bring relaxation and make your work environment more enjoyable.",
-    "tags": ["Inner Peace", "Focus"],
-    "thumbnail": "https://variety.com/wp-content/uploads/2022/07/Music-Streaming-Wars.jpg?w=1000&h=563&crop=1"
+    "tags": [
+      "Inner Peace",
+      "Focus"
+    ],
+    "thumbnail": "https://drive.google.com/file/d/1c_Hv9Xh1fxn8UdXdBi8PQzkkE2sCqhv5/view?usp=drive_link"
   },
   {
     "name": "Mindfull Walking",
     "content": "Take a peaceful walk and pay attention to each step and breath with mindful walking. Feel calm and connect your mind and body in the present moment.",
-    "tags": ["Inner Peace", "Strees and Anxiety"],
-    "thumbnail": "https://images.unsplash.com/photo-1487956382158-bb926046304a?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "tags": [
+      "Inner Peace",
+      "Strees and Anxiety"
+    ],
+    "thumbnail": "https://drive.google.com/file/d/1WXf9Cz_tt-aOdwTIoEx0f5uTDZt5JcAk/view?usp=drive_link"
   },
   {
     "name": "Box Breathing",
     "content": "Take a short break and feel better with a one-minute breath exercise. Breathe slowly for just 60 seconds to reduce stress and find calm and clarity in your busy day.",
-    "tags": ["Strees and Anxiety", "Focus"],
-    "thumbnail": "https://images.unsplash.com/photo-1502139214982-d0ad755818d8?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "tags": [
+      "Strees and Anxiety",
+      "Focus"
+    ],
+    "thumbnail": "https://drive.google.com/file/d/18dAodBEV1H19rsmZBgwQ4ZQzxipxh-Zj/view?usp=drive_link"
   },
   {
     "name": "Read Books(s)",
     "content": "Give your mind a break from screens and try a digital detox—take a pause from devices to reduce stress and feel better. Dive into a book, enjoy real-world moments, and discover the joy of a screen-free escape.",
-    "tags": ["Focus"],
-    "thumbnail": "https://images.unsplash.com/photo-1642783770696-5ce1b9e24263?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "tags": [
+      "Focus"
+    ],
+    "thumbnail": "https://drive.google.com/file/d/1uqIJv5SNZtUeke52UdQ2ML57vrtl06sT/view?usp=drive_link"
   },
   {
     "name": "Streching and yoga",
     "content": "Feel great by trying stretching and yoga—easy ways to become more flexible, calm your mind, and be a healthier, happier you. Start your journey to a better, balanced life today!",
-    "tags": ["Focus"],
-    "thumbnail": "https://images.unsplash.com/photo-1640717978701-b5e723ea4495?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "tags": [
+      "Focus"
+    ],
+    "thumbnail": "https://drive.google.com/file/d/1judcSBkWUrUdaTg0QQZpK6RzrcyCFMU5/view?usp=drive_link"
   },
   {
     "name": "Daily Affirmation",
     "content": "Embrace positivity each day with affirmations—uplifting statements that inspire confidence and cultivate a brighter mindset. Repeat these positive phrases to boost your self-esteem and bring a sense of fulfillment to your life.",
-    "tags": ["Inner Peace", "Strees and Anxiety"],
-    "thumbnail": "https://images.unsplash.com/photo-1508175749578-259ded3db070?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "tags": [
+      "Inner Peace",
+      "Strees and Anxiety"
+    ],
+    "thumbnail": "https://drive.google.com/file/d/1VPccWi5MdFeQ8UFvqjOsymvEZE3x8U5L/view?usp=drive_link"
   },
   {
     "name": "Don't Skip Lunch!",
     "content": "Boost your day by enjoying a good lunch! It keeps you energized, sharpens focus, and sets a positive tone for a productive afternoon.",
-    "tags": ["Inner Peace", "Focus"],
-    "thumbnail": "https://variety.com/wp-content/uploads/2022/07/Music-Streaming-Wars.jpg?w=1000&h=563&crop=1"
+    "tags": [
+      "Inner Peace",
+      "Focus"
+    ],
+    "thumbnail": "https://drive.google.com/file/d/1yFc3HOTr-Z9Ka4hhkhyPN_a7IXOH__B8/view?usp=drive_link"
   },
   {
     "name": "Take up a challenge",
     "content": "Local sponsored walks or running events are a great way to keep active. You could sign up with your colleagues and train together during lunch breaks. Being part of a team can give a communal sense of achievement when you complete the challenge.",
-    "tags": ["Inner Peace", "Focus"],
-    "thumbnail": "https://variety.com/wp-content/uploads/2022/07/Music-Streaming-Wars.jpg?w=1000&h=563&crop=1"
+    "tags": [
+      "Inner Peace",
+      "Focus"
+    ],
+    "thumbnail": "https://drive.google.com/file/d/1KIzQmALzyUFAvZilm9-9A1hDQt9HbnrG/view?usp=drive_link"
   },
   {
     "name": "Start a To-Do list",
     "content": "Ease stress by making a to-do list—write down tasks, take them step by step, and feel accomplished. It helps organize your work and reduces anxiety.",
-    "tags": ["Strees and Anxiety", "Focus"],
-    "thumbnail": "https://variety.com/wp-content/uploads/2022/07/Music-Streaming-Wars.jpg?w=1000&h=563&crop=1"
+    "tags": [
+      "Strees and Anxiety",
+      "Focus"
+    ],
+    "thumbnail": "https://drive.google.com/file/d/1nPqDf4DMSWvQ4IRvSb2etYoJDHh1rIlJ/view?usp=drive_link"
   }
 ]
