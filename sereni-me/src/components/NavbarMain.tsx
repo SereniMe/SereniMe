@@ -15,7 +15,7 @@ const Navbar = () => {
 	const navigation = ["Home", "Stress & Anxiety", "Inner Peace", "Focus"];
 
 	return (
-		<div className="w-full mx-[10rem] z-10 fixed bg-white dark:bg-black">
+		<div className="w-full z-10 fixed bg-white dark:bg-black">
 			<nav className="container relative flex flex-wrap items-center justify-between p-4 mx-auto lg:justify-between xl:px-0">
 				<div>
 					<Link href="/">
