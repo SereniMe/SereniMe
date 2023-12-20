@@ -10,11 +10,6 @@ type props = {
 	activity: activity;
 };
 
-const handleLike = (id: string) => {
-	//add to favorites
-	console.log(id);
-};
-
 const ActivityCard = (props: props) => {
 	const id = props.activity.thumbnail.split("/");
 
@@ -22,6 +17,40 @@ const ActivityCard = (props: props) => {
 	const [liked, setLiked] = useState(false);
 
 	const [blockScroll, allowScroll] = useScrollBlock();
+	const handleLike = async (id: string) => {
+		//add to favorites
+		if (liked == false) {
+			console.log(id);
+			const form = new FormData();
+			form.append("id", id);
+			form.append("type", "audio");
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
+				{
+					method: "POST",
+					body: form,
+				}
+			);
+
+			const responseJson = await response.json();
+			console.log(responseJson);
+		} else {
+			console.log(id);
+			const form = new FormData();
+			form.append("id", id);
+			form.append("type", "audio");
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
+				{
+					method: "DELETE",
+					body: form,
+				}
+			);
+
+			const responseJson = await response.json();
+			console.log(responseJson);
+		}
+	};
 
 	let cardClass = "";
 	if (liked) {

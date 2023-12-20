@@ -10,17 +10,46 @@ type props = {
 	id: string;
 };
 
-const handleLike = (id: ObjectId) => {
-	//add to favorites
-	console.log(id);
-};
-
 const FavVideo = (props: props) => {
 	const [videodata, setVideo] = useState({} as VideoModel);
 	const [loading, setLoading] = useState(true);
 	const [play, setPlay] = useState(false);
 	const [liked, setLiked] = useState(true);
 	const [blockScroll, allowScroll] = useScrollBlock();
+	const handleLike = async (id: string) => {
+		//add to favorites
+		if (liked == false) {
+			console.log(id);
+			const form = new FormData();
+			form.append("id", id);
+			form.append("type", "video");
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
+				{
+					method: "POST",
+					body: form,
+				}
+			);
+
+			const responseJson = await response.json();
+			console.log(responseJson);
+		} else {
+			console.log(id);
+			const form = new FormData();
+			form.append("id", id);
+			form.append("type", "video");
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
+				{
+					method: "DELETE",
+					body: form,
+				}
+			);
+
+			const responseJson = await response.json();
+			console.log(responseJson);
+		}
+	};
 
 	const fetchVideo = async (id: string) => {
 		const response = await fetch(
@@ -128,7 +157,7 @@ const FavVideo = (props: props) => {
 				<button
 					className="px-2 py-1 text-black z-10"
 					onClick={() => {
-						handleLike(videodata._id);
+						handleLike(videodata._id.toString());
 						setLiked(!liked);
 					}}
 				>
