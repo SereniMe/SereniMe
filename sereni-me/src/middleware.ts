@@ -1,9 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { cookies } from "next/headers";
 import { verifyToken, verifyTokenJose } from "./utils/jwt";
-// import { CronJob } from "cron";
-// import nodemailer from "nodemailer";
-// import { job, job2 } from "./utils/cron";
 
 export const middleware = async (request: NextRequest) => {
   console.log(request.method, request.url);
@@ -16,7 +13,7 @@ export const middleware = async (request: NextRequest) => {
   }
   if (request.url.includes("/_next/static/chunks")) {
     return NextResponse.next();
-  } else if (request.url.includes("/main")) {
+  } else if (request.url.includes("/main") || request.url.includes("/api")) {
     console.log("API", request.method, request.url);
     const cookieStore = cookies();
     const token = cookieStore.get("token");

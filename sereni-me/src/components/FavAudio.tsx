@@ -80,6 +80,10 @@ const FavAudio = (props: props) => {
 		return <></>;
 	}
 
+	if (!audiodata) {
+		return <></>;
+	}
+
 	const audio = audiodata.audioUrl.split("/");
 	const id = audiodata.imageUrl.split("/");
 	let cardClass = "";
