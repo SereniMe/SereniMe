@@ -1,9 +1,9 @@
 "use client";
 
 import {useRef} from "react";
-import {Canvas, useLoader, useThree} from "@react-three/fiber";
-import {OrbitControls} from "@react-three/drei";
-import {Mesh, Vector3, DirectionalLight} from "three";
+import {Canvas, useFrame, useLoader, useThree} from "@react-three/fiber";
+import {Cloud, Clouds, OrbitControls, Sparkles} from "@react-three/drei";
+import THREE, {Mesh, Vector3, DirectionalLight} from "three";
 import {GLTFLoader} from "three/examples/jsm/Addons.js";
 import React from "react";
 import {Bloom, EffectComposer, Vignette} from "@react-three/postprocessing";
@@ -17,6 +17,18 @@ function MeshComponent() {
 		if (child instanceof Mesh) {
 			child.castShadow = true;
 			child.receiveShadow = true;
+		}
+	});
+	let x = 0.002;
+	useFrame(({clock, camera}) => {
+		if (
+			camera.position.x >= -7.43926732679968955 &&
+			camera.position.x <= -1.3926732679968955
+		) {
+			camera.translateX(x);
+		} else {
+			x = -x;
+			camera.translateX(x);
 		}
 	});
 
@@ -65,6 +77,7 @@ export function CafeScene() {
 				}}
 			>
 				<MeshComponent />
+
 				<ambientLight intensity={0.2} color={"#f2bd8f"} castShadow={true} />
 				<DirectionalLightWithHelper position={[-5, 4, 5]} color="#f2bd8f" />
 				<OrbitControls />

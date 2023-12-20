@@ -2,7 +2,7 @@
 
 import {useRef} from "react";
 import {Canvas, useLoader} from "@react-three/fiber";
-import {OrbitControls} from "@react-three/drei";
+import {OrbitControls, Stars} from "@react-three/drei";
 import {Mesh} from "three";
 import {GLTFLoader} from "three/examples/jsm/Addons.js";
 import React from "react";
@@ -36,6 +36,15 @@ export function ForestCampScene() {
 				}}
 			>
 				<MeshComponent />
+				<Stars
+					radius={100}
+					depth={50}
+					count={5000}
+					factor={4}
+					saturation={0}
+					fade
+					speed={0.01}
+				/>
 				<ambientLight intensity={5} color={"#f2bd8f"} />
 				<OrbitControls />
 

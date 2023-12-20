@@ -22,8 +22,17 @@ const ActivityCard = (props: props) => {
 	const [liked, setLiked] = useState(false);
 
 	const [blockScroll, allowScroll] = useScrollBlock();
+
+	let cardClass = "";
+	if (liked) {
+		cardClass =
+			"flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-yellow-700 pb-4 justify-between hover:cursor-pointer border-solid dark:border-yellow-500 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-yellow-500";
+	} else {
+		cardClass =
+			"flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-[#00000077] pb-4 justify-between hover:cursor-pointer border-solid dark:border-amber-900 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-violet-500";
+	}
 	return (
-		<div className="flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-[#00000077] pb-4 justify-between hover:cursor-pointer border-solid dark:border-amber-900 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-violet-500">
+		<div className={cardClass}>
 			{play == true ? (
 				<div>
 					<button
@@ -90,7 +99,7 @@ const ActivityCard = (props: props) => {
 				{props.activity.name}
 			</h1>
 			<div className="flex justify-between pr-4">
-				<p className="px-4 ">{props.activity.tags}</p>
+				<p className="px-4 w-4/5">{props.activity.tags.join(", ")}</p>
 				<button
 					className="px-2 py-1 text-black z-10"
 					onClick={() => {
