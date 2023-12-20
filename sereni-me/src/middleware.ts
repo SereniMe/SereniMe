@@ -1,6 +1,9 @@
 import { NextResponse, NextRequest } from "next/server";
 import { cookies } from "next/headers";
 import { verifyToken, verifyTokenJose } from "./utils/jwt";
+// import { CronJob } from "cron";
+// import nodemailer from "nodemailer";
+// import { job, job2 } from "./utils/cron";
 
 export const middleware = async (request: NextRequest) => {
   console.log(request.method, request.url);
@@ -37,7 +40,3 @@ export const middleware = async (request: NextRequest) => {
   }
   return NextResponse.next();
 };
-
-// export const config = {
-// 	matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
-// };
