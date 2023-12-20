@@ -17,7 +17,7 @@ const MainActivities = async ({query}: {query: string}) => {
 		const activities = (await getActivities()) as activity[];
 		console.log(activities);
 
-		renderAct = activities;
+		renderAct = activities.slice(0, 4);
 	}
 	// if (query == "Stress ") {
 	// 	const activities = await getVideosByTags({tags: "Stress and Anxiety"});

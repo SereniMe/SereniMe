@@ -1,3 +1,7 @@
+/* tslint:disable */
+// @ts-ignore
+// "use client";
+
 import { comparePassword } from "@/utils/bcryptjs";
 import { signToken } from "@/utils/jwt";
 import { redirect } from "next/navigation";
@@ -41,6 +45,10 @@ const Home: React.FC = () => {
       return redirect(
         `${NEXT_PUBLIC_SERVER_URL}/cms?error=invalid%20email/password`
       );
+    }
+
+    if (foundUser.role === "admin") {
+      return redirect(`${NEXT_PUBLIC_SERVER_URL}/cms?error=unauthorized`);
     }
 
     const compare = comparePassword(
@@ -93,7 +101,7 @@ const Home: React.FC = () => {
               Sign in to access your account
             </p>
           </div>
-          <form action="" className="space-y-6">
+          <form action={handleLogin} className="space-y-6">
             <div className="space-y-4">
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm">
@@ -126,7 +134,7 @@ const Home: React.FC = () => {
             <div className="space-y-2">
               <div>
                 <button
-                  type="button"
+                  type="submit"
                   className="w-full px-8 py-3 font-semibold rounded-md bg-blue-500 text-white"
                 >
                   Sign in

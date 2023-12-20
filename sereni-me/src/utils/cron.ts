@@ -2,30 +2,46 @@
 // const { ActivityModel } = require("@/db/models/activities");
 
 // import { CronJob } from "cron";
-const { CronJob } = require("cron");
+const {CronJob} = require("cron");
+
+type ProfileModel = {
+	email: string;
+	fullName: string;
+	address: string;
+	phone: string;
+	interests: string;
+	favorites: string[];
+};
+
+type ActiviyModel = {
+	name: string;
+	content: string;
+	tags: string[];
+	thumbnail: string;
+};
 
 const job = new CronJob(
-  "* * * * * *", // cronTime (07:00) everyday
-  async () => {
-    const profiles = await fetchProfiles();
-    const activities = await fetchActivities();
-    // console.log(profiles, "<<<<<<<<<<<<<< PROFILES");
-    // console.log(activities, "<<<<<<<<<<<<<< ACTIVITIES");
-    const foundactivity = profiles.map((profile) => {
-      const email = profile.email;
-      const activity = activities.find(
-        (activity) => profile.interests[0] == activity.tags[0]
-      );
-      return { email, activity };
-    });
-    console.log(foundactivity, "<<<<<<<<<< ");
+	"* * * * * *", // cronTime (07:00) everyday
+	async () => {
+		const profiles: ProfileModel[] = await fetchProfiles();
+		const activities: ActiviyModel[] = await fetchActivities();
+		// console.log(profiles, "<<<<<<<<<<<<<< PROFILES");
+		// console.log(activities, "<<<<<<<<<<<<<< ACTIVITIES");
+		const foundactivity = profiles.map((profile) => {
+			const email = profile.email;
+			const activity = activities.find(
+				(activity) => profile.interests[0] == activity.tags[0]
+			);
+			return {email, activity};
+		});
+		console.log(foundactivity, "<<<<<<<<<< ");
 
-    // console.log("Sending email to: recipient@gmail.com");
-    await sendEmail(foundactivity);
-  }, // onTick
-  null, // onComplete
-  false, // start
-  "Asia/Jakarta"
+		// console.log("Sending email to: recipient@gmail.com");
+		await sendEmail(foundactivity);
+	}, // onTick
+	null, // onComplete
+	false, // start
+	"Asia/Jakarta"
 );
 
 job.start();
@@ -34,23 +50,23 @@ job.start();
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: "serenime2023@gmail.com",
-    pass: process.env.NODEMAILER_PASS || "disf pbtj ulhk fpbh",
-  },
+	service: "gmail",
+	auth: {
+		user: "serenime2023@gmail.com",
+		pass: process.env.NODEMAILER_PASS || "disf pbtj ulhk fpbh",
+	},
 });
 
 const fetchProfiles = async () => {
-  const response = await fetch(`http://localhost:3000/api/profiles`);
-  const responsejson = await response.json();
-  return responsejson.data;
+	const response = await fetch(`http://localhost:3000/api/profiles`);
+	const responsejson = await response.json();
+	return responsejson.data;
 };
 
 const fetchActivities = async () => {
-  const response = await fetch(`http://localhost:3000/api/activities`);
-  const responsejson = await response.json();
-  return responsejson.data;
+	const response = await fetch(`http://localhost:3000/api/activities`);
+	const responsejson = await response.json();
+	return responsejson.data;
 };
 
 // type ProfileWithContent = {
@@ -59,13 +75,13 @@ const fetchActivities = async () => {
 // };
 
 const sendEmail = async (recipients) => {
-  try {
-    const options = {
-      from: "serenime2023@gmail.com",
-      subject: "Daily Reminder",
-      // text: "DAILY REMINDER EXAMPLE",
-      to: /*recipients.join(",")*/ "alifd36@gmail.com,christianjehoshaphat@gmail.com,rdwikaharris@gmail.com,project.fionadarasanti@gmail.com",
-      html: `
+	try {
+		const options = {
+			from: "serenime2023@gmail.com",
+			subject: "SereniMe Daily Reminder",
+			// text: "DAILY REMINDER EXAMPLE",
+			to: /*recipients.join(",")*/ "alifd36@gmail.com,christianjehoshaphat@gmail.com,rdwikaharris@gmail.com,project.fionadarasanti@gmail.com",
+			html: `
       <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -112,19 +128,19 @@ const sendEmail = async (recipients) => {
       </div>
     </body>
         `,
-    };
-    recipients.forEach((userContent) => {
-      options.to = userContent.email;
-      transporter.sendMail(options, (error, info) => {
-        if (error) {
-          console.log(error);
-          return;
-        }
-        console.log("Sent: " + userContent.email);
-      });
-    });
-  } catch (error) {
-    console.log(error);
-    // next(error);
-  }
+		};
+		recipients.forEach((userContent) => {
+			options.to = userContent.email;
+			transporter.sendMail(options, (error, info) => {
+				if (error) {
+					console.log(error);
+					return;
+				}
+				console.log("Sent: " + userContent.email);
+			});
+		});
+	} catch (error) {
+		console.log(error);
+		// next(error);
+	}
 };

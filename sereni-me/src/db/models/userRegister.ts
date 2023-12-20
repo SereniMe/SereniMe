@@ -9,6 +9,7 @@ export type UserModel = {
   username: string;
   email: string;
   password: string;
+  role?: string;
 };
 export type UserModelCreateInput = Omit<UserModel, "_id">;
 
@@ -25,6 +26,7 @@ export const getDB = async () => {
 export const createUser = async (user: UserModelCreateInput) => {
   const newUser: UserModelCreateInput = {
     ...user,
+    role: "user",
     password: hashPassword(user.password),
   };
   const db = await getDB();
@@ -36,7 +38,7 @@ export const createUser = async (user: UserModelCreateInput) => {
     phone: "",
     // activities: string[];
     favorites: [""],
-    interests: [""],
+    interests: "",
     // reminder: string;
     userId: result.insertedId,
   };

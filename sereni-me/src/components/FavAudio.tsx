@@ -1,65 +1,58 @@
 "use client";
-
+import {CafeScene} from "@/app/(3dscenes)/CafeScene";
+import {FarmScene} from "@/app/(3dscenes)/FarmScene";
+import {ForestCampScene} from "@/app/(3dscenes)/ForestCampU";
+import {LighthouseScene} from "@/app/(3dscenes)/LighthouseSceneU";
+import {StreetScene} from "@/app/(3dscenes)/StreetScene";
+import {WinterScene} from "@/app/(3dscenes)/WinterScene";
+import {AudioModel} from "@/db/models/audio";
 import {useScrollBlock} from "@/utils/scrollToggle";
 import {ObjectId} from "mongodb";
 import Image from "next/image";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 type props = {
-	video: {
-		_id?: string | undefined | ObjectId;
-		name: string;
-		videoUrl: string;
-		tags: string;
-		thumbnail: string;
-	};
+	id: string;
 };
 
-const VideoCard = (props: props) => {
-	const id = props.video.thumbnail.split("/");
-	const video = props.video.videoUrl.split("/");
+const handleLike = (id: ObjectId) => {
+	//add to favorites
+	console.log(id);
+};
 
+const FavAudio = (props: props) => {
+	const [audiodata, setAudio] = useState({} as AudioModel);
 	const [play, setPlay] = useState(false);
-	const [liked, setLiked] = useState(false);
-
 	const [blockScroll, allowScroll] = useScrollBlock();
-	let cardClass = "";
+	const [liked, setLiked] = useState(true);
+	const [loading, setLoading] = useState(true);
 
-	const handleLike = async (id: string) => {
-		//add to favorites
-		if (liked == false) {
-			console.log(id);
-			const form = new FormData();
-			form.append("id", id);
-			form.append("type", "video");
-			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
-				{
-					method: "POST",
-					body: form,
-				}
-			);
+	const fetchAudio = async (id: string) => {
+		const response = await fetch(
+			`${process.env.NEXT_PUBLIC_SERVER_URL}/api/audios/${id}`
+		);
 
-			const responseJson = await response.json();
-			console.log(responseJson);
-		} else {
-			console.log(id);
-			const form = new FormData();
-			form.append("id", id);
-			form.append("type", "video");
-			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
-				{
-					method: "DELETE",
-					body: form,
-				}
-			);
+		const responseJSON = await response.json();
+		console.log(responseJSON.data);
 
-			const responseJson = await response.json();
-			console.log(responseJson);
-		}
+		setAudio(responseJSON.data);
+		setLoading(false);
 	};
 
+	useEffect(() => {
+		setLoading(true);
+		console.log("effect");
+
+		fetchAudio(props.id);
+	}, []);
+
+	if (loading) {
+		return <></>;
+	}
+
+	const audio = audiodata.audioUrl.split("/");
+	const id = audiodata.imageUrl.split("/");
+	let cardClass = "";
 	if (liked) {
 		cardClass =
 			"flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-yellow-700 pb-4 justify-between hover:cursor-pointer border-solid dark:border-yellow-500 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-yellow-500";
@@ -93,22 +86,29 @@ const VideoCard = (props: props) => {
 							/>
 						</svg>
 					</button>
-					<video
-						className="fixed top-0 left-0 right-0 bottom-0 w-full h-full border-none m-0 p-0 overflow-hidden z-40"
-						preload="auto"
-						controls
-						autoPlay
-					>
-						<source
-							src={`https://drive.google.com/uc?export=download&id=${video[5]}`}
-							type="video/mp4"
-						/>
-					</video>
+					<div className="fixed top-0 left-0 right-0 bottom-0 w-full h-full border-none m-0 p-0 overflow-hidden z-30">
+						{audiodata.name == "Thunderstorm" && <WinterScene />}
+						{audiodata.name == "City Streets" && <StreetScene />}
+						{audiodata.name == "Beach Sounds" && <LighthouseScene />}
+						{audiodata.name == "Forest Sound" && <ForestCampScene />}
+						{audiodata.name == "Cozy Winter Fireplace" && <WinterScene />}
+						{audiodata.name == "Gentle Rain" && <WinterScene />}
+						{audiodata.name == "Farm" && <FarmScene />}
+						{audiodata.name == "Cafe Ambience" && <CafeScene />}
+						<div className=" -translate-y-[10rem] w-[25rem] flex flex-col items-center bg-[#292828b9] rounded-2xl translate-x-[40dvw] px-10 py-4 shadow-md shadow-teal-500">
+							<h1 className="px-4 text-3xl">{audiodata.name}</h1>
+							<p className="px-4">{audiodata.tags}</p>
+							<audio controls autoPlay className="z-40 w-full" loop>
+								<source
+									src={`https://docs.google.com/uc?id=${audio[5]}`}
+								></source>
+							</audio>
+						</div>
+					</div>
 				</div>
 			) : (
 				""
 			)}
-
 			<img
 				src={`https://drive.google.com/uc?export=view&id=${id[5]}`}
 				width={400}
@@ -122,7 +122,6 @@ const VideoCard = (props: props) => {
 					}
 				}}
 			/>
-
 			<h1
 				className="px-4"
 				onClick={() => {
@@ -132,14 +131,14 @@ const VideoCard = (props: props) => {
 					}
 				}}
 			>
-				{props.video.name}
+				{audiodata.name}
 			</h1>
 			<div className="flex justify-between pr-4">
-				<p className="px-4 ">{props.video.tags}</p>
+				<p className="px-4 ">{audiodata.tags}</p>
 				<button
 					className="px-2 py-1 text-black z-10"
 					onClick={() => {
-						handleLike(props.video._id as string);
+						handleLike(audiodata._id);
 						setLiked(!liked);
 					}}
 				>
@@ -168,4 +167,4 @@ const VideoCard = (props: props) => {
 	);
 };
 
-export default VideoCard;
+export default FavAudio;

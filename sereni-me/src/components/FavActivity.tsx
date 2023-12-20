@@ -4,62 +4,26 @@ import {useScrollBlock} from "@/utils/scrollToggle";
 import {ObjectId} from "mongodb";
 import Image from "next/image";
 import {useState} from "react";
+import {activity} from "./MainActivities";
 
 type props = {
-	video: {
-		_id?: string | undefined | ObjectId;
-		name: string;
-		videoUrl: string;
-		tags: string;
-		thumbnail: string;
-	};
+	activity: activity;
 };
 
-const VideoCard = (props: props) => {
-	const id = props.video.thumbnail.split("/");
-	const video = props.video.videoUrl.split("/");
+const handleLike = (id: string) => {
+	//add to favorites
+	console.log(id);
+};
+
+const FavActivity = (props: props) => {
+	const id = props.activity.thumbnail.split("/");
 
 	const [play, setPlay] = useState(false);
 	const [liked, setLiked] = useState(false);
 
 	const [blockScroll, allowScroll] = useScrollBlock();
+
 	let cardClass = "";
-
-	const handleLike = async (id: string) => {
-		//add to favorites
-		if (liked == false) {
-			console.log(id);
-			const form = new FormData();
-			form.append("id", id);
-			form.append("type", "video");
-			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
-				{
-					method: "POST",
-					body: form,
-				}
-			);
-
-			const responseJson = await response.json();
-			console.log(responseJson);
-		} else {
-			console.log(id);
-			const form = new FormData();
-			form.append("id", id);
-			form.append("type", "video");
-			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
-				{
-					method: "DELETE",
-					body: form,
-				}
-			);
-
-			const responseJson = await response.json();
-			console.log(responseJson);
-		}
-	};
-
 	if (liked) {
 		cardClass =
 			"flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-yellow-700 pb-4 justify-between hover:cursor-pointer border-solid dark:border-yellow-500 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-yellow-500";
@@ -76,7 +40,7 @@ const VideoCard = (props: props) => {
 							setPlay(false);
 							allowScroll();
 						}}
-						className="fixed top-0 left-0 right-0 bottom-0 border-none m-4 p-0 overflow-hidden z-50 w-10 h-10 text-4xl invert"
+						className="fixed top-0 left-0 right-0 bottom-0 border-none m-4 p-0 overflow-hidden z-30 w-10 h-10 text-4xl invert"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -93,8 +57,8 @@ const VideoCard = (props: props) => {
 							/>
 						</svg>
 					</button>
-					<video
-						className="fixed top-0 left-0 right-0 bottom-0 w-full h-full border-none m-0 p-0 overflow-hidden z-40"
+					{/* <video
+						className="fixed top-0 left-0 right-0 bottom-0 w-full h-full border-none m-0 p-0 overflow-hidden z-20"
 						preload="auto"
 						controls
 						autoPlay
@@ -103,7 +67,7 @@ const VideoCard = (props: props) => {
 							src={`https://drive.google.com/uc?export=download&id=${video[5]}`}
 							type="video/mp4"
 						/>
-					</video>
+					</video> */}
 				</div>
 			) : (
 				""
@@ -132,14 +96,14 @@ const VideoCard = (props: props) => {
 					}
 				}}
 			>
-				{props.video.name}
+				{props.activity.name}
 			</h1>
 			<div className="flex justify-between pr-4">
-				<p className="px-4 ">{props.video.tags}</p>
+				<p className="px-4 w-4/5">{props.activity.tags.join(", ")}</p>
 				<button
 					className="px-2 py-1 text-black z-10"
 					onClick={() => {
-						handleLike(props.video._id as string);
+						handleLike(props.activity._id as string);
 						setLiked(!liked);
 					}}
 				>
@@ -168,4 +132,4 @@ const VideoCard = (props: props) => {
 	);
 };
 
-export default VideoCard;
+export default FavActivity;
