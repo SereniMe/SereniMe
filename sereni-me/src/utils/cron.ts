@@ -1,29 +1,9 @@
 // @ts-ignore
 
-// const { ProfileModel } = require("@/db/models/profiles");
-// const { ActivityModel } = require("@/db/models/activities");
-
-// import { CronJob } from "cron";
 const { CronJob } = require("cron");
 
-// type ProfileModel = {
-//   email: string;
-//   fullName: string;
-//   address: string;
-//   phone: string;
-//   interests: string;
-//   favorites: string[];
-// };
-
-// type ActiviyModel = {
-//   name: string;
-//   content: string;
-//   tags: string[];
-//   thumbnail: string;
-// };
-
-const job = new CronJob(
-  "0 19 * * *", // cronTime (07:00) everyday
+export const job = new CronJob(
+  "0 19 * * *", // cronTime (19:00)
   async () => {
     const profiles = await fetchProfiles();
     const activities = await fetchActivities();
@@ -50,10 +30,38 @@ const job = new CronJob(
   false, // start
   "Asia/Jakarta"
 );
-
 job.start();
 
-// import nodemailer from "nodemailer";
+export const job2 = new CronJob(
+  "0 07 * * *", // cronTime (07:00)
+  async () => {
+    const profiles = await fetchProfiles();
+    const activities = await fetchActivities();
+    console.log(profiles, "<<<<<<<<<<<<<< PROFILES");
+    // console.log(activities, "<<<<<<<<<<<<<< ACTIVITIES");
+    const foundactivity = profiles.map((profile) => {
+      const email = profile.email;
+      const activity = activities.find((activity) =>
+        profile.interests
+          .split(",")
+          .includes(
+            activity.tags[Math.floor(Math.random() * activity.tags.length)]
+          )
+      );
+
+      return { email, activity };
+    });
+    console.log(foundactivity, "<<<<<<<<<< ");
+
+    // console.log("Sending email to: recipient@gmail.com");
+    await sendEmail(foundactivity);
+  }, // onTick
+  null, // onComplete
+  false, // start
+  "Asia/Jakarta"
+);
+job2.start();
+
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
@@ -75,11 +83,6 @@ const fetchActivities = async () => {
   const responsejson = await response.json();
   return responsejson.data;
 };
-
-// type ProfileWithContent = {
-//   email: string;
-//   activity: ActivityModel;
-// };
 
 const sendEmail = async (recipients) => {
   try {
