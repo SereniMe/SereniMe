@@ -1,47 +1,59 @@
 import {cookies} from "next/headers";
 import React from "react";
 
-const UserPage: React.FC = () => {
-	const handleEditProfile = async (formdata: FormData) => {
-		"use server";
-		console.log(formdata);
+const fetchUserProfile = async () => {
+	"use server";
+	const response2 = await fetch(
+		`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
+		{
+			method: "GET",
+			headers: {
+				Cookie: cookies().toString(),
+			},
+		}
+	);
+	const responseJSON = await response2.json();
+	return responseJSON.data;
+};
 
-		const inputFormData = new FormData();
+const handleEditProfile = async (formdata: FormData) => {
+	"use server";
+	console.log(formdata);
+	const oldData = await fetchUserProfile();
 
-		inputFormData.append("fullName", formdata.get("name") as string);
-		inputFormData.append("address", formdata.get("address") as string);
-		inputFormData.append("phone", formdata.get("phone") as string);
-		inputFormData.append(
-			"interests",
-			`${formdata.get("Stress") as string},${
-				formdata.get("Anxiety") as string
-			},${formdata.get("Focus") as string},${
-				formdata.get("Inner Peace") as string
-			}`
-		);
+	const inputFormData = new FormData();
 
-		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
-			{
-				method: "PUT",
-				body: inputFormData,
-				headers: {
-					Cookie: cookies().toString(),
-				},
-			}
-		);
+	inputFormData.append(
+		"fullName",
+		(formdata.get("name") as string) ?? oldData.fullName
+	);
+	inputFormData.append("address", formdata.get("address") as string);
+	inputFormData.append("phone", formdata.get("phone") as string);
+	inputFormData.append(
+		"interests",
+		`${formdata.get("Stress") as string},${formdata.get("Anxiety") as string},${
+			formdata.get("Focus") as string
+		},${formdata.get("Inner Peace") as string}`
+	);
 
-		console.log(await response.json());
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
+		{
+			method: "PUT",
+			body: inputFormData,
+			headers: {
+				Cookie: cookies().toString(),
+			},
+		}
+	);
 
-		// const response2 = await fetch(
-		//   `${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles`,
-		//   {
-		//     method: "GET",
-		//   }
-		// );
+	console.log(await response.json());
+};
 
-		// console.log(await response2.json());
-	};
+const UserPage: React.FC = async () => {
+	const profileData = (await fetchUserProfile()) as ProfileModel;
+	console.log(profileData);
+
 	return (
 		<>
 			<div className="flex flex-row justify-center space-x-2 rounded-lg drop-shadow-md ml-60 mt-20">
@@ -55,7 +67,7 @@ const UserPage: React.FC = () => {
 					<div className="space-y-4 text-center divide-y dark:divide-gray-500">
 						<div className="my-2 space-y-1">
 							<h2 className="text-xl font-semibold sm:text-2xl">
-								Leroy Jenkins
+								{profileData.fullName}
 							</h2>
 						</div>
 						{/* tags */}
@@ -97,7 +109,8 @@ const UserPage: React.FC = () => {
 											id="name"
 											name="name"
 											type="text"
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-400 dark:text-white"
+											defaultValue={profileData.fullName}
+											className="w-full rounded-md focus:ring focus:ri focus:ri pl-2 py-1 dark:border-gray-400 dark:text-white"
 										/>
 									</div>
 									<div className="col-span-full">
@@ -108,8 +121,8 @@ const UserPage: React.FC = () => {
 											id="address"
 											name="address"
 											type="text"
-											placeholder=""
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-400 dark:text-white"
+											defaultValue={profileData.address}
+											className="w-full rounded-md focus:ring focus:ri focus:ri pl-2 py-1 dark:border-gray-400 dark:text-white"
 										/>
 									</div>
 									<div className="col-span-full sm:col-span-2">
@@ -120,8 +133,8 @@ const UserPage: React.FC = () => {
 											id="phone"
 											name="phone"
 											type="text"
-											placeholder=""
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-white"
+											defaultValue={profileData.phone}
+											className="w-full rounded-md focus:ring focus:ri focus:ri pl-2 py-1 dark:border-gray-700 dark:text-white"
 										/>
 									</div>
 									<div className="col-span-full">
@@ -133,6 +146,9 @@ const UserPage: React.FC = () => {
 												id="stress"
 												name="Stress"
 												type="checkbox"
+												defaultChecked={
+													profileData.interests.match("Stress") ? true : false
+												}
 												value="Stress"
 												className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
 											/>
@@ -144,6 +160,9 @@ const UserPage: React.FC = () => {
 												id="anxiety"
 												type="checkbox"
 												name="Anxiety"
+												defaultChecked={
+													profileData.interests.match("Anxiety") ? true : false
+												}
 												value="Anxiety"
 												className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
 											/>
@@ -156,6 +175,9 @@ const UserPage: React.FC = () => {
 												name="Focus"
 												value="Focus"
 												type="checkbox"
+												defaultChecked={
+													profileData.interests.match("Focus") ? true : false
+												}
 												className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
 											/>
 											<label htmlFor="focus" className="text-sm mr-5">
@@ -167,6 +189,11 @@ const UserPage: React.FC = () => {
 												name="Inner Peace"
 												value="Inner Peace"
 												type="checkbox"
+												defaultChecked={
+													profileData.interests.match("Inner Peace")
+														? true
+														: false
+												}
 												className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
 											/>
 											<label htmlFor="innerPeace" className="text-sm mr-5">
