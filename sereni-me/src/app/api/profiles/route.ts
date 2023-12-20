@@ -67,7 +67,6 @@ export const POST = async (request: NextRequest) => {
 
     const newProfileData = {
       ...parsedData.data,
-      interests: parsedData.data.interests.split(","),
       // userId: new ObjectId(parsedData.data.userId),
       userId: new ObjectId(userId),
     };
