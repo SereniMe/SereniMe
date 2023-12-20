@@ -107,7 +107,7 @@ const Navbar = ({children}: {children: React.ReactNode}) => {
 									<Menu.Item>
 										{({active}) => (
 											<Link
-												href="#"
+												href="/main/favorites"
 												className={classNames(
 													active
 														? "bg-gray-100 text-gray-900"
