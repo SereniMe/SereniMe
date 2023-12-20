@@ -3,10 +3,13 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../(components)/sidebar";
 import Link from "next/link";
 import { VideoModel } from "@/db/models/video";
+import VideoModal from "../(components)/videomodal";
 
 const VideoPage: React.FC = () => {
   const [videos, setVideos] = useState([]);
   const URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +35,10 @@ const VideoPage: React.FC = () => {
           <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100">
             <h2 className="mb-4 text-2xl font-semibold leadi">Videos</h2>
             <div className="flex flex-col justify-center items-end">
-              <button className="bg-blue-400 hover:bg-gray-700 rounded-lg text-white font-bold py-2 px-4 border-b-4 hover:text-grey-200 hover:scale-110 transition-all active:scale-90">
+              <button
+                onClick={() => setOpen(true)}
+                className="bg-blue-400 hover:bg-gray-700 rounded-lg text-white font-bold py-2 px-4 border-b-4 hover:text-grey-200 hover:scale-110 transition-all active:scale-90"
+              >
                 Add New Video
               </button>
             </div>
@@ -102,6 +108,7 @@ const VideoPage: React.FC = () => {
           </div>
         </div>
       </div>
+      {open && <VideoModal setOpen={setOpen} />}
     </>
   );
 };

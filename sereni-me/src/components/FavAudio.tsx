@@ -15,17 +15,47 @@ type props = {
 	id: string;
 };
 
-const handleLike = (id: ObjectId) => {
-	//add to favorites
-	console.log(id);
-};
-
 const FavAudio = (props: props) => {
 	const [audiodata, setAudio] = useState({} as AudioModel);
 	const [play, setPlay] = useState(false);
 	const [blockScroll, allowScroll] = useScrollBlock();
 	const [liked, setLiked] = useState(true);
 	const [loading, setLoading] = useState(true);
+
+	const handleLike = async (id: string) => {
+		//add to favorites
+		if (liked == false) {
+			console.log(id);
+			const form = new FormData();
+			form.append("id", id);
+			form.append("type", "audio");
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
+				{
+					method: "POST",
+					body: form,
+				}
+			);
+
+			const responseJson = await response.json();
+			console.log(responseJson);
+		} else {
+			console.log(id);
+			const form = new FormData();
+			form.append("id", id);
+			form.append("type", "audio");
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
+				{
+					method: "DELETE",
+					body: form,
+				}
+			);
+
+			const responseJson = await response.json();
+			console.log(responseJson);
+		}
+	};
 
 	const fetchAudio = async (id: string) => {
 		const response = await fetch(
@@ -138,7 +168,7 @@ const FavAudio = (props: props) => {
 				<button
 					className="px-2 py-1 text-black z-10"
 					onClick={() => {
-						handleLike(audiodata._id);
+						handleLike(audiodata._id.toString());
 						setLiked(!liked);
 					}}
 				>
