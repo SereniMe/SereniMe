@@ -19,7 +19,7 @@ const FavVideo = (props: props) => {
 	const [videodata, setVideo] = useState({} as VideoModel);
 	const [loading, setLoading] = useState(true);
 	const [play, setPlay] = useState(false);
-	const [liked, setLiked] = useState(false);
+	const [liked, setLiked] = useState(true);
 	const [blockScroll, allowScroll] = useScrollBlock();
 
 	const fetchVideo = async (id: string) => {

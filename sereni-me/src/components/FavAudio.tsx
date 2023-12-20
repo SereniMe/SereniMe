@@ -24,7 +24,7 @@ const FavAudio = (props: props) => {
 	const [audiodata, setAudio] = useState({} as AudioModel);
 	const [play, setPlay] = useState(false);
 	const [blockScroll, allowScroll] = useScrollBlock();
-	const [liked, setLiked] = useState(false);
+	const [liked, setLiked] = useState(true);
 	const [loading, setLoading] = useState(true);
 
 	const fetchAudio = async (id: string) => {

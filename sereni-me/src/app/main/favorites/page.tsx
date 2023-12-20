@@ -28,25 +28,32 @@ const FavoritePage = () => {
 	}, []);
 	return (
 		<main className="flex flex-col w-full justify-center mx-[10rem] gap-10 pt-20">
-			{favorites &&
-				favorites.map((fav, i) => {
-					if (fav.type == "video") {
-						return (
-							<div key={i}>
-								<FavVideo id={fav.id} />
-							</div>
-						);
-					} else if (fav.type == "audio") {
-						return <div key={i}>{<FavAudio id={fav.id} />}</div>;
-					} else {
-						return (
-							<div key={i}>
-								{/* <FavActivity /> */}
-								<h1>Activity</h1>
-							</div>
-						);
-					}
-				})}
+			<div className="flex flex-col gap-5">
+				<h1>Videos</h1>
+				<div className="flex gap-5">
+					{favorites &&
+						favorites.map((fav, i) => {
+							if (fav.type == "video") {
+								return (
+									<div key={i}>
+										<FavVideo id={fav.id} />
+									</div>
+								);
+							}
+						})}
+				</div>
+			</div>
+			<div className="flex flex-col gap-5">
+				<h1>Audios</h1>
+				<div className="flex gap-5">
+					{favorites &&
+						favorites.map((fav, i) => {
+							if (fav.type == "audio") {
+								return <div key={i}>{<FavAudio id={fav.id} />}</div>;
+							}
+						})}
+				</div>
+			</div>
 		</main>
 	);
 };

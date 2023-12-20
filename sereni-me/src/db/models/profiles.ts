@@ -83,3 +83,41 @@ export const deleteProfile = async (_id: ObjectId) => {
 	const result = await db.collection(COLLECTION_PROFILE).deleteOne({_id});
 	return result;
 };
+
+export const addFavorite = async (
+	profid: ObjectId,
+	id: ObjectId,
+	type: string
+) => {
+	const db = await getDb();
+	const result = await db.collection(COLLECTION_PROFILE).updateOne(
+		{_id: profid},
+		{
+			$push: {
+				favorites: {
+					type,
+					id,
+				},
+			},
+		}
+	);
+	console.log(result);
+
+	return result;
+};
+
+export const deleteFavorite = async (
+	profid: ObjectId,
+	id: ObjectId,
+	type: string
+) => {
+	const db = await getDb();
+	const result = await db.collection(COLLECTION_PROFILE).updateOne(
+		{_id: profid},
+
+		{$pull: {favorites: {type, id}}}
+	);
+	console.log(result);
+
+	return result;
+};
