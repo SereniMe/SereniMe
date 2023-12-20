@@ -14,8 +14,8 @@ const profileInputSchema = z.object({
   fullName: z.string(),
   address: z.string(),
   phone: z.string(),
-  activities: z.array(z.string()),
-  favorites: z.array(z.string()),
+  activities: z.array(z.string()).optional(),
+  favorites: z.array(z.string()).optional(),
   interests: z.array(z.string()),
   userId: z.string(),
   reminder: z.string(),
@@ -55,6 +55,7 @@ export const PUT = async (
 ) => {
   try {
     // const id = params.id;
+
     //?
     const userId = request.headers.get("x-user-id");
     console.log(userId, "user");
@@ -62,7 +63,7 @@ export const PUT = async (
       throw new Error("Not signed in");
     }
     //?
-    const data = await request.json();
+    const data = await request.formData();
     const parsedData = profileInputSchema.safeParse(data);
     //!
     if (!parsedData.success) {
@@ -73,7 +74,7 @@ export const PUT = async (
       ...parsedData.data,
       userId: new ObjectId(parsedData.data.userId),
     };
-    const objectId = new ObjectId(data._id);
+    const objectId = new ObjectId(userId);
     const profile = await getProfile(objectId);
     const updatedProfile = await updateProfile(objectId, updateProfileData);
     return NextResponse.json<ProfileResponse<unknown>>(

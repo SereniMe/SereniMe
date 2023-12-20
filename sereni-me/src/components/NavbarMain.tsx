@@ -59,7 +59,7 @@ const Navbar = ({children}: {children: React.ReactNode}) => {
 				<div className="hidden mr-3 space-x-4 lg:flex nav__item">
 					<Menu as="div" className="relative inline-block text-left">
 						<div>
-							<Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold  text-gray-900 dark:text-white shadow-black  hover:bg-gray-50 dark:bg-[#412e33] dark:hover:bg-opacity-40 dark:hover:border dark:border-[#412e33] shadow-sm">
+							<Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold dark:bg-[#ab5916] text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
 								Profile
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
