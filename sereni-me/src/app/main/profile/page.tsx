@@ -1,3 +1,4 @@
+import {cookies} from "next/headers";
 import React from "react";
 
 const UserPage: React.FC = () => {
@@ -20,10 +21,13 @@ const UserPage: React.FC = () => {
 		);
 
 		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/1`,
+			`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
 			{
 				method: "PUT",
 				body: inputFormData,
+				headers: {
+					Cookie: cookies().toString(),
+				},
 			}
 		);
 
@@ -129,6 +133,7 @@ const UserPage: React.FC = () => {
 												id="stress"
 												name="Stress"
 												type="checkbox"
+												value="Stress"
 												className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
 											/>
 											<label htmlFor="stress" className="text-sm mr-5">
@@ -139,6 +144,7 @@ const UserPage: React.FC = () => {
 												id="anxiety"
 												type="checkbox"
 												name="Anxiety"
+												value="Anxiety"
 												className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
 											/>
 											<label htmlFor="anxiety" className="text-sm mr-5">
@@ -148,6 +154,7 @@ const UserPage: React.FC = () => {
 											<input
 												id="focus"
 												name="Focus"
+												value="Focus"
 												type="checkbox"
 												className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
 											/>
@@ -158,6 +165,7 @@ const UserPage: React.FC = () => {
 											<input
 												id="innerPeace"
 												name="Inner Peace"
+												value="Inner Peace"
 												type="checkbox"
 												className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
 											/>
