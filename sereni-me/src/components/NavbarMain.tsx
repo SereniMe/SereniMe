@@ -35,7 +35,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
               <li className="mr-3 nav__item" key={index}>
                 <Link
                   href={`${process.env.NEXT_PUBLIC_SERVER_URL}/main?find=${menu}`}
-                  className="inline-block hover:scale-110 transition ease-in-out duration-300 px-4 py-2 text-lg font-normal text-white no-underline rounded-md dark:text-white hover:text-[#5E7A8B] focus:text-[#5E7A8B] focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800"
+                  className="inline-block hover:scale-110 transition ease-in-out duration-300 px-4 py-2 text-lg font-normal text-white no-underline rounded-md dark:text-white hover:text-[#5E7A8B] focus:text-white focus:bg-[#8d7dce] focus:outline-none dark:focus:bg-[#412e33]"
                 >
                   {menu}
                 </Link>
@@ -59,7 +59,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         <div className="hidden mr-3 space-x-4 lg:flex nav__item">
           <Menu as="div" className="relative inline-block text-left">
             <div>
-              <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold dark:bg-[#6A99AC] text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+              <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md text-white bg-[#8d7dce] px-3 py-2 text-sm font-semibold dark:bg-[#412e33] dark:text-white shadow-sm ring-gray-300 hover:bg-[#6d5ea7] dark:hover:bg-[#322125]">
                 Profile
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className={`transform rotate-180 w-5 h-5 text-indigo-500`}
+                  className={`transform rotate-180 w-5 h-5 text-white`}
                 >
                   <path
                     strokeLinecap="round"
