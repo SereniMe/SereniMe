@@ -68,7 +68,7 @@ const AudioModal = ({
 											type="text"
 											name="name"
 											onChange={changeHandler}
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900  pl-3"
 										/>
 									</div>
 									<div className="col-span-full">
@@ -80,7 +80,7 @@ const AudioModal = ({
 											name="audioUrl"
 											onChange={changeHandler}
 											type="text"
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900  pl-3"
 										/>
 									</div>
 									<div className="col-span-full">
@@ -92,7 +92,7 @@ const AudioModal = ({
 											name="tags"
 											onChange={changeHandler}
 											type="text"
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900  pl-3"
 										/>
 									</div>
 									<div className="col-span-full">
@@ -104,7 +104,7 @@ const AudioModal = ({
 											name="imageUrl"
 											onChange={changeHandler}
 											type="text"
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900  pl-3"
 										/>
 									</div>
 									<div className="col-span-full">

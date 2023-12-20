@@ -77,7 +77,7 @@ const ActivityModal = ({
 											name="name"
 											value={input.name}
 											onChange={changeHandler}
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900 pl-3"
 										/>
 									</div>
 									<div className="col-span-full">
@@ -90,10 +90,10 @@ const ActivityModal = ({
 											name="content"
 											value={input.content}
 											onChange={changeHandler}
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900 pl-3"
 										></input>
 									</div>
-									<div className="col-span-full">
+									<div className="col-span-full pt-4">
 										<input
 											id="stress"
 											name="Stress"
@@ -158,7 +158,7 @@ const ActivityModal = ({
 												name="thumbnail"
 												value={input.thumbnail}
 												onChange={changeHandler}
-												className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+												className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900 pl-3"
 											/>
 										</div>
 										<div className="flex flex-col justify-center items-center">
