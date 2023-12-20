@@ -33,7 +33,7 @@ export const job = new CronJob(
 job.start();
 
 export const job2 = new CronJob(
-  "* * * * *", // cronTime (07:00)
+  "0 07 * * *", // cronTime (07:00)
   async () => {
     const profiles = await fetchProfiles();
     const activities = await fetchActivities();
