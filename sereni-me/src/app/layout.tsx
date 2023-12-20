@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
+const clientId = process.env.GOOGLE_CLIENT_ID || "test";
 
 export const metadata: Metadata = {
   title: "SereniMe",
