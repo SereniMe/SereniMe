@@ -29,7 +29,7 @@ const FavoritePage = () => {
 	return (
 		<main className="flex flex-col w-full justify-center mx-[10rem] gap-10 pt-20">
 			<div className="flex flex-col gap-5">
-				<h1>Videos</h1>
+				<h1 className="text-3xl text-white">Videos</h1>
 				<div className="flex gap-5">
 					{favorites &&
 						favorites.map((fav, i) => {
@@ -44,7 +44,7 @@ const FavoritePage = () => {
 				</div>
 			</div>
 			<div className="flex flex-col gap-5">
-				<h1>Audios</h1>
+				<h1 className="text-3xl text-white">Audios</h1>
 				<div className="flex gap-5">
 					{favorites &&
 						favorites.map((fav, i) => {

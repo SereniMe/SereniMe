@@ -1,3 +1,4 @@
+import {ProfileModel} from "@/db/models/profiles";
 import {cookies} from "next/headers";
 import React from "react";
 
