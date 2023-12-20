@@ -40,7 +40,7 @@ const Navbar = () => {
           <Link
             href="/main"
             className="px-6 py-2 text-white hover:text-[#f2e3eb] bg-[#8d7dce] hover:bg-opacity-40 hover:border border-[#8d7dce] rounded-md md:ml-5 hover:scale-105 transition ease-in-out
-              dark:bg-[#412e33] dark:hover:bg-opacity-40 dark:hover:border dark:border-[#412e33]"
+              dark:bg-[#ab5916] dark:hover:bg-opacity-40 dark:hover:border dark:border-[#ab5916]"
           >
             Continue to App
           </Link>

@@ -1,33 +1,42 @@
-"use client";
 import React from "react";
 
 const UserPage: React.FC = () => {
-  const inputFormData = new FormData();
+  const handleEditProfile = async (formdata: FormData) => {
+    "use server";
+    console.log(formdata);
 
-  inputFormData.append("fullName", "fullName");
-  inputFormData.append("address", "address");
-  inputFormData.append("phone", "phone");
-  inputFormData.append("interests", "interests,halo");
-  const handleEditProfile = async (e: React.FormEvent) => {
-    e.preventDefault();
+    const inputFormData = new FormData();
+
+    inputFormData.append("fullName", formdata.get("name") as string);
+    inputFormData.append("address", formdata.get("address") as string);
+    inputFormData.append("phone", formdata.get("phone") as string);
+    inputFormData.append(
+      "interests",
+      `${formdata.get("Stress") as string},${
+        formdata.get("Anxiety") as string
+      },${formdata.get("Focus") as string},${
+        formdata.get("Inner Peace") as string
+      }`
+    );
+
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/1`,
       {
-        method: "POST",
+        method: "PUT",
         body: inputFormData,
       }
     );
 
     console.log(await response.json());
 
-    const response2 = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles`,
-      {
-        method: "GET",
-      }
-    );
+    // const response2 = await fetch(
+    //   `${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles`,
+    //   {
+    //     method: "GET",
+    //   }
+    // );
 
-    console.log(await response2.json());
+    // console.log(await response2.json());
   };
   return (
     <>
@@ -66,11 +75,11 @@ const UserPage: React.FC = () => {
           <section className="flex flex-col justify-center items-center p-6 bg-[#9389bd] bg-opacity-80  dark:bg-[#70605b] dark:bg-opacity-60 drop-shadow-sm">
             <form
               className="container flex flex-col mx-auto space-y-12"
-              onClick={(event) => handleEditProfile(event)}
+              action={handleEditProfile}
             >
-              <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-[#70605b] dark:bg-opacity-70">
+              <section className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-[#70605b] dark:bg-opacity-70">
                 <div className="space-y-2 col-span-full lg:col-span-1">
-                  <p className="font-medium">Personal Inormation</p>
+                  <p className="font-medium">Personal Information</p>
                   <p className="text-xs">
                     Please fill out your new information here..
                   </p>
@@ -82,6 +91,7 @@ const UserPage: React.FC = () => {
                     </label>
                     <input
                       id="name"
+                      name="name"
                       type="text"
                       className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-400 dark:text-white"
                     />
@@ -92,6 +102,7 @@ const UserPage: React.FC = () => {
                     </label>
                     <input
                       id="address"
+                      name="address"
                       type="text"
                       placeholder=""
                       className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-400 dark:text-white"
@@ -103,6 +114,7 @@ const UserPage: React.FC = () => {
                     </label>
                     <input
                       id="phone"
+                      name="phone"
                       type="text"
                       placeholder=""
                       className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-white"
@@ -114,38 +126,42 @@ const UserPage: React.FC = () => {
                     </label>
                     <div className="flex items-center mt-5">
                       <input
-                        id="interest"
+                        id="stress"
+                        name="Stress"
                         type="checkbox"
                         className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
                       />
-                      <label htmlFor="interest" className="text-sm mr-5">
+                      <label htmlFor="stress" className="text-sm mr-5">
                         Stress
                       </label>
 
                       <input
-                        id="interest"
+                        id="anxiety"
                         type="checkbox"
+                        name="Anxiety"
                         className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
                       />
-                      <label htmlFor="interest" className="text-sm mr-5">
+                      <label htmlFor="anxiety" className="text-sm mr-5">
                         Anxiety
                       </label>
 
                       <input
-                        id="interest"
+                        id="focus"
+                        name="Focus"
                         type="checkbox"
                         className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
                       />
-                      <label htmlFor="interest" className="text-sm mr-5">
+                      <label htmlFor="focus" className="text-sm mr-5">
                         Focus
                       </label>
 
                       <input
-                        id="interest"
+                        id="innerPeace"
+                        name="Inner Peace"
                         type="checkbox"
                         className="mr-2 focus:ring focus:ring-gray-400 dark:border-gray-700 dark:text-white"
                       />
-                      <label htmlFor="interest" className="text-sm mr-5">
+                      <label htmlFor="innerPeace" className="text-sm mr-5">
                         Inner Peace
                       </label>
                     </div>
@@ -154,7 +170,7 @@ const UserPage: React.FC = () => {
                     </button>
                   </div>
                 </div>
-              </fieldset>
+              </section>
             </form>
           </section>
         </div>

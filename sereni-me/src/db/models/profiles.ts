@@ -6,8 +6,8 @@ export type ProfileModel = {
   fullName: string;
   address: string;
   phone: string;
-  // activities: string[];
-  favorites: string[];
+  activities?: string[];
+  favorites?: string[];
   interests: string[];
   // reminder: string;
   userId: ObjectId;
