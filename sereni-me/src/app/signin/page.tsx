@@ -2,13 +2,14 @@ import { comparePassword } from "@/utils/bcryptjs";
 import { signToken } from "@/utils/jwt";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { z } from "zod";
 import { cookies } from "next/headers";
 import { getUserByEmail } from "@/db/models/userLogin";
 
 const Home: React.FC = () => {
   const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
   const handleLogin = async (data: FormData) => {
     "use server";
 
@@ -30,7 +31,6 @@ const Home: React.FC = () => {
       const errMessage = parsedData.error.issues[0].message;
       const errFinalMessage = `${errPath} - ${errMessage}`;
 
-      // Mengembalikan error via redirect
       return redirect(
         `${NEXT_PUBLIC_SERVER_URL}/signin?error=${errFinalMessage}`
       );
@@ -73,15 +73,16 @@ const Home: React.FC = () => {
 
     return redirect("/main");
   };
+
   return (
     <div className=" min-h-screen flex flex-row justify-center items-center joined rounded-md drop-shadow-lg">
       <div className="flex flex-row w-full justify-center items-center">
         <section className="w-[278px] h-full hidden md:block object-cover relative">
           <Link
             href={"/"}
-            className=" m-2 text-xl absolute z-50  hover:shadow-md rounded-3xl px-3 text-black"
+            className=" m-2 text-xl absolute z-50  hover:shadow-md hover:rounded-xl px-3 text-black hover:text-white hover:bg-[#9389bd] dark:hover:bg-[#70605b]"
           >
-            ⪡ Back to Home
+            Home
           </Link>
           <img
             src="https://images.unsplash.com/photo-1562751362-404243c2eea3?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -92,14 +93,14 @@ const Home: React.FC = () => {
 
         <div className="w-full max-w-md p-6 bg-white shadow-md text-gray-600">
           <div className="mb-8 text-center">
-            <h1 className="my-3 text-3xl font-bold">Sign in</h1>
+            <h1 className="my-3 text-3xl font-bold">SIGN IN</h1>
             <p className="text-sm text-gray-400">Sign in to SereniMe</p>
           </div>
           <form action={handleLogin} className="space-y-6">
             <div className="space-y-4">
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm">
-                  Email address
+                  Email Address
                 </label>
                 <input
                   type="email"
@@ -113,7 +114,10 @@ const Home: React.FC = () => {
                   <label htmlFor="password" className="text-sm">
                     Password
                   </label>
-                  <a href="#" className="text-xs hover:underline text-gray-400">
+                  <a
+                    href="#"
+                    className="text-xs hover:underline text-[#9389bd] dark:text-[#412e33]"
+                  >
                     Forgot password?
                   </a>
                 </div>
@@ -129,7 +133,7 @@ const Home: React.FC = () => {
               <div>
                 <button
                   type="submit"
-                  className="w-full px-8 py-3 font-semibold rounded-md bg-blue-500 text-white"
+                  className="w-full px-8 py-3 font-semibold rounded-md bg-[#8d7dce] dark:bg-[#412e33] text-white"
                 >
                   Sign in
                 </button>
@@ -138,7 +142,7 @@ const Home: React.FC = () => {
                 Don't have an account yet? {"  "}
                 <Link
                   href="/register"
-                  className="hover:underline text-blue-500"
+                  className="hover:underline text-[#9389bd] dark:text-[#412e33]"
                 >
                   Sign up
                 </Link>
