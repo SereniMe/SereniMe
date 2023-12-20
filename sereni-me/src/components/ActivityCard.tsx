@@ -10,11 +10,6 @@ type props = {
 	activity: activity;
 };
 
-const handleLike = (id: string) => {
-	//add to favorites
-	console.log(id);
-};
-
 const ActivityCard = (props: props) => {
 	const id = props.activity.thumbnail.split("/");
 
@@ -22,8 +17,51 @@ const ActivityCard = (props: props) => {
 	const [liked, setLiked] = useState(false);
 
 	const [blockScroll, allowScroll] = useScrollBlock();
+	const handleLike = async (id: string) => {
+		//add to favorites
+		if (liked == false) {
+			console.log(id);
+			const form = new FormData();
+			form.append("id", id);
+			form.append("type", "audio");
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
+				{
+					method: "POST",
+					body: form,
+				}
+			);
+
+			const responseJson = await response.json();
+			console.log(responseJson);
+		} else {
+			console.log(id);
+			const form = new FormData();
+			form.append("id", id);
+			form.append("type", "audio");
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
+				{
+					method: "DELETE",
+					body: form,
+				}
+			);
+
+			const responseJson = await response.json();
+			console.log(responseJson);
+		}
+	};
+
+	let cardClass = "";
+	if (liked) {
+		cardClass =
+			"flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-yellow-700 pb-4 justify-between hover:cursor-pointer border-solid dark:border-yellow-500 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-yellow-500";
+	} else {
+		cardClass =
+			"flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-[#00000077] pb-4 justify-between hover:cursor-pointer border-solid dark:border-amber-900 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-violet-500";
+	}
 	return (
-		<div className="flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-[#00000077] pb-4 justify-between hover:cursor-pointer border-solid dark:border-amber-900 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-violet-500">
+		<div className={cardClass}>
 			{play == true ? (
 				<div>
 					<button
@@ -90,7 +128,7 @@ const ActivityCard = (props: props) => {
 				{props.activity.name}
 			</h1>
 			<div className="flex justify-between pr-4">
-				<p className="px-4 ">{props.activity.tags}</p>
+				<p className="px-4 w-4/5">{props.activity.tags.join(", ")}</p>
 				<button
 					className="px-2 py-1 text-black z-10"
 					onClick={() => {

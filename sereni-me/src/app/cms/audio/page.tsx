@@ -3,16 +3,18 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../(components)/sidebar";
 import Link from "next/link";
 import { AudioModel } from "@/db/models/audio";
+import AudioModal from "../(components)/audiomodal";
 
 const AudioPage: React.FC = () => {
   const [audios, setAudios] = useState([]);
   const URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${URL}/api/audios`);
-
         const data = await response.json();
         if (!response.ok) throw new Error(`Something something error ...`);
 
@@ -34,7 +36,10 @@ const AudioPage: React.FC = () => {
           <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100">
             <h2 className="mb-4 text-2xl font-semibold leadi">Audios</h2>
             <div className="flex flex-col justify-center items-end">
-              <button className="bg-blue-400 hover:bg-gray-700 rounded-lg text-white font-bold py-2 px-4 border-b-4 hover:text-grey-200 hover:scale-110 transition-all active:scale-90">
+              <button
+                onClick={() => setOpen(true)}
+                className="bg-blue-400 hover:bg-gray-700 rounded-lg text-white font-bold py-2 px-4 border-b-4 hover:text-grey-200 hover:scale-110 transition-all active:scale-90"
+              >
                 Add New Audio
               </button>
             </div>
@@ -108,64 +113,7 @@ const AudioPage: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* audio edit modal */}
-      <div className="flex dark:text-gray-100">
-        <div className="fixed">
-          <SideBar />
-        </div>
-        <div>
-          <section>
-            <form
-              action=""
-              className="flex flex-col justify-center items-center bg-[#6A99AC;]  dark:bg-gray-800 dark:text-gray-50 drop-shadow-sm "
-            >
-              <fieldset className="flex flex-col justify-center items-center gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
-                <div className="space-y-2 col-span-full lg:col-span-1">
-                  <p className="font-large text-white">Add new Audio</p>
-                  <p className="">Please fill out the new information here.</p>
-                </div>
-                <div className="col-span-full ">
-                  <div className="col-span-full">
-                    <label htmlFor="name" className="text-sm">
-                      Name
-                    </label>
-                    <input
-                      id="name"
-                      type="text"
-                      className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
-                    />
-                  </div>
-                  <div className="col-span-full">
-                    <div className="row-span-2 flex flex-row join-vertical justify-center items-center">
-                      <td className="p-3 flex flex-col justify-center items-center">
-                        <audio controls>
-                          <source src="https://docs.google.com/uc?id=1R7PCCYnAGLPsKp0ZvRjrEs2OygizTvX8"></source>
-                        </audio>
-                      </td>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <input
-                        type="file"
-                        id="audio"
-                        name="audio"
-                        accept="audio/*"
-                        className="bg-black text-white rounded-sm"
-                      />
-                    </div>
-                    {/* update button */}
-                    <div className="flex flex-col justify-center items-center">
-                      <button className="mt-5 bg-black text-white hover:bg-gray-200 rounded-md text-[#F4B81F];font-bold py-2 px-4 hover:text-black hover:scale-110 transition-all active:scale-90 ">
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
-            </form>
-          </section>
-        </div>
-      </div>
+      {open && <AudioModal setOpen={setOpen} />}
     </>
   );
 };

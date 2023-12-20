@@ -20,20 +20,57 @@ type props = {
 	};
 };
 
-const handleLike = (id: string) => {
-	//add to favorites
-	console.log(id);
-};
-
 const AudioCard = (props: props) => {
 	const [play, setPlay] = useState(false);
 	const [blockScroll, allowScroll] = useScrollBlock();
 	const [liked, setLiked] = useState(false);
 	const audio = props.audio.audioUrl.split("/");
 	const id = props.audio.imageUrl.split("/");
+	let cardClass = "";
 
+	const handleLike = async (id: string) => {
+		//add to favorites
+		if (liked == false) {
+			console.log(id);
+			const form = new FormData();
+			form.append("id", id);
+			form.append("type", "audio");
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
+				{
+					method: "POST",
+					body: form,
+				}
+			);
+
+			const responseJson = await response.json();
+			console.log(responseJson);
+		} else {
+			console.log(id);
+			const form = new FormData();
+			form.append("id", id);
+			form.append("type", "audio");
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/api/profiles/user`,
+				{
+					method: "DELETE",
+					body: form,
+				}
+			);
+
+			const responseJson = await response.json();
+			console.log(responseJson);
+		}
+	};
+	if (liked) {
+		cardClass =
+			"flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-yellow-700 pb-4 justify-between hover:cursor-pointer border-solid dark:border-yellow-500 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-yellow-500";
+	} else {
+		cardClass =
+			"flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-[#00000077] pb-4 justify-between hover:cursor-pointer border-solid dark:border-amber-900 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-violet-500";
+	}
 	return (
-		<div className="flex flex-col w-[16rem] bri h-[20rem] object-cover overflow-hidden rounded-lg gap-3 shadow-lg shadow-[#6a99ac77] bg-indigo-300 bg-opacity-30 dark:bg-black dark:bg-opacity-30 pb-4 justify-between hover:cursor-pointer	">
+		<div className={cardClass}>
 			{play == true ? (
 				<div>
 					<button

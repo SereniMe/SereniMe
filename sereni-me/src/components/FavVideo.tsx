@@ -1,30 +1,21 @@
 "use client";
 
+import {VideoModel} from "@/db/models/video";
 import {useScrollBlock} from "@/utils/scrollToggle";
 import {ObjectId} from "mongodb";
 import Image from "next/image";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 type props = {
-	video: {
-		_id?: string | undefined | ObjectId;
-		name: string;
-		videoUrl: string;
-		tags: string;
-		thumbnail: string;
-	};
+	id: string;
 };
 
-const VideoCard = (props: props) => {
-	const id = props.video.thumbnail.split("/");
-	const video = props.video.videoUrl.split("/");
-
+const FavVideo = (props: props) => {
+	const [videodata, setVideo] = useState({} as VideoModel);
+	const [loading, setLoading] = useState(true);
 	const [play, setPlay] = useState(false);
-	const [liked, setLiked] = useState(false);
-
+	const [liked, setLiked] = useState(true);
 	const [blockScroll, allowScroll] = useScrollBlock();
-	let cardClass = "";
-
 	const handleLike = async (id: string) => {
 		//add to favorites
 		if (liked == false) {
@@ -60,6 +51,33 @@ const VideoCard = (props: props) => {
 		}
 	};
 
+	const fetchVideo = async (id: string) => {
+		const response = await fetch(
+			`${process.env.NEXT_PUBLIC_SERVER_URL}/api/videos/${id}`
+		);
+
+		const responseJSON = await response.json();
+		// console.log(responseJSON.data);
+
+		setVideo(responseJSON.data);
+		setLoading(false);
+	};
+
+	useEffect(() => {
+		setLoading(true);
+		console.log("effect");
+
+		fetchVideo(props.id);
+	}, []);
+
+	if (loading == true) {
+		return <></>;
+	}
+
+	const id = videodata.thumbnail.split("/");
+	const video = videodata.videoUrl.split("/");
+
+	let cardClass = "";
 	if (liked) {
 		cardClass =
 			"flex flex-col w-[16rem] h-[20rem] object-cover overflow-hidden rounded-xl gap-3 shadow-lg shadow-yellow-700 pb-4 justify-between hover:cursor-pointer border-solid dark:border-yellow-500 dark:bg-amber-950 dark:bg-opacity-40 border-2 bg-violet-200 bg-opacity-60 border-yellow-500";
@@ -132,14 +150,14 @@ const VideoCard = (props: props) => {
 					}
 				}}
 			>
-				{props.video.name}
+				{videodata.name}
 			</h1>
 			<div className="flex justify-between pr-4">
-				<p className="px-4 ">{props.video.tags}</p>
+				<p className="px-4 ">{videodata.tags}</p>
 				<button
 					className="px-2 py-1 text-black z-10"
 					onClick={() => {
-						handleLike(props.video._id as string);
+						handleLike(videodata._id.toString());
 						setLiked(!liked);
 					}}
 				>
@@ -168,4 +186,4 @@ const VideoCard = (props: props) => {
 	);
 };
 
-export default VideoCard;
+export default FavVideo;

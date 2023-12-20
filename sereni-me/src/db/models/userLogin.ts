@@ -7,6 +7,7 @@ export type UserModel = {
   username: string;
   email: string;
   password: string;
+  role?: string;
 };
 
 const DATABASE_NAME = process.env.MONGODB_DB_NAME;
@@ -37,6 +38,7 @@ export const getUserByEmail = async (email: string) => {
   const user = (await db
     .collection(COLLECTION_USER)
     .findOne({ email: email })) as UserModel;
+  console.log(user);
 
   return user;
 };
