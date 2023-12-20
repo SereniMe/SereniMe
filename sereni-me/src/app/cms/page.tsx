@@ -45,6 +45,10 @@ const Home: React.FC = () => {
       );
     }
 
+    if (!foundUser.role) {
+      return redirect(`${NEXT_PUBLIC_SERVER_URL}/cms?error=unauthorized`);
+    }
+
     const compare = comparePassword(
       parsedData.data.password,
       foundUser.password
