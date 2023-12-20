@@ -69,7 +69,7 @@ const VideoModal = ({
 											type="text"
 											name="name"
 											onChange={changeHandler}
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900  pl-3"
 										/>
 									</div>
 									<div className="col-span-full">
@@ -81,7 +81,7 @@ const VideoModal = ({
 											type="text"
 											onChange={changeHandler}
 											name="videoUrl"
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900  pl-3"
 										/>
 									</div>
 									<div className="col-span-full">
@@ -93,7 +93,7 @@ const VideoModal = ({
 											type="text"
 											onChange={changeHandler}
 											name="tags"
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900  pl-3"
 										/>
 									</div>
 									<div className="col-span-full">
@@ -105,7 +105,7 @@ const VideoModal = ({
 											type="text"
 											onChange={changeHandler}
 											name="thumbnail"
-											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
+											className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900  pl-3"
 										/>
 									</div>
 									<div className="col-span-full">
