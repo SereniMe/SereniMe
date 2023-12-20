@@ -4,11 +4,27 @@
 // import { CronJob } from "cron";
 const { CronJob } = require("cron");
 
+type ProfileModel = {
+  email: string;
+  fullName: string;
+  address: string;
+  phone: string;
+  interests: string[];
+  favorites: string[];
+};
+
+type ActiviyModel = {
+  name: string;
+  content: string;
+  tags: string[];
+  thumbnail: string;
+};
+
 const job = new CronJob(
   "* * * * * *", // cronTime (07:00) everyday
   async () => {
-    const profiles = await fetchProfiles();
-    const activities = await fetchActivities();
+    const profiles: ProfileModel[] = await fetchProfiles();
+    const activities: ActiviyModel[] = await fetchActivities();
     // console.log(profiles, "<<<<<<<<<<<<<< PROFILES");
     // console.log(activities, "<<<<<<<<<<<<<< ACTIVITIES");
     const foundactivity = profiles.map((profile) => {
@@ -62,7 +78,7 @@ const sendEmail = async (recipients) => {
   try {
     const options = {
       from: "serenime2023@gmail.com",
-      subject: "Daily Reminder",
+      subject: "SereniMe Daily Reminder",
       // text: "DAILY REMINDER EXAMPLE",
       to: /*recipients.join(",")*/ "alifd36@gmail.com,christianjehoshaphat@gmail.com,rdwikaharris@gmail.com,project.fionadarasanti@gmail.com",
       html: `

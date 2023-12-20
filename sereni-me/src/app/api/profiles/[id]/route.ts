@@ -11,14 +11,15 @@ type ProfileResponse<T> = {
 };
 
 const profileInputSchema = z.object({
-  fullName: z.string(),
-  address: z.string(),
-  phone: z.string(),
-  activities: z.array(z.string()).optional(),
-  favorites: z.array(z.string()).optional(),
-  interests: z.array(z.string()),
-  userId: z.string(),
-  reminder: z.string(),
+  email: z.string().default(""),
+  fullName: z.string().default(""),
+  address: z.string().default(""),
+  phone: z.string().default(""),
+  // activities: z.array(z.string()).optional(),
+  favorites: z.array(z.string()).default([""]),
+  interests: z.string().default(""),
+  // reminder: z.string(),
+  userId: z.string().default(""),
 });
 
 export const GET = async (
@@ -72,6 +73,7 @@ export const PUT = async (
     //!
     const updateProfileData = {
       ...parsedData.data,
+      interests: parsedData.data.interests.split(","),
       userId: new ObjectId(parsedData.data.userId),
     };
     const objectId = new ObjectId(userId);
