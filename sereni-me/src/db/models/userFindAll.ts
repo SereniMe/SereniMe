@@ -7,7 +7,7 @@ export type UserModel = {
   username: string;
   email: string;
   password: string;
-  role: string;
+  role?: string;
 };
 
 const DATABASE_NAME = process.env.MONGODB_DB_NAME;
