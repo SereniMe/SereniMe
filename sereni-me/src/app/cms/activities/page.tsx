@@ -2,16 +2,18 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../(components)/sidebar";
 import { ActivityModel } from "@/db/models/activities";
+import ActivityModal from "../(components)/activitymodal";
 
 const ActivityPage: React.FC = () => {
   const [activities, setActivities] = useState([]);
   const URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${URL}/api/activities`);
-
         const data = await response.json();
         if (!response.ok) throw new Error(`Something something error ...`);
 
@@ -34,7 +36,10 @@ const ActivityPage: React.FC = () => {
             <h2 className="mb-4 text-2xl font-semibold leadi">Activities</h2>
             {/* button add new activity */}
             <div className="flex flex-col justify-center items-end">
-              <button className="bg-blue-400 hover:bg-gray-700 rounded-lg text-white font-bold py-2 px-4 border-b-4 hover:text-grey-200 hover:scale-110 transition-all active:scale-90">
+              <button
+                onClick={() => setOpen(true)}
+                className="bg-blue-400 hover:bg-gray-700 rounded-lg text-white font-bold py-2 px-4 border-b-4 hover:text-grey-200 hover:scale-110 transition-all active:scale-90"
+              >
                 Add New Activity
               </button>
             </div>
@@ -85,6 +90,8 @@ const ActivityPage: React.FC = () => {
                             width="fit"
                           />
                         </td>
+
+                        {/* Action button */}
                         <td className="py-2 px-4 text-right">
                           <div className="font-semibold rounded-md dark:bg-violet-400 dark:text-gray-900 flex flex-row justify-center items-center">
                             <div className="mr-5">
@@ -108,6 +115,8 @@ const ActivityPage: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* <ActivityModal /> */}
+      {open && <ActivityModal setOpen={setOpen} />}
     </>
   );
 };

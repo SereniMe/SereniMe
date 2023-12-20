@@ -1,9 +1,77 @@
-"use client";
+import { comparePassword } from "@/utils/bcryptjs";
+import { signToken } from "@/utils/jwt";
+import { redirect } from "next/navigation";
+import { z } from "zod";
+import { cookies } from "next/headers";
+import { getUserByEmail } from "@/db/models/userLogin";
 
 import Link from "next/link";
 import React from "react";
 
 const Home: React.FC = () => {
+  const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+  const handleLogin = async (data: FormData) => {
+    "use server";
+
+    const email = data.get("email");
+    const password = data.get("password");
+
+    const loginInputSchema = z.object({
+      email: z.string().email(),
+      password: z.string(),
+    });
+
+    const parsedData = loginInputSchema.safeParse({
+      email,
+      password,
+    });
+
+    if (!parsedData.success) {
+      const errPath = parsedData.error.issues[0].path[0];
+      const errMessage = parsedData.error.issues[0].message;
+      const errFinalMessage = `${errPath} - ${errMessage}`;
+
+      // Mengembalikan error via redirect
+      return redirect(`${NEXT_PUBLIC_SERVER_URL}/cms?error=${errFinalMessage}`);
+    }
+
+    const foundUser = await getUserByEmail(parsedData.data.email);
+
+    if (!foundUser) {
+      return redirect(
+        `${NEXT_PUBLIC_SERVER_URL}/cms?error=invalid%20email/password`
+      );
+    }
+
+    const compare = comparePassword(
+      parsedData.data.password,
+      foundUser.password
+    );
+
+    if (!compare) {
+      return redirect(
+        `${NEXT_PUBLIC_SERVER_URL}/cms?error=invalid%20email/password`
+      );
+    }
+
+    const payload = {
+      id: foundUser._id,
+      email: foundUser.email,
+      name: foundUser.name,
+      username: foundUser.username,
+    };
+
+    const token = signToken(payload);
+
+    cookies().set("token", token, {
+      httpOnly: true,
+      secure: false,
+      expires: new Date(Date.now() + 1000 * 3600),
+      sameSite: "strict",
+    });
+
+    return redirect("/cms/home");
+  };
   return (
     <div className="bg-[#7B746B] min-h-screen flex flex-row justify-center items-center joined">
       {/* Picture Section */}
